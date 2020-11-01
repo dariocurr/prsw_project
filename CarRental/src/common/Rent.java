@@ -1,9 +1,6 @@
-package car_rental;
+package common;
 
 import java.util.Objects;
-
-import common.IRenter;
-import common.IVehicle;
 
 public class Rent implements IRent {
 	
@@ -27,6 +24,11 @@ public class Rent implements IRent {
 	@Override
 	public IVehicle getVehicle() {
 		return this.vehicle;
+	}
+	
+	@Override
+	public IRenter getRenter() {
+		return this.renter;
 	}
 	
 }

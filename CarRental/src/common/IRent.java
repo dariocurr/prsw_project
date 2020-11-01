@@ -1,9 +1,9 @@
-package car_rental;
-
-import common.IVehicle;
+package common;
 
 public interface IRent {
 
+	public IRenter getRenter();
+	
 	public IVehicle getVehicle();
 	
 }

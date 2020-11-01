@@ -2,6 +2,7 @@ package car_rental;
 
 import common.IRenter;
 import common.IVehicle;
+import common.Rent;
 
 public interface ICarRental {
 	
