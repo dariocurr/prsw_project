@@ -10,6 +10,8 @@
 !CarRentalClient/src/*
 !Company/
 !Company/src/
-!Company/src/shared/
 !Company/src/*
+!Company/src/shared/
+!Company/src/shared/*
+
 
