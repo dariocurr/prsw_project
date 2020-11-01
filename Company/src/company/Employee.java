@@ -2,7 +2,7 @@ package company;
 
 import common.Renter;
 
-public class Employee extends Renter implements IEmployee {
+public class Employee extends Renter {
 
 	private String name;
 	

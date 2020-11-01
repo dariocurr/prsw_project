@@ -12,7 +12,7 @@ import common.IVehicle;
 import common.Observable;
 import common.Rent;
 
-public class CarRental implements ICarRental, Observable {
+public class CarRental implements ICarRental {
 	
 	private List<IVehicle> availableVehicles;
 	private List<IRent> rentals;
