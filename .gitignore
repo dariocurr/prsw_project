@@ -1,5 +1,6 @@
 *
 !.gitignore
+!project.pdf
 !README.md
 !CarRental/
 !CarRental/src/
