@@ -5,6 +5,8 @@
 !CarRental/
 !CarRental/src/
 !CarRental/src/*
+!CarRental/src/carrental/
+!CarRental/src/carrental/*
 !CarRentalClient/
 !CarRentalClient/src/
 !CarRentalClient/src/*
