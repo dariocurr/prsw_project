@@ -12,6 +12,10 @@
 !CarRentalClient/
 !CarRentalClient/src/
 !CarRentalClient/src/*
+!CarRentalClient/src/client/
+!CarRentalClient/src/client/*
+!CarRentalClient/src/client/gui/
+!CarRentalClient/src/client/gui/*
 !Company/
 !Company/src/
 !Company/src/*
@@ -19,5 +23,7 @@
 !Company/src/common/*
 !Company/src/company/
 !Company/src/company/*
+!Company/src/gui/
+!Company/src/gui/*
 
 
