@@ -7,13 +7,17 @@
 !CarRental/src/*
 !CarRental/src/car_rental/
 !CarRental/src/car_rental/*
+!CarRental/src/common/
+!CarRental/src/common/*
 !CarRentalClient/
 !CarRentalClient/src/
 !CarRentalClient/src/*
 !Company/
 !Company/src/
 !Company/src/*
-!Company/src/shared/
-!Company/src/shared/*
+!Company/src/common/
+!Company/src/common/*
+!Company/src/company/
+!Company/src/company/*
 
 
