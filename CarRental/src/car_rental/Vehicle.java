@@ -1,4 +1,4 @@
-package carrental;
+package car_rental;
 
 public class Vehicle {
 
