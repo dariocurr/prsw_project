@@ -1,16 +1,11 @@
 package company;
 
-public class Employee implements IEmployee {
-	
-	private String name;
-	
-	public Employee(String name) {
-		super();
-		this.name = name;
-	}
+import common.Person;
 
-	public String getName() {
-		return name;
+public class Employee extends Person implements IEmployee {
+
+	public Employee(String name) {
+		super(name);
 	}
 	
 }
