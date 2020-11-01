@@ -1,4 +1,4 @@
-package car_rental;
+package common;
 
 public interface IVehicle {
 

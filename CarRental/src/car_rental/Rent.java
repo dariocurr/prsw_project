@@ -2,23 +2,24 @@ package car_rental;
 
 import java.util.Objects;
 
-import common.IPerson;
+import common.IRenter;
+import common.IVehicle;
 
 public class Rent implements IRent {
 	
 	private IVehicle vehicle;
-	private IPerson person;
+	private IRenter renter;
 	private String startDate;
 	private String endDate;
 	
-	public Rent(IVehicle vehicle, IPerson person, String startDate, String endDate) {
+	public Rent(IRenter renter, IVehicle vehicle, String startDate, String endDate) {
 		super();
 		Objects.requireNonNull(vehicle);
-		Objects.requireNonNull(person);
+		Objects.requireNonNull(renter);
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endDate);
 		this.vehicle = vehicle;
-		this.person = person;
+		this.renter = renter;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}

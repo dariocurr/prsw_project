@@ -1,4 +1,4 @@
-package car_rental;
+package common;
 
 import java.util.List;
 import java.util.Objects;

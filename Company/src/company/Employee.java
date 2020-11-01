@@ -1,11 +1,18 @@
 package company;
 
-import common.Person;
+import common.Renter;
 
-public class Employee extends Person implements IEmployee {
+public class Employee extends Renter implements IEmployee {
 
+	private String name;
+	
 	public Employee(String name) {
-		super(name);
+		super();
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 	
 }
