@@ -25,5 +25,14 @@
 !Company/src/company/*
 !Company/src/gui/
 !Company/src/gui/*
+!Documentation/
+!Documentation/*
+!Documentation/Mockup/
+!Documentation/Mockup/*
+!Documentation/Mockup/Files/
+!Documentation/Mockup/Files/*
+!Documentation/Mockup/Images/
+!Documentation/Mockup/Images/*
+
 
 
