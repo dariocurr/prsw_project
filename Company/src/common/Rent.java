@@ -10,7 +10,6 @@ public class Rent implements IRent {
 	private String endDate;
 	
 	public Rent(IRenter renter, IVehicle vehicle, String startDate, String endDate) {
-		super();
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(startDate);

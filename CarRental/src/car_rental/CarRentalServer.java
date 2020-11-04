@@ -5,12 +5,15 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import common.ICarRentalObservable;
+
 public class CarRentalServer {
 	public static void main(String[] args) {
 		try {
 			LocateRegistry.createRegistry(1099);
-			ICarRental carRental = new CarRental();
+			ICarRentalObservable carRental = new CarRental();
 			Naming.rebind("CarRentalService", carRental);
+			System.out.println("Server running...");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {

@@ -1,6 +1,8 @@
 package common;
 
-public interface IRent {
+import java.io.Serializable;
+
+public interface IRent extends Serializable {
 
 	public IRenter getRenter();
 	

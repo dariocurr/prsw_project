@@ -9,7 +9,6 @@ public class Vehicle implements IVehicle {
 	private List<String> notes;
 	
 	public Vehicle(String name, List<String> notes) {
-		super();
 		Objects.requireNonNull(name);
 		Objects.requireNonNull(notes);
 		this.name = name;
