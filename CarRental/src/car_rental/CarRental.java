@@ -15,11 +15,11 @@ import common.IVehicle;
 import common.Rent;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
-	
+
 	private List<IVehicle> availableVehicles;
 	private List<IRent> rentals;
 	private Map<IVehicle, List<IRent>> waitList;
-	
+
 	public CarRental() throws RemoteException {
 		this.availableVehicles = new ArrayList<IVehicle>();
 		this.rentals = new ArrayList<IRent>();
@@ -29,7 +29,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	public List<IVehicle> getAvailableVehicles() {
 		return this.availableVehicles;
 	}
-	
+
 	@Override
 	public Rent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
 		Objects.requireNonNull(renter);
@@ -39,6 +39,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Rent rent = new Rent(renter, vehicle, startDate, endDate);
 		this.availableVehicles.remove(vehicle);
 		this.rentals.add(rent);
+		this.notifyObserver(vehicle);
 		return rent;
 	}
 
@@ -51,17 +52,26 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 
 	@Override
 	public boolean attach(IRent rent, IVehicle vehicle) throws RemoteException {
+		Objects.requireNonNull(rent);
+		Objects.requireNonNull(vehicle);
 		return this.waitList.get(vehicle).add(rent);
 	}
 
 	@Override
 	public boolean detach(IRent rent, IVehicle vehicle) throws RemoteException {
+		Objects.requireNonNull(rent);
+		Objects.requireNonNull(vehicle);
 		return this.waitList.get(vehicle).remove(rent);
 	}
 
 	@Override
 	public void notifyObserver(IVehicle vehicle) throws RemoteException {
-		this.waitList.get(vehicle).get(0).getRenter().update();
+		Objects.requireNonNull(vehicle);
+		List<IRent> waitlist = this.waitList.get(vehicle);
+		if (!waitlist.isEmpty()) {
+			waitlist.get(0).getRenter().update();
+		}
+		this.waitList.get(vehicle).remove(0);
 	}
 
 }
