@@ -24,8 +24,14 @@ public class Vehicle implements IVehicle {
 		return name;
 	}
 	
+	@Override
 	public List<String> getNotes() {
 		return notes;
+	}
+	
+	@Override
+	public double getPricePerDay() {
+		return this.pricePerDay;
 	}
 	
 	@Override

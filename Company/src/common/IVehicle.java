@@ -1,9 +1,11 @@
 package common;
 
-import java.io.Serializable;
+import java.util.List;
 
 public interface IVehicle {
 
 	public String getName();
+	
+	public List<String> getNotes();
 	
 }

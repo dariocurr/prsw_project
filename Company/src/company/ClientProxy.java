@@ -18,7 +18,6 @@ public class ClientProxy {
 			System.setProperty("java.rmi.server.codebase", "/Company/bin");
 			System.setSecurityManager(new RMISecurityManager());
 			*/
-			System.out.println(carRental.test());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {

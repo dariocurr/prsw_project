@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import common.Employee;
 import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenter;
@@ -31,37 +32,50 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	}
 
 	@Override
-	public Rent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
-		Objects.requireNonNull(renter);
-		Objects.requireNonNull(vehicle);
-		Objects.requireNonNull(startDate);
-		Objects.requireNonNull(endDate);
-		Rent rent = new Rent(renter, vehicle, startDate, endDate);
+	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
+		IRent rent = this.createRent(renter, vehicle, startDate, endDate);
 		this.availableVehicles.remove(vehicle);
 		this.rentals.add(rent);
-		this.notifyObserver(vehicle);
 		return rent;
 	}
-
+	
+	@Override
+	public void rentVehicle(IRent rent) throws RemoteException {
+		Objects.requireNonNull(rent);
+		this.availableVehicles.remove(rent.getVehicle());
+		this.rentals.add(rent);
+	}
+	
 	@Override
 	public void returnVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
 		this.rentals.remove(rent);
 		this.availableVehicles.add(rent.getVehicle());
+		this.notifyObserver(rent.getVehicle());
 	}
 
 	@Override
-	public boolean attach(IRent rent, IVehicle vehicle) throws RemoteException {
-		Objects.requireNonNull(rent);
-		Objects.requireNonNull(vehicle);
-		return this.waitList.get(vehicle).add(rent);
+	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException {
+		Objects.requireNonNull(notes);
+		this.returnVehicle(rent);
+		if (rent.getRenter() instanceof Employee) {
+			rent.getVehicle().getNotes().addAll(notes);
+		} else {
+			// throw new exception
+		}
 	}
 
 	@Override
-	public boolean detach(IRent rent, IVehicle vehicle) throws RemoteException {
+	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
+		IRent rent = this.createRent(renter, vehicle, startDate, endDate);
+		this.waitList.get(vehicle).add(rent);
+		return rent;
+	}
+
+	@Override
+	public boolean detach(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
-		Objects.requireNonNull(vehicle);
-		return this.waitList.get(vehicle).remove(rent);
+		return this.waitList.get(rent.getVehicle()).remove(rent);
 	}
 
 	@Override
@@ -72,6 +86,18 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 			waitlist.get(0).getRenter().update();
 		}
 		this.waitList.get(vehicle).remove(0);
+	}
+	
+	public IRent createRent(IRenter renter, IVehicle vehicle, String startDate, String endDate) {
+		Objects.requireNonNull(renter);
+		Objects.requireNonNull(vehicle);
+		Objects.requireNonNull(startDate);
+		Objects.requireNonNull(endDate);
+		double discount = 0;
+		if (renter instanceof Employee) {
+			discount = 0.10;
+		}
+		return new Rent(renter, vehicle, startDate, endDate, discount);
 	}
 
 }

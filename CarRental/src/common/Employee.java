@@ -1,6 +1,4 @@
-package company;
-
-import common.Renter;
+package common;
 
 public class Employee extends Renter {
 
