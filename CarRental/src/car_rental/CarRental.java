@@ -15,14 +15,12 @@ import common.IVehicle;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
-	private List<IRenter> renters;
 	private List<IVehicle> vehicles;
 	private List<IVehicle> availableVehicles;
 	private Map<IRenter, List<IRent>> rentals;
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.renters = new ArrayList<IRenter>();
 		this.vehicles = new ArrayList<IVehicle>();
 		this.availableVehicles = new ArrayList<IVehicle>();
 		this.rentals = new HashMap<IRenter, List<IRent>>();
@@ -35,6 +33,26 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public List<IVehicle> getAvailableVehicles() throws RemoteException {
 		return this.availableVehicles;
+	}
+	
+	@Override
+	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException {
+		Map<IVehicle, String> notAvailableVehicles = new HashMap<IVehicle, String>();
+		for (IVehicle vehicle : this.waitList.keySet()) {
+			List<IRent> vehicleWaitList = this.waitList.get(vehicle);
+			if (!vehicleWaitList.isEmpty()) {
+				notAvailableVehicles.put(vehicle, vehicleWaitList.get(vehicleWaitList.size() - 1).getEndDate());
+			}
+			
+		}
+		for (List<IRent> renterRentals : this.rentals.values()) {
+			for (IRent rent : renterRentals) {
+				if (!notAvailableVehicles.containsKey(rent.getVehicle())) {
+					notAvailableVehicles.put(rent.getVehicle(), rent.getEndDate());
+				}
+			}
+		}
+		return notAvailableVehicles;
 	}
 
 	@Override
@@ -99,6 +117,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endDate);
+		Objects.requireNonNull(coupon);
 		double discount = 0;
 		if (coupon == "EMP001") {
 			discount = 0.10;

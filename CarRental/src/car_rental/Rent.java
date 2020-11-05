@@ -41,6 +41,11 @@ public class Rent extends UnicastRemoteObject implements IRent {
 	public IRenter getRenter() throws RemoteException {
 		return this.renter;
 	}
+	
+	@Override
+	public String getEndDate() {
+		return endDate;
+	}
 
 	@Override
 	public boolean equals(Object otherObject) {

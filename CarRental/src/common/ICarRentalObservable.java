@@ -3,10 +3,12 @@ package common;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public interface ICarRentalObservable extends Remote {
 	
 	public List<IVehicle> getAvailableVehicles() throws RemoteException;
+	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException;
 	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException;
 	public void rentVehicle(IRent rent) throws RemoteException;
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException;
