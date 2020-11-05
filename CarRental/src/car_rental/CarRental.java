@@ -21,7 +21,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.vehicles = new ArrayList<IVehicle>();
+		this.vehicles = this.loadVehiclesFromFile();
 		this.availableVehicles = new ArrayList<IVehicle>();
 		this.rentals = new HashMap<IRenter, List<IRent>>();
 		this.waitList = new HashMap<IVehicle, List<IRent>>();
@@ -112,7 +112,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		this.waitList.get(vehicle).remove(0);
 	}
 	
-	public IRent createRent(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
+	private IRent createRent(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(startDate);
@@ -125,7 +125,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		return new Rent(renter, vehicle, startDate, endDate, discount);
 	}
 	
-	public boolean insertRent(IRenter renter, IRent rent) {
+	private boolean insertRent(IRenter renter, IRent rent) {
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(rent);
 		if (this.rentals.get(renter) == null) {
@@ -137,6 +137,10 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public List<IRent> getRenterRentals(IRenter renter) throws RemoteException {
 		return this.rentals.get(renter);
+	}
+	
+	private ArrayList<IVehicle> loadVehiclesFromFile() {
+		return null;
 	}
 	
 
