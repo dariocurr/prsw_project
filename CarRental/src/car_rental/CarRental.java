@@ -8,12 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import common.Employee;
 import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenter;
 import common.IVehicle;
-import common.Rent;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
@@ -101,7 +99,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endDate);
 		double discount = 0;
-		if (renter instanceof Employee) {
+		if (renter.isDiscounted()) {
 			discount = 0.10;
 		}
 		return new Rent(renter, vehicle, startDate, endDate, discount);
