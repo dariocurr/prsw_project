@@ -78,7 +78,7 @@ public class VehicleRentalGUI {
 		this.setRentTab();
 		this.setReturnTab();
 		
-		frame.setResizable(false);
+		//frame.setResizable(true);
 		frame.setUndecorated(true);
 		frame.setSize(new Dimension(700, 350));
 		frame.setPreferredSize(new Dimension(700, 350));
