@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IVehicle {
 
-	public String getName();
+	public String getModel();
 	
 	public List<String> getNotes();
 	

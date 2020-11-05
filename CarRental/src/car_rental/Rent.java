@@ -1,6 +1,10 @@
-package common;
+package car_rental;
 
 import java.util.Objects;
+
+import common.IRent;
+import common.IRenter;
+import common.IVehicle;
 
 public class Rent implements IRent {
 
@@ -8,8 +12,10 @@ public class Rent implements IRent {
 	private IRenter renter;
 	private String startDate;
 	private String endDate;
+	private int daysNumber;
+	private double price;
 
-	public Rent(IRenter renter, IVehicle vehicle, String startDate, String endDate) {
+	public Rent(IRenter renter, IVehicle vehicle, String startDate, String endDate, double discount) {
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(startDate);
@@ -18,6 +24,8 @@ public class Rent implements IRent {
 		this.renter = renter;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.daysNumber = Integer.valueOf(endDate.substring(0, 2)) - Integer.valueOf(startDate.substring(0, 2));
+		this.price = (this.vehicle.getPricePerDay() * this.daysNumber) * (1 - discount);
 	}
 
 	@Override

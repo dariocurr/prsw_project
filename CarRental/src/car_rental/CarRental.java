@@ -8,23 +8,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import common.Employee;
 import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenter;
 import common.IVehicle;
-import common.Rent;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
-
+	
+	private List<IRenter> renters;
+	private List<IVehicle> vehicles;
 	private List<IVehicle> availableVehicles;
-	private List<IRent> rentals;
+	private Map<IRenter, List<IRent>> rentals;
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
+		this.renters = new ArrayList<IRenter>();
+		this.vehicles = new ArrayList<IVehicle>();
 		this.availableVehicles = new ArrayList<IVehicle>();
-		this.rentals = new ArrayList<IRent>();
+		this.rentals = new HashMap<IRenter, List<IRent>>();
 		this.waitList = new HashMap<IVehicle, List<IRent>>();
+		for (IVehicle vehicle : this.vehicles) {
+			this.waitList.put(vehicle, new ArrayList<IRent>());
+		}
 	}
 
 	public List<IVehicle> getAvailableVehicles() {
@@ -35,7 +40,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
 		IRent rent = this.createRent(renter, vehicle, startDate, endDate);
 		this.availableVehicles.remove(vehicle);
-		this.rentals.add(rent);
+		this.insertRent(renter, rent);
 		return rent;
 	}
 	
@@ -43,13 +48,13 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	public void rentVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
 		this.availableVehicles.remove(rent.getVehicle());
-		this.rentals.add(rent);
+		this.insertRent(rent.getRenter(), rent);
 	}
 	
 	@Override
 	public void returnVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
-		this.rentals.remove(rent);
+		this.rentals.remove(rent.getRenter()).remove(rent);
 		this.availableVehicles.add(rent.getVehicle());
 		this.notifyObserver(rent.getVehicle());
 	}
@@ -94,10 +99,30 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endDate);
 		double discount = 0;
-		if (renter instanceof Employee) {
+		if (renter.isDiscounted()) {
 			discount = 0.10;
 		}
 		return new Rent(renter, vehicle, startDate, endDate, discount);
+	}
+	
+	public boolean insertRent(IRenter renter, IRent rent) {
+		Objects.requireNonNull(renter);
+		Objects.requireNonNull(rent);
+		if (this.rentals.get(renter) == null) {
+			this.rentals.put(renter, new ArrayList<IRent>());
+		}
+		return this.rentals.get(renter).add(rent);
+	}
+	
+	@Override
+	public boolean createRenter(String firstName, String lastName, String email, String password, String discountCode) {
+		IRenter renter;
+		if (discountCode == "EMP001") {
+			renter = new Employee(firstName, lastName, email, password);
+		} else {
+			renter = new Renter(firstName, lastName, email, password, false);
+		}
+		return this.renters.add(renter);
 	}
 
 }
