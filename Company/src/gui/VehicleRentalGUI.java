@@ -54,6 +54,17 @@ public class VehicleRentalGUI {
 	
 	
 	public VehicleRentalGUI() {
+		
+		try {
+		    UIManager.setLookAndFeel( new FlatLightLaf() );
+		    if(!FlatDarkLaf.install()) {
+		    	System.err.println( "Failed to initialize dark theme" );
+		    	
+		    }
+		} catch( Exception ex ) {
+		    System.err.println( "Failed to initialize LaF" );
+		}
+		
 		this.frame = new JFrame("Vehicles Rental");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -99,7 +110,9 @@ public class VehicleRentalGUI {
 		this.vehiclesRented = new String[] {"500", "Merceder 34436hh", "Lamborghini dgdg223"};
 		
 		this.rentComboBox = new JComboBox<>(this.vehiclesRentable);
+		this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		this.returnComboBox = new JComboBox<>(this.vehiclesRented);
+		this.returnComboBox.setPrototypeDisplayValue("text long like this or more.... ");
 		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
@@ -184,15 +197,6 @@ public class VehicleRentalGUI {
 	
 
 	public static void main(String[] args) {
-		try {
-		    UIManager.setLookAndFeel( new FlatLightLaf() );
-		    if(!FlatDarkLaf.install()) {
-		    	System.err.println( "Failed to initialize dark theme" );
-		    	
-		    }
-		} catch( Exception ex ) {
-		    System.err.println( "Failed to initialize LaF" );
-		}
 		VehicleRentalGUI gui = new VehicleRentalGUI();
 	}
 	
