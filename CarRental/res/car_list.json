@@ -1,0 +1,11 @@
+[
+	{
+		"model": "Mercedes Benz CLA 200 AMG line",
+		"year": "2019",
+		"seats": "4",
+		"doors": "4",
+		"transmission": "Automatic",
+		"size":"Mid-size",
+		"price_per_day":"200"
+	}
+]
