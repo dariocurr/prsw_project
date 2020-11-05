@@ -1,13 +1,10 @@
-package company;
-
-import common.Renter;
+package common;
 
 public class Employee extends Renter {
 
 	private String name;
 	
 	public Employee(String name) {
-		super();
 		this.name = name;
 	}
 
