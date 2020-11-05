@@ -18,6 +18,8 @@
 !CarRentalClient/src/client/*
 !CarRentalClient/src/client/gui/
 !CarRentalClient/src/client/gui/*
+!CarRentalClient/res/car_img/
+!CarRentalClient/res/car_img/*
 !Company/
 !Company/src/
 !Company/src/*
