@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -32,8 +33,6 @@ public class LoginGUI {
 	private JFrame frame;
 	
 	private JPanel mainPanel;
-	
-	private JSeparator separator;
 	
 	private JLabel iconLabel;
 	private ImageIcon iconImage;
@@ -63,16 +62,17 @@ public class LoginGUI {
 		this.startGUI();
 		
 		this.addLogo();
-		this.addSeparator();
 		this.addUsernameField();
 		this.addPasswordField();
 		this.addLoginButton();
 		
 		this.frame.add(mainPanel);
 		
-        this.frame.pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
+		frame.setSize(screenSize);
+		frame.setResizable(false);
         this.frame.setVisible(true);
-        this.frame.setResizable(false);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
@@ -84,7 +84,6 @@ public class LoginGUI {
 		this.mainPanel.setPreferredSize(new Dimension(800, 400));
 		this.mainPanel.setLayout(null);
 		
-		this.separator = new JSeparator();
 		
 		this.iconLabel = new JLabel();
 		this.passwordLabel = new JLabel("Username:");
@@ -111,14 +110,6 @@ public class LoginGUI {
 		
 	}
 	
-	public void addSeparator() {
-		this.separator.setOrientation(SwingConstants.VERTICAL);
-		//separator1.setForeground(new Color(103, 112, 120));
-        this.separator.setBounds(260, 60, 1, 240);
-        this.mainPanel.add(this.separator);
-		
-	}
-	
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
         this.usernameLabel.setBounds(300, 109, 250, 44);
@@ -129,14 +120,12 @@ public class LoginGUI {
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                //usernameField.setForeground(Color.white);
-                //usernameField.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
+                
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                //usernameField.setForeground(new Color(103, 112, 120));
-                //usernameField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                
             }
         });
 		
@@ -205,7 +194,7 @@ public class LoginGUI {
             }
         });
 
-        //loginButton.setBackground(new Color(37, 51, 61));
+      
         this.loginButton.setBounds(470, 255, 120, 44);
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.mainPanel.add(this.loginButton);

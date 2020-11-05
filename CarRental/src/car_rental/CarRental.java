@@ -15,14 +15,12 @@ import common.IVehicle;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
-	private List<IRenter> renters;
 	private List<IVehicle> vehicles;
 	private List<IVehicle> availableVehicles;
 	private Map<IRenter, List<IRent>> rentals;
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.renters = new ArrayList<IRenter>();
 		this.vehicles = new ArrayList<IVehicle>();
 		this.availableVehicles = new ArrayList<IVehicle>();
 		this.rentals = new HashMap<IRenter, List<IRent>>();
@@ -31,14 +29,35 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 			this.waitList.put(vehicle, new ArrayList<IRent>());
 		}
 	}
-
-	public List<IVehicle> getAvailableVehicles() {
+	
+	@Override
+	public List<IVehicle> getAvailableVehicles() throws RemoteException {
 		return this.availableVehicles;
+	}
+	
+	@Override
+	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException {
+		Map<IVehicle, String> notAvailableVehicles = new HashMap<IVehicle, String>();
+		for (IVehicle vehicle : this.waitList.keySet()) {
+			List<IRent> vehicleWaitList = this.waitList.get(vehicle);
+			if (!vehicleWaitList.isEmpty()) {
+				notAvailableVehicles.put(vehicle, vehicleWaitList.get(vehicleWaitList.size() - 1).getEndDate());
+			}
+			
+		}
+		for (List<IRent> renterRentals : this.rentals.values()) {
+			for (IRent rent : renterRentals) {
+				if (!notAvailableVehicles.containsKey(rent.getVehicle())) {
+					notAvailableVehicles.put(rent.getVehicle(), rent.getEndDate());
+				}
+			}
+		}
+		return notAvailableVehicles;
 	}
 
 	@Override
-	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
-		IRent rent = this.createRent(renter, vehicle, startDate, endDate);
+	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
+		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
 		this.availableVehicles.remove(vehicle);
 		this.insertRent(renter, rent);
 		return rent;
@@ -63,7 +82,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException {
 		Objects.requireNonNull(notes);
 		this.returnVehicle(rent);
-		if (rent.getRenter() instanceof Employee) {
+		if (rent.getRenter().isTrusted()) {
 			rent.getVehicle().getNotes().addAll(notes);
 		} else {
 			// throw new exception
@@ -71,8 +90,8 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	}
 
 	@Override
-	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException {
-		IRent rent = this.createRent(renter, vehicle, startDate, endDate);
+	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
+		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
 		this.waitList.get(vehicle).add(rent);
 		return rent;
 	}
@@ -93,13 +112,14 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		this.waitList.get(vehicle).remove(0);
 	}
 	
-	public IRent createRent(IRenter renter, IVehicle vehicle, String startDate, String endDate) {
+	public IRent createRent(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endDate);
+		Objects.requireNonNull(coupon);
 		double discount = 0;
-		if (renter.isDiscounted()) {
+		if (coupon == "EMP001") {
 			discount = 0.10;
 		}
 		return new Rent(renter, vehicle, startDate, endDate, discount);
@@ -113,16 +133,11 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		}
 		return this.rentals.get(renter).add(rent);
 	}
-	
+
 	@Override
-	public boolean createRenter(String firstName, String lastName, String email, String password, String discountCode) {
-		IRenter renter;
-		if (discountCode == "EMP001") {
-			renter = new Employee(firstName, lastName, email, password);
-		} else {
-			renter = new Renter(firstName, lastName, email, password, false);
-		}
-		return this.renters.add(renter);
+	public List<IRent> getRenterRentals(IRenter renter) throws RemoteException {
+		return this.rentals.get(renter);
 	}
+	
 
 }

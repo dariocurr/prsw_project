@@ -1,9 +1,12 @@
 package common;
 
-public interface IRent {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-	public IRenter getRenter();
+public interface IRent extends Remote {
+
+	public IRenter getRenter() throws RemoteException;
 	
-	public IVehicle getVehicle();
+	public IVehicle getVehicle() throws RemoteException;
 	
 }

@@ -3,17 +3,19 @@ package common;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public interface ICarRentalObservable extends Remote {
 	
-	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException;
+	public List<IVehicle> getAvailableVehicles() throws RemoteException;
+	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException;
+	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException;
 	public void rentVehicle(IRent rent) throws RemoteException;
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException;
 	public void returnVehicle(IRent rent) throws RemoteException;
-	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException;
+	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException;
 	public boolean detach(IRent rent) throws RemoteException;
 	public void notifyObserver(IVehicle vehicle) throws RemoteException;
-	public boolean createRenter(String firstName, String lastName, String email, String password, String discountCode);
-	
+	public List<IRent> getRenterRentals(IRenter renter) throws RemoteException; 
 	
 }
