@@ -26,6 +26,9 @@ public class ClientProxy {
 			for (IRent rent : carRental.getRenterRentals(renter)) {
 				System.out.println(rent);
 			}
+			for (IVehicle vehicle : carRental.getNotAvailableVehicles().keySet()) {
+				System.out.println(vehicle + " " + carRental.getNotAvailableVehicles().get(vehicle));
+			}
 			/*
 			System.setProperty("java.security.policy", "/Company/src/company/sec.policy");
 			System.setProperty("java.rmi.server.codebase", "/Company/bin");

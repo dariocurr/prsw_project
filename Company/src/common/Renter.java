@@ -37,7 +37,7 @@ public class Renter extends UnicastRemoteObject implements IRenter {
 	
 	@Override
 	public String toString() {
-		return this.firstName + " " + this.lastName + " " + this.email;
+		return this.firstName + "\t" + this.lastName + "\t" + this.email;
 	}
 
 	@Override
