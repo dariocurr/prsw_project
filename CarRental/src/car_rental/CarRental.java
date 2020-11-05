@@ -183,8 +183,9 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		String seats = (String) vehicle.get("seats");
 		String doors = (String) vehicle.get("doors");
 		String transmission = (String) vehicle.get("transmission");
-		String size = (String) vehicle.get("size");
 		String pricePerDay = (String) vehicle.get("price_per_day");
+		String size = (String) vehicle.get("size");
+	
 		
 		
 		IVehicle vehicle_obj = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay));
