@@ -9,4 +9,6 @@ public interface IRent extends Remote {
 	
 	public IVehicle getVehicle() throws RemoteException;
 	
+	public String getEndDate() throws RemoteException;
+	
 }
