@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -67,9 +68,11 @@ public class LoginGUI {
 		
 		this.frame.add(mainPanel);
 		
-        this.frame.pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
+		frame.setSize(screenSize);
+		frame.setResizable(false);
         this.frame.setVisible(true);
-        this.frame.setResizable(false);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}

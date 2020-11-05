@@ -78,12 +78,16 @@ public class VehicleRentalGUI {
 		this.setRentTab();
 		this.setReturnTab();
 		
-		//frame.setResizable(true);
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenSize.setSize(screenSize.getWidth()*0.55, screenSize.getHeight()*0.55);
+		frame.setSize(screenSize);
+		frame.setMinimumSize(new Dimension(680,335));
+		frame.setResizable(true);
 		frame.setUndecorated(true);
-		frame.setSize(new Dimension(700, 350));
 		frame.setPreferredSize(new Dimension(700, 350));
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-		frame.pack();
+		//frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
