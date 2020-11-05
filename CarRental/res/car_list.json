@@ -6,7 +6,8 @@
 		"doors": "4",
 		"transmission": "Automatic",
 		"size":"Large",
-		"price_per_day":"200"
+		"price_per_day":"200",
+		"file_name": "mercedes_cla200.png",
 	},
 	
 	{
