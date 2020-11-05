@@ -22,7 +22,7 @@ public class ClientProxy {
 				System.out.println(vehicle);
 			}
 			carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(0), "26/01/97" , "28/01/97", "EMP001");
-			carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(1), "29/01/97" , "30/01/97", "EMP001");
+			carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(1), "29/01/97" , "30/01/97", "EMP002");
 			for (IRent rent : carRental.getRenterRentals(renter)) {
 				System.out.println(rent);
 			}
