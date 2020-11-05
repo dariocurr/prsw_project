@@ -42,6 +42,7 @@ public class Rent extends UnicastRemoteObject implements IRent {
 		return this.renter;
 	}
 
+	@Override
 	public boolean equals(Object otherObject) {
 		if (this == otherObject)
 			return true;
@@ -54,6 +55,11 @@ public class Rent extends UnicastRemoteObject implements IRent {
 				&& this.renter.equals(otherRent.renter)
 				&& this.startDate.equalsIgnoreCase(otherRent.startDate)
 				&& this.endDate.equalsIgnoreCase(otherRent.endDate);
+	}
+	
+	@Override
+	public String toString() {
+		return this.renter.toString() + "\t" + this.vehicle + "\t" + this.startDate + "\t" + this.endDate + "\tnumber of days: " + this.daysNumber + "\tprice" + this.price; 
 	}
 
 }

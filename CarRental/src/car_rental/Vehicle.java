@@ -63,4 +63,9 @@ public class Vehicle extends UnicastRemoteObject implements IVehicle {
         return this.model.equalsIgnoreCase(otherVehicle.model) && this.year.equalsIgnoreCase(otherVehicle.year);
     }
 	
+	@Override
+	public String toString() {
+		return this.model + "\t" + this.year + "\tdoors: " + this.doors + "\tseats: " + this.seats + "\ttrasmission: " + this.trasmission + "\tprice per day: " + this.pricePerDay;  
+	}
+	
 }
