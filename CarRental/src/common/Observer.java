@@ -1,7 +1,10 @@
 package common;
 
-public interface Observer {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Observer extends Remote {
 	
-	public void update();
+	public void update() throws RemoteException;
 	
 }

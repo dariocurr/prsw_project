@@ -1,7 +1,9 @@
 package common;
 
-public interface IRenter extends Observer {
+import java.rmi.RemoteException;
 
-	public boolean isDiscounted();
+public interface IRenter extends Observer {
+	
+	public boolean isTrusted() throws RemoteException;
 	
 }
