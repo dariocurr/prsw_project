@@ -3,6 +3,8 @@
 !project.pdf
 !README.md
 !CarRental/
+!CarRental/res/
+!CarRental/res/*
 !CarRental/src/
 !CarRental/src/*
 !CarRental/src/car_rental/
