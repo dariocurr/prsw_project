@@ -61,8 +61,9 @@ public class VehicleRentalGUI {
 		this.setRentTab();
 		this.setReturnTab();
 		
+		frame.setUndecorated(true);
+		frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		frame.pack();
-		
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
@@ -185,11 +186,10 @@ public class VehicleRentalGUI {
 	public static void main(String[] args) {
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
-		    //non so come ma c'è un bug che ti crea dei bordi bianchi (che vanno via se fai resize)
-		    /*if(!FlatDarkLaf.install()) {
+		    if(!FlatDarkLaf.install()) {
 		    	System.err.println( "Failed to initialize dark theme" );
 		    	
-		    }*/
+		    }
 		} catch( Exception ex ) {
 		    System.err.println( "Failed to initialize LaF" );
 		}
