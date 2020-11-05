@@ -5,7 +5,67 @@
 		"seats": "4",
 		"doors": "4",
 		"transmission": "Automatic",
-		"size":"Mid-size",
+		"size":"Large",
 		"price_per_day":"200"
+	},
+	
+	{
+		"model": "Fiat 500",
+		"year": "2016",
+		"seats": "4",
+		"doors": "3",
+		"transmission": "Manual",
+		"size":"Small",
+		"price_per_day":"82.29"
+	},
+	
+	{
+		"model": "Ford Fiesta",
+		"year": "2016",
+		"seats": "4",
+		"doors": "5",
+		"transmission": "Manual",
+		"size":"Small",
+		"price_per_day":"83.99"
+	},
+	
+	{
+		"model": "Mercedes Benz C-Class Auto",
+		"year": "2019",
+		"seats": "5",
+		"doors": "4",
+		"transmission": "Automatic",
+		"size":"Large",
+		"price_per_day":"276.75"
+	},
+	
+	{
+		"model": "Citroen Grand Picasso",
+		"year": "2015",
+		"seats": "7",
+		"doors": "5",
+		"transmission": "Manual",
+		"size":"People Carriers",
+		"price_per_day":"276.08"
+	},
+	
+	{
+		"model": "Volkswagen Passat",
+		"year": "2017",
+		"seats": "5",
+		"doors": "5",
+		"transmission": "Manual",
+		"size":"Mid-size",
+		"price_per_day":"111.63"
+	},
+	
+	{
+		"model": "Hyundai Tucson",
+		"year": "2019",
+		"seats": "5",
+		"doors": "4",
+		"transmission": "Automatic",
+		"size":"Mid-size",
+		"price_per_day":"160.93"
 	}
 ]

@@ -13,5 +13,7 @@ public interface ICarRentalObservable extends Remote {
 	public IRent attach(IRenter renter, IVehicle vehicle, String startDate, String endDate) throws RemoteException;
 	public boolean detach(IRent rent) throws RemoteException;
 	public void notifyObserver(IVehicle vehicle) throws RemoteException;
+	public boolean createRenter(String firstName, String lastName, String email, String password, String discountCode);
+	
 	
 }

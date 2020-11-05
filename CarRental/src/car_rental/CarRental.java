@@ -113,5 +113,16 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		}
 		return this.rentals.get(renter).add(rent);
 	}
+	
+	@Override
+	public boolean createRenter(String firstName, String lastName, String email, String password, String discountCode) {
+		IRenter renter;
+		if (discountCode == "EMP001") {
+			renter = new Employee(firstName, lastName, email, password);
+		} else {
+			renter = new Renter(firstName, lastName, email, password, false);
+		}
+		return this.renters.add(renter);
+	}
 
 }
