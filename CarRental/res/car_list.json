@@ -7,7 +7,7 @@
 		"transmission": "Automatic",
 		"size":"Large",
 		"price_per_day":"200",
-		"file_name": "mercedes_cla200.png",
+		"file_name": "mercedes_cla200.png"
 	},
 	
 	{
@@ -17,7 +17,8 @@
 		"doors": "3",
 		"transmission": "Manual",
 		"size":"Small",
-		"price_per_day":"82.29"
+		"price_per_day":"82.29",
+		"file_name": "fiat_500.png"
 	},
 	
 	{
@@ -27,7 +28,8 @@
 		"doors": "5",
 		"transmission": "Manual",
 		"size":"Small",
-		"price_per_day":"83.99"
+		"price_per_day":"83.99",
+		"file_name": "ford_fiesta.png"
 	},
 	
 	{
@@ -37,7 +39,8 @@
 		"doors": "4",
 		"transmission": "Automatic",
 		"size":"Large",
-		"price_per_day":"276.75"
+		"price_per_day":"276.75",
+		"file_name": "mercedes_benz_c.png"
 	},
 	
 	{
@@ -47,7 +50,8 @@
 		"doors": "5",
 		"transmission": "Manual",
 		"size":"People Carriers",
-		"price_per_day":"276.08"
+		"price_per_day":"276.08",
+		"file_name": "citroen_grand_picasso.png"
 	},
 	
 	{
@@ -57,7 +61,8 @@
 		"doors": "5",
 		"transmission": "Manual",
 		"size":"Mid-size",
-		"price_per_day":"111.63"
+		"price_per_day":"111.63",
+		"file_name": "volkswagen_passat.png"
 	},
 	
 	{
@@ -67,6 +72,7 @@
 		"doors": "4",
 		"transmission": "Automatic",
 		"size":"Mid-size",
-		"price_per_day":"160.93"
+		"price_per_day":"160.93",
+		"file_name": "hyundai_tucson.png"
 	}
 ]
