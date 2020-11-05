@@ -7,6 +7,8 @@
 !CarRental/res/*
 !CarRental/src/
 !CarRental/src/*
+!CarRental/res/car_img/
+!CarRental/res/car_img/*
 !CarRental/src/car_rental/
 !CarRental/src/car_rental/*
 !CarRental/src/common/
@@ -18,8 +20,6 @@
 !CarRentalClient/src/client/*
 !CarRentalClient/src/client/gui/
 !CarRentalClient/src/client/gui/*
-!CarRentalClient/res/car_img/
-!CarRentalClient/res/car_img/*
 !Company/
 !Company/src/
 !Company/src/*
