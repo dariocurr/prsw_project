@@ -89,8 +89,8 @@ public class LoginGUI {
 		
 		
 		this.iconLabel = new JLabel();
-		this.passwordLabel = new JLabel("Username:");
-		this.usernameLabel = new JLabel("Password:");
+		this.passwordLabel = new JLabel("Password:");
+		this.usernameLabel = new JLabel("Username:");
 		
 		this.passwordField = new JPasswordField();
 		this.usernameField = new JTextField();
