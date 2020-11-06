@@ -8,7 +8,19 @@ import java.util.List;
 public interface IVehicle extends Serializable {
 
 	public String getModel();
-	public List<String> getNotes();
+
+	public String getYear();
+
+	public int getSeats();
+
+	public int getDoors();
+
+	public String getTrasmission();
+
+	public String getSize();
+
 	public double getPricePerDay();
+
+	public List<String> getNotes();
 	
 }

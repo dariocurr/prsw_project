@@ -36,17 +36,42 @@ public class Vehicle implements IVehicle {
 	public String getModel() {
 		return model;
 	}
-	
+
+	@Override
+	public String getYear() {
+		return year;
+	}
+
+	@Override
+	public int getSeats() {
+		return seats;
+	}
+
+	@Override
+	public int getDoors() {
+		return doors;
+	}
+
+	@Override
+	public String getTrasmission() {
+		return trasmission;
+	}
+
+	@Override
+	public String getSize() {
+		return size;
+	}
+
+	@Override
+	public double getPricePerDay() {
+		return pricePerDay;
+	}
+
 	@Override
 	public List<String> getNotes() {
 		return notes;
 	}
-	
-	@Override
-	public double getPricePerDay() {
-		return this.pricePerDay;
-	}
-	
+
 	@Override
     public boolean equals(Object otherObject) {
         if (this == otherObject)

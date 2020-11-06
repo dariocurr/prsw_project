@@ -66,11 +66,8 @@ public class RegisterGUI {
 		this.startGUI();
 		
 		this.frame.add(mainPanel);
-		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
-		this.frame.setSize(screenSize);*/
 		
-		//this.frame.setResizable(false);
+		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -85,8 +82,6 @@ public class RegisterGUI {
 	public void startGUI() {
 		this.mainPanel = new JPanel();
 		
-		/*this.mainPanel.setSize(new Dimension(800, 400));
-		this.mainPanel.setPreferredSize(new Dimension(800, 400));*/
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
 		GridBagConstraints constraint = new GridBagConstraints();
@@ -94,15 +89,12 @@ public class RegisterGUI {
 		
 		constraint.gridx = 0;
         constraint.gridy = 0;
-        //this.vehicleImage = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\Fiat 500.png");
-        ImageIcon icon = new ImageIcon("D:\\Desktop\\cars_img\\a.png");
+        ImageIcon icon = new ImageIcon("D:\\code\\rest_eclipse\\progetto\\prsw\\CarRental\\res\\car_img\\fiat_500.png");
 		Image image = icon.getImage(); // transform it
         Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newLogoIcon = new ImageIcon(newImg);
         this.iconLabel = new JLabel(newLogoIcon);
         this.mainPanel.add(this.iconLabel, constraint);
-		
-		
 		
         constraint.anchor = GridBagConstraints.WEST;
         constraint.fill = GridBagConstraints.HORIZONTAL;
@@ -128,131 +120,20 @@ public class RegisterGUI {
 		constraint.gridwidth = 1;
 		constraint.insets = new Insets(24,8,8,8);
 		constraint.weightx = 0.5;
-		//constraint.fill = GridBagConstraints.NONE;
 		
-		//constraint.anchor = GridBagConstraints.LAST_LINE_END;
 		constraint.gridy = 5;
-		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.loginButton = new JButton("LOGIN");
 		this.mainPanel.add(this.loginButton, constraint);
 		
-		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
 		constraint.gridy = 5;
 		constraint.gridx = 1;
-		//constraint.fill = GridBagConstraints.NONE;
-		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.signinButton = new JButton("SIGN IN");
 		this.mainPanel.add(this.signinButton, constraint);
 	}
 	
 	
-	/*public void addLogo() {
-		this.iconLabel.setFocusable(false);
-		
-		this.iconImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/icon.png");
-		Image image = this.iconImage.getImage(); // transform it
-		Image newImg = image.getScaledInstance(110, 110,  java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newIcon = new ImageIcon(newImg);
-		this.iconLabel.setIcon(newIcon);
-		
-		this.iconLabel.setBounds(80, 120, 200, 110);
-		this.mainPanel.add(this.iconLabel);
-		
-	}
-	
-	public void addUsernameField() {
-		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
-        this.usernameLabel.setBounds(300, 109, 250, 44);
-        
-		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
-		this.usernameField.setBounds(430, 109, 250, 44);
-		this.usernameField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                
-            }
-        });
-		
-		this.mainPanel.add(this.usernameLabel);
-		this.mainPanel.add(this.usernameField);
-	}
-
-
-	
-	public void addPasswordField() {
-		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
-        this.passwordLabel.setBounds(302, 168, 250, 44);
-      
-        this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        this.passwordField.setMargin(new Insets(2, 10, 2, 2));
-        this.passwordField.setHorizontalAlignment(SwingConstants.LEFT);
-        
-        this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
-        this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
-
-        this.passwordField.setBounds(430, 168, 250, 44);
-        this.passwordField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                
-            }
-        });
-
-        this.passwordField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER);
-
-            }
-        });
-
-        this.mainPanel.add(this.passwordLabel);
-        this.mainPanel.add(this.passwordField);
-		
-	}
-
-	public void addLoginButton() {
-		this.loginButton.setFont(this.loginButton.getFont().deriveFont(16.0f));
-        this.loginButton.setFocusPainted(false);
-        
-        this.loginButton.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                
-            }
-        });
-
-      
-        this.loginButton.setBounds(470, 255, 120, 44);
-        this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.mainPanel.add(this.loginButton);
-		
-	}*/
-	
 	public static void main(String[] args) {
-        new LoginGUI();
+        new RegisterGUI();
     }
 	
 }
