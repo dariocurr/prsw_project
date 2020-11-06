@@ -70,7 +70,7 @@ public class LoginGUI {
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
 		this.frame.setSize(screenSize);*/
 		
-		//this.frame.setResizable(false);
+		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
