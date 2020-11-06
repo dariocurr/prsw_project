@@ -21,20 +21,20 @@ import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenter;
 import common.IVehicle;
+import common.Rent;
+import common.Vehicle;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
-	private List<IVehicle> vehicles;
 	private List<IVehicle> availableVehicles;
 	private Map<IRenter, List<IRent>> rentals;
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.vehicles = this.loadVehiclesFromFile("../CarRental/res/car_list.json");
-		this.availableVehicles = new ArrayList<IVehicle>();
+		this.availableVehicles = this.loadVehiclesFromFile("res/car_list.json");
 		this.rentals = new HashMap<IRenter, List<IRent>>();
 		this.waitList = new HashMap<IVehicle, List<IRent>>();
-		for (IVehicle vehicle : this.vehicles) {
+		for (IVehicle vehicle : this.availableVehicles) {
 			this.waitList.put(vehicle, new ArrayList<IRent>());
 		}
 	}
@@ -67,7 +67,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public IRent rentVehicle(IRenter renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
-		this.availableVehicles.remove(vehicle);
+		this.availableVehicles.remove(rent.getVehicle());
 		this.insertRent(renter, rent);
 		return rent;
 	}

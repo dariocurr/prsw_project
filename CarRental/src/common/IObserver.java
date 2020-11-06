@@ -1,10 +1,9 @@
 package common;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.io.Serializable;
 
-public interface IObserver extends Remote {
+public interface IObserver extends Serializable {
 	
-	public void update() throws RemoteException;
+	public void update();
 	
 }

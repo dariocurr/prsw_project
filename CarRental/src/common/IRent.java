@@ -1,14 +1,15 @@
 package common;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface IRent extends Remote {
+public interface IRent extends Serializable {
 
-	public IRenter getRenter() throws RemoteException;
+	public IRenter getRenter();
 	
-	public IVehicle getVehicle() throws RemoteException;
+	public IVehicle getVehicle();
 	
-	public String getEndDate() throws RemoteException;
+	public String getEndDate();
 	
 }
