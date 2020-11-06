@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -70,8 +71,10 @@ public class LoginGUI {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
-		frame.setSize(screenSize);
-		frame.setResizable(false);
+		this.frame.setSize(screenSize);
+		this.frame.setResizable(false);
+		this.frame.setUndecorated(true);
+		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         this.frame.setVisible(true);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
