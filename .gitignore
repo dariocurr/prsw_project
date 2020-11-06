@@ -23,6 +23,10 @@
 !Company/
 !Company/src/
 !Company/src/*
+!Company/res/
+!Company/resg/*
+!Company/res/car_img/
+!Company/res/car_img/*
 !Company/src/common/
 !Company/src/common/*
 !Company/src/company/
