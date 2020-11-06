@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -26,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.*;
 
@@ -36,7 +39,6 @@ public class LoginGUI {
 	private JPanel mainPanel;
 	
 	private JLabel iconLabel;
-	private ImageIcon iconImage;
 	
 	private JTextField usernameField;
 	private JLabel usernameLabel;
@@ -45,6 +47,7 @@ public class LoginGUI {
 	private JLabel passwordLabel;
 	
 	private JButton loginButton;
+	private JButton signinButton;
 	
 	public LoginGUI() {
 		
@@ -62,44 +65,88 @@ public class LoginGUI {
 		
 		this.startGUI();
 		
-		this.addLogo();
-		this.addUsernameField();
-		this.addPasswordField();
-		this.addLoginButton();
-		
 		this.frame.add(mainPanel);
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
-		this.frame.setSize(screenSize);
-		this.frame.setResizable(false);
+		this.frame.setSize(screenSize);*/
+		
+		//this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.frame.pack();
+		this.frame.setMinimumSize(this.frame.getSize());
         this.frame.setVisible(true);
         this.frame.setLocationRelativeTo(null);
-        this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
 	}
 	
 
 	public void startGUI() {
 		this.mainPanel = new JPanel();
-		this.mainPanel.setSize(new Dimension(800, 400));
-		this.mainPanel.setPreferredSize(new Dimension(800, 400));
-		this.mainPanel.setLayout(null);
+		
+		/*this.mainPanel.setSize(new Dimension(800, 400));
+		this.mainPanel.setPreferredSize(new Dimension(800, 400));*/
+		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
+		this.mainPanel.setLayout(new GridBagLayout());
+		GridBagConstraints constraint = new GridBagConstraints();
+		constraint.gridwidth = 2;
+		
+		constraint.gridx = 0;
+        constraint.gridy = 0;
+        //this.vehicleImage = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\Fiat 500.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\fiat_500.png");
+		Image image = icon.getImage(); // transform it
+        Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newLogoIcon = new ImageIcon(newImg);
+        this.iconLabel = new JLabel(newLogoIcon);
+        this.mainPanel.add(this.iconLabel, constraint);
 		
 		
-		this.iconLabel = new JLabel();
-		this.passwordLabel = new JLabel("Password:");
+		
+        constraint.anchor = GridBagConstraints.WEST;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        
+        constraint.gridy = 1;
 		this.usernameLabel = new JLabel("Username:");
-		
-		this.passwordField = new JPasswordField();
+		this.mainPanel.add(this.usernameLabel, constraint);
+		constraint.gridy = 2;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
 		this.usernameField = new JTextField();
+		this.mainPanel.add(this.usernameField, constraint);
 		
+		constraint.gridy = 3;
+		this.passwordLabel = new JLabel("Password:");
+		this.mainPanel.add(this.passwordLabel, constraint);
+		constraint.gridy = 4;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		this.passwordField = new JPasswordField();
+		this.mainPanel.add(this.passwordField, constraint);
+		
+		constraint.gridwidth = 1;
+		constraint.insets = new Insets(24,8,8,8);
+		constraint.weightx = 0.5;
+		//constraint.fill = GridBagConstraints.NONE;
+		
+		//constraint.anchor = GridBagConstraints.LAST_LINE_END;
+		constraint.gridy = 5;
+		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.loginButton = new JButton("LOGIN");
+		this.mainPanel.add(this.loginButton, constraint);
+		
+		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
+		constraint.gridy = 5;
+		constraint.gridx = 1;
+		//constraint.fill = GridBagConstraints.NONE;
+		//constraint.anchor = GridBagConstraints.PAGE_END;
+		this.signinButton = new JButton("SIGN IN");
+		this.mainPanel.add(this.signinButton, constraint);
 	}
 	
 	
-	public void addLogo() {
+	/*public void addLogo() {
 		this.iconLabel.setFocusable(false);
 		
 		this.iconImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/icon.png");
@@ -115,11 +162,11 @@ public class LoginGUI {
 	
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
-        this.usernameLabel.setBounds(330, 109, 200, 30);
+        this.usernameLabel.setBounds(300, 109, 250, 44);
         
 		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
-		this.usernameField.setBounds(430, 109, 200, 30);
+		this.usernameField.setBounds(430, 109, 250, 44);
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -140,7 +187,7 @@ public class LoginGUI {
 	
 	public void addPasswordField() {
 		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
-        this.passwordLabel.setBounds(330, 169, 200, 30);
+        this.passwordLabel.setBounds(302, 168, 250, 44);
       
         this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         this.passwordField.setMargin(new Insets(2, 10, 2, 2));
@@ -149,7 +196,7 @@ public class LoginGUI {
         this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
         this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
 
-        this.passwordField.setBounds(430, 168, 200, 30);
+        this.passwordField.setBounds(430, 168, 250, 44);
         this.passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -198,11 +245,11 @@ public class LoginGUI {
         });
 
       
-        this.loginButton.setBounds(470, 229, 80, 40);
+        this.loginButton.setBounds(470, 255, 120, 44);
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.mainPanel.add(this.loginButton);
 		
-	}
+	}*/
 	
 	public static void main(String[] args) {
         new LoginGUI();
