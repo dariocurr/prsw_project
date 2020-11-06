@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -14,12 +15,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
@@ -29,25 +32,35 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.DocumentFilter;
 
 import com.formdev.flatlaf.*;
 
 public class RegisterGUI {
 	
 	private JFrame frame;
-	
 	private JPanel mainPanel;
-	
 	private JLabel iconLabel;
-	
-	private JTextField usernameField;
 	private JLabel nameLabel;
+	private JLabel surnameLabel;
+	private JTextField nameField;
+	private JTextField surnameField;
+	private JLabel mailLabel;
+	private JTextField mailField;
 	
-	private JPasswordField passwordField;
+	
 	private JLabel passwordLabel;
+	private JLabel confirmPasswordLabel;
+	private JPasswordField passwordField;
+	private JPasswordField confirmPasswordField;
+	
 	
 	private JButton loginButton;
 	private JButton signinButton;
+	
+	final Label message = new Label("");
 	
 	public RegisterGUI() {
 		
@@ -107,30 +120,30 @@ public class RegisterGUI {
 		constraint.gridy = 2;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
-		this.usernameField = new JTextField(15);
-		this.mainPanel.add(this.usernameField, constraint);
+		this.nameField = new JTextField(15);
+		this.mainPanel.add(this.nameField, constraint);
 		
 		constraint.gridy = 1;
 		constraint.gridx = 1;
-		this.nameLabel = new JLabel("Surname:");
-		this.mainPanel.add(this.nameLabel, constraint);
+		this.surnameLabel = new JLabel("Surname:");
+		this.mainPanel.add(this.surnameLabel, constraint);
 		constraint.gridy = 2;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
-		this.usernameField = new JTextField(15);
-		this.mainPanel.add(this.usernameField, constraint);
+		this.surnameField = new JTextField(15);
+		this.mainPanel.add(this.surnameField, constraint);
 		
 		constraint.gridy = 3;
 		constraint.gridx = 0;
-		this.nameLabel = new JLabel("Email:");
-		this.mainPanel.add(this.nameLabel, constraint);
+		this.mailLabel = new JLabel("Email:");
+		this.mainPanel.add(this.mailLabel, constraint);
 		constraint.gridwidth = 2;
 		constraint.gridy = 4;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
 		constraint.fill = GridBagConstraints.HORIZONTAL;
-		this.usernameField = new JTextField(15);
-		this.mainPanel.add(this.usernameField, constraint);
+		this.mailField = new JTextField(15);
+		this.mainPanel.add(this.mailField, constraint);
 		
 		constraint.gridy = 5;
 		constraint.gridx = 0;
@@ -145,25 +158,46 @@ public class RegisterGUI {
 		
 		constraint.gridy = 5;
 		constraint.gridx = 1;
-		this.passwordLabel = new JLabel("Repeat password:");
-		this.mainPanel.add(this.passwordLabel, constraint);
+		this.confirmPasswordLabel = new JLabel("Repeat password:");
+		this.mainPanel.add(this.confirmPasswordLabel, constraint);
 		constraint.gridy = 6;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
-		this.passwordField = new JPasswordField();
-		this.mainPanel.add(this.passwordField, constraint);
+		this.confirmPasswordField = new JPasswordField();
+		this.mainPanel.add(this.confirmPasswordField, constraint);
+		
+		confirmPasswordField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				checkPassword();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				checkPassword();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				checkPassword();
+			}
+			
+		});
+		
+		
 		
 		constraint.gridwidth = 1;
 		constraint.insets = new Insets(24,8,8,8);
 		
 		constraint.gridy = 7;
 		constraint.gridx = 0;
-		this.loginButton = new JButton("LOGIN");
+		this.loginButton = new JButton("REGISTER");
 		this.mainPanel.add(this.loginButton, constraint);
 		
 		constraint.gridy = 7;
 		constraint.gridx = 1;
-		this.signinButton = new JButton("SIGN IN");
+		this.signinButton = new JButton("BACK TO SIGN IN");
 		this.mainPanel.add(this.signinButton, constraint);
 	}
 	
@@ -171,5 +205,14 @@ public class RegisterGUI {
 	public static void main(String[] args) {
         new RegisterGUI();
     }
+	
+	private void checkPassword() {
+		if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())){
+			confirmPasswordField.putClientProperty("JComponent.outline", "error");
+	          
+        } else {
+        	confirmPasswordField.putClientProperty("JComponent.outline", null);
+        }
+	}
 	
 }
