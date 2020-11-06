@@ -41,7 +41,7 @@ public class RegisterGUI {
 	private JLabel iconLabel;
 	
 	private JTextField usernameField;
-	private JLabel usernameLabel;
+	private JLabel nameLabel;
 	
 	private JPasswordField passwordField;
 	private JLabel passwordLabel;
@@ -97,21 +97,57 @@ public class RegisterGUI {
         this.mainPanel.add(this.iconLabel, constraint);
 		
         constraint.anchor = GridBagConstraints.WEST;
-        constraint.fill = GridBagConstraints.HORIZONTAL;
         
+		constraint.insets = new Insets(0,8,0,8);
+		
+        constraint.gridwidth = 1;
         constraint.gridy = 1;
-		this.usernameLabel = new JLabel("Username:");
-		this.mainPanel.add(this.usernameLabel, constraint);
+		this.nameLabel = new JLabel("Name:");
+		this.mainPanel.add(this.nameLabel, constraint);
 		constraint.gridy = 2;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
-		this.usernameField = new JTextField();
+		this.usernameField = new JTextField(15);
+		this.mainPanel.add(this.usernameField, constraint);
+		
+		constraint.gridy = 1;
+		constraint.gridx = 1;
+		this.nameLabel = new JLabel("Surname:");
+		this.mainPanel.add(this.nameLabel, constraint);
+		constraint.gridy = 2;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		this.usernameField = new JTextField(15);
 		this.mainPanel.add(this.usernameField, constraint);
 		
 		constraint.gridy = 3;
+		constraint.gridx = 0;
+		this.nameLabel = new JLabel("Email:");
+		this.mainPanel.add(this.nameLabel, constraint);
+		constraint.gridwidth = 2;
+		constraint.gridy = 4;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		constraint.fill = GridBagConstraints.HORIZONTAL;
+		this.usernameField = new JTextField(15);
+		this.mainPanel.add(this.usernameField, constraint);
+		
+		constraint.gridy = 5;
+		constraint.gridx = 0;
 		this.passwordLabel = new JLabel("Password:");
 		this.mainPanel.add(this.passwordLabel, constraint);
-		constraint.gridy = 4;
+		constraint.gridwidth = 1;
+		constraint.gridy = 6;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		this.passwordField = new JPasswordField();
+		this.mainPanel.add(this.passwordField, constraint);
+		
+		constraint.gridy = 5;
+		constraint.gridx = 1;
+		this.passwordLabel = new JLabel("Repeat password:");
+		this.mainPanel.add(this.passwordLabel, constraint);
+		constraint.gridy = 6;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
 		this.passwordField = new JPasswordField();
@@ -119,13 +155,13 @@ public class RegisterGUI {
 		
 		constraint.gridwidth = 1;
 		constraint.insets = new Insets(24,8,8,8);
-		constraint.weightx = 0.5;
 		
-		constraint.gridy = 5;
+		constraint.gridy = 7;
+		constraint.gridx = 0;
 		this.loginButton = new JButton("LOGIN");
 		this.mainPanel.add(this.loginButton, constraint);
 		
-		constraint.gridy = 5;
+		constraint.gridy = 7;
 		constraint.gridx = 1;
 		this.signinButton = new JButton("SIGN IN");
 		this.mainPanel.add(this.signinButton, constraint);
