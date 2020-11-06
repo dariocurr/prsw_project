@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Rent implements IRent {
 
-	private IVehicle vehicle;
 	private IRenter renter;
+	private IVehicle vehicle;
 	private String startDate;
 	private String endDate;
 	private int daysNumber;
@@ -27,18 +27,33 @@ public class Rent implements IRent {
 	}
 
 	@Override
-	public IVehicle getVehicle() {
-		return this.vehicle;
-	}
-
-	@Override
 	public IRenter getRenter() {
-		return this.renter;
+		return renter;
 	}
 	
 	@Override
+	public IVehicle getVehicle() {
+		return vehicle;
+	}
+
+	@Override
+	public String getStartDate() {
+		return startDate;
+	}
+
+	@Override
 	public String getEndDate() {
 		return endDate;
+	}
+
+	@Override
+	public int getDaysNumber() {
+		return daysNumber;
+	}
+	
+	@Override
+	public double getPrice() {
+		return price;
 	}
 
 	@Override
