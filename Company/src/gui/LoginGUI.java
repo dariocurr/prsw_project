@@ -37,7 +37,6 @@ public class LoginGUI {
 	private JFrame frame;
 	
 	private JPanel mainPanel;
-	private GridBagConstraints constraint;
 	
 	private JLabel iconLabel;
 	
@@ -69,28 +68,14 @@ public class LoginGUI {
 		this.frame.add(mainPanel);
 		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
-<<<<<<< HEAD
-<<<<<<< HEAD
-		frame.setSize(screenSize);
-		frame.setPreferredSize(screenSize);
-		frame.setResizable(true);
-		frame.setMinimumSize(new Dimension(1100,600));
-=======
-		this.frame.setSize(screenSize);
-=======
 		this.frame.setSize(screenSize);*/
 		
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-<<<<<<< HEAD
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.frame.pack();
 		this.frame.setMinimumSize(this.frame.getSize());
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.frame.setVisible(true);
         this.frame.setLocationRelativeTo(null);
         
@@ -99,13 +84,6 @@ public class LoginGUI {
 
 	public void startGUI() {
 		this.mainPanel = new JPanel();
-<<<<<<< HEAD
-		this.mainPanel.setSize(new Dimension(800, 400));
-		this.mainPanel.setPreferredSize(new Dimension(800, 400));
-		//this.mainPanel.setLayout(null);
-		this.mainPanel.setLayout(new GridBagLayout());
-		this.constraint = new GridBagConstraints();
-=======
 		
 		/*this.mainPanel.setSize(new Dimension(800, 400));
 		this.mainPanel.setPreferredSize(new Dimension(800, 400));*/
@@ -122,7 +100,6 @@ public class LoginGUI {
         ImageIcon newLogoIcon = new ImageIcon(newImg);
         this.iconLabel = new JLabel(newLogoIcon);
         this.mainPanel.add(this.iconLabel, constraint);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		
 		
 		
@@ -131,18 +108,12 @@ public class LoginGUI {
         
         constraint.gridy = 1;
 		this.usernameLabel = new JLabel("Username:");
-<<<<<<< HEAD
-		
-		this.passwordField = new JPasswordField(12);
-		this.usernameField = new JTextField(12);
-=======
 		this.mainPanel.add(this.usernameLabel, constraint);
 		constraint.gridy = 2;
 		constraint.ipadx = 10;
 		constraint.ipady = 10;
 		this.usernameField = new JTextField();
 		this.mainPanel.add(this.usernameField, constraint);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		
 		constraint.gridy = 3;
 		this.passwordLabel = new JLabel("Password:");
@@ -183,37 +154,18 @@ public class LoginGUI {
 		ImageIcon newIcon = new ImageIcon(newImg);
 		this.iconLabel.setIcon(newIcon);
 		
-		constraint.insets = new Insets(100, 100, 0, 150);
-		this.constraint.gridx = 0;
-		this.constraint.gridy = 0;
-		//this.iconLabel.setBounds(80, 120, 200, 110);
-		this.mainPanel.add(this.iconLabel, this.constraint);
+		this.iconLabel.setBounds(80, 120, 200, 110);
+		this.mainPanel.add(this.iconLabel);
 		
 	}
 	
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //this.usernameLabel.setBounds(300, 109, 250, 44);
-=======
-        this.usernameLabel.setBounds(330, 109, 200, 30);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
         this.usernameLabel.setBounds(300, 109, 250, 44);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         
 		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
-<<<<<<< HEAD
-<<<<<<< HEAD
-		//this.usernameField.setBounds(430, 109, 250, 44);
-=======
-		this.usernameField.setBounds(430, 109, 200, 30);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
 		this.usernameField.setBounds(430, 109, 250, 44);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -226,53 +178,24 @@ public class LoginGUI {
             }
         });
 		
-		this.constraint = new GridBagConstraints();
-		this.constraint.insets = new Insets(0, 0, 0, 20);
-		this.constraint.gridx = 1;
-		this.constraint.gridy = 0;
-		this.mainPanel.add(this.usernameLabel, constraint);
-		
-		this.constraint = new GridBagConstraints();
-		this.constraint.fill = GridBagConstraints.HORIZONTAL;
-		this.constraint.gridx = 2;
-		//this.constraint.gridwidth = 1;
-		//this.constraint.weightx = 1.0;
-		//this.constraint.weighty = 1.0;
-		this.constraint.gridy = 0;
-		//this.constraint.gridwidth = 5;
-		this.mainPanel.add(this.usernameField, constraint);
+		this.mainPanel.add(this.usernameLabel);
+		this.mainPanel.add(this.usernameField);
 	}
 
 
 	
 	public void addPasswordField() {
 		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //this.passwordLabel.setBounds(302, 168, 250, 44);
-=======
-        this.passwordLabel.setBounds(330, 169, 200, 30);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
         this.passwordLabel.setBounds(302, 168, 250, 44);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
       
         this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        //this.passwordField.setMargin(new Insets(2, 10, 2, 2));
-        //this.passwordField.setHorizontalAlignment(SwingConstants.LEFT);
+        this.passwordField.setMargin(new Insets(2, 10, 2, 2));
+        this.passwordField.setHorizontalAlignment(SwingConstants.LEFT);
         
         this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
         this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //this.passwordField.setBounds(430, 168, 250, 44);
-=======
-        this.passwordField.setBounds(430, 168, 200, 30);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
         this.passwordField.setBounds(430, 168, 250, 44);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -293,17 +216,8 @@ public class LoginGUI {
             }
         });
 
-        this.constraint = new GridBagConstraints();
-        this.constraint.insets = new Insets(0, 0, 0, 20);
-        this.constraint.gridx = 1;
-        this.constraint.gridy = 1;
-        this.mainPanel.add(this.passwordLabel, constraint);
-        
-        this.constraint = new GridBagConstraints();
-        this.constraint.gridx = 2;
-        this.constraint.gridy = 1;
-        //this.constraint.fill = GridBagConstraints.HORIZONTAL;
-        this.mainPanel.add(this.passwordField, constraint);
+        this.mainPanel.add(this.passwordLabel);
+        this.mainPanel.add(this.passwordField);
 		
 	}
 
@@ -330,27 +244,9 @@ public class LoginGUI {
         });
 
       
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //this.loginButton.setBounds(470, 255, 120, 44);
-=======
-        this.loginButton.setBounds(470, 229, 80, 40);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
-=======
         this.loginButton.setBounds(470, 255, 120, 44);
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
-        this.constraint = new GridBagConstraints();
-        constraint.gridx = 0;
-        constraint.gridy = 2;
-        constraint.ipady = 15;
-        constraint.ipadx = 20;
-        this.constraint.insets = new Insets(60, 0, 0, 0);
-        constraint.gridwidth = GridBagConstraints.REMAINDER;
-        constraint.anchor = GridBagConstraints.NORTH;
-        constraint.fill = GridBagConstraints.NONE;
-        this.mainPanel.add(this.loginButton, constraint);
+        this.mainPanel.add(this.loginButton);
 		
 	}*/
 	
