@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class ARenter extends APerson implements IObserver {
+public class Renter extends APerson implements IRenterObserver {
 	
 	private String email;
 	private String password;
 	private List<IRent> rentals;
 	private boolean trusted;
 	
-	public ARenter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
+	public Renter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
 		super(firstName, lastName, age);
 		Objects.requireNonNull(email);
 		Objects.requireNonNull(password);
@@ -21,12 +21,10 @@ public abstract class ARenter extends APerson implements IObserver {
 		this.trusted = trusted;
 	}
 	
+	@Override
 	public boolean isTrusted() {
 		return this.trusted;
 	}
-	
-	@Override
-	public abstract void update();
 	
 	@Override
 	public String toString() {
@@ -41,7 +39,7 @@ public abstract class ARenter extends APerson implements IObserver {
             return false;
         if (getClass() != otherObject.getClass())
             return false;
-        ARenter otherRenter = (ARenter) otherObject;
+        Renter otherRenter = (Renter) otherObject;
         return super.equals(otherRenter)
         		&& this.email.equalsIgnoreCase(otherRenter.email);
 	}
@@ -49,6 +47,11 @@ public abstract class ARenter extends APerson implements IObserver {
 	@Override
 	public int hashCode() {
 		return this.firstName.hashCode() + this.lastName.hashCode() + this.email.hashCode();
+	}
+	
+	@Override
+	public void update() {
+		
 	}
 	
 }

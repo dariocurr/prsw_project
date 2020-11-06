@@ -2,6 +2,13 @@
 !.gitignore
 !project.pdf
 !README.md
+!BankWebService/
+!BankWebService/src/
+!BankWebService/src/*
+!BankWebService/src/bank/
+!BankWebService/src/bank/*
+!BankWebService/src/common/
+!BankWebService/src/common/*
 !CarRental/
 !CarRental/res/
 !CarRental/res/*

@@ -6,14 +6,14 @@ import java.util.Objects;
 
 public class Rent implements IRent {
 
-	private ARenter renter;
+	private IRenterObserver renter;
 	private IVehicle vehicle;
 	private String startDate;
 	private String endDate;
 	private int daysNumber;
 	private double price;
 
-	public Rent(ARenter renter, IVehicle vehicle, String startDate, String endDate, double discount) throws RemoteException {
+	public Rent(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, double discount) throws RemoteException {
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(startDate);
@@ -27,7 +27,7 @@ public class Rent implements IRent {
 	}
 
 	@Override
-	public ARenter getRenter() {
+	public IRenterObserver getRenter() {
 		return renter;
 	}
 	
