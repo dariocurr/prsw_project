@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -73,10 +74,17 @@ public class LoginGUI {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
+<<<<<<< HEAD
 		frame.setSize(screenSize);
 		frame.setPreferredSize(screenSize);
 		frame.setResizable(true);
 		frame.setMinimumSize(new Dimension(1100,600));
+=======
+		this.frame.setSize(screenSize);
+		this.frame.setResizable(false);
+		this.frame.setUndecorated(true);
+		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.frame.setVisible(true);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -122,11 +130,19 @@ public class LoginGUI {
 	
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
+<<<<<<< HEAD
         //this.usernameLabel.setBounds(300, 109, 250, 44);
+=======
+        this.usernameLabel.setBounds(330, 109, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         
 		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
+<<<<<<< HEAD
 		//this.usernameField.setBounds(430, 109, 250, 44);
+=======
+		this.usernameField.setBounds(430, 109, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -160,7 +176,11 @@ public class LoginGUI {
 	
 	public void addPasswordField() {
 		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
+<<<<<<< HEAD
         //this.passwordLabel.setBounds(302, 168, 250, 44);
+=======
+        this.passwordLabel.setBounds(330, 169, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
       
         this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         //this.passwordField.setMargin(new Insets(2, 10, 2, 2));
@@ -169,7 +189,11 @@ public class LoginGUI {
         this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
         this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
 
+<<<<<<< HEAD
         //this.passwordField.setBounds(430, 168, 250, 44);
+=======
+        this.passwordField.setBounds(430, 168, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -227,7 +251,11 @@ public class LoginGUI {
         });
 
       
+<<<<<<< HEAD
         //this.loginButton.setBounds(470, 255, 120, 44);
+=======
+        this.loginButton.setBounds(470, 229, 80, 40);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         this.constraint = new GridBagConstraints();
