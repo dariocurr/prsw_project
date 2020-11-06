@@ -37,6 +37,8 @@
 !Documentation/Mockup/Files/*
 !Documentation/Mockup/Images/
 !Documentation/Mockup/Images/*
+!Libraries/
+!Libraries/*
 
 
 

@@ -152,19 +152,14 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 
 	private List<IVehicle> loadVehiclesFromFile(String url) throws RemoteException{
 		JSONParser jsonParser = new JSONParser();
-		
 		List<IVehicle> vehiclesList = new ArrayList<>();
-		
 		try (FileReader reader = new FileReader(url))
         {
             Object obj = jsonParser.parse(reader);
- 
             JSONArray vehicles = (JSONArray) obj;
-            
             for(Object vehicle : vehicles) {
             	vehiclesList.add(parseVehiclesObject( (JSONObject) vehicle));
             }
- 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -172,12 +167,10 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
         } catch (ParseException e) {
             e.printStackTrace();
         }
-		
 		return vehiclesList;
 	}
 	
 	private static IVehicle parseVehiclesObject(JSONObject vehicle) throws RemoteException {
-		
 		String model = (String) vehicle.get("model");
 		String year = (String) vehicle.get("year"); 
 		String seats = (String) vehicle.get("seats");
@@ -185,11 +178,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		String transmission = (String) vehicle.get("transmission");
 		String pricePerDay = (String) vehicle.get("price_per_day");
 		String size = (String) vehicle.get("size");
-	
-		
-		
 		IVehicle vehicle_obj = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay));
-         
         return vehicle_obj;
     }
 }
