@@ -115,11 +115,11 @@ public class LoginGUI {
 	
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
-        this.usernameLabel.setBounds(300, 109, 250, 44);
+        this.usernameLabel.setBounds(330, 109, 200, 30);
         
 		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
-		this.usernameField.setBounds(430, 109, 250, 44);
+		this.usernameField.setBounds(430, 109, 200, 30);
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -140,7 +140,7 @@ public class LoginGUI {
 	
 	public void addPasswordField() {
 		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
-        this.passwordLabel.setBounds(302, 168, 250, 44);
+        this.passwordLabel.setBounds(330, 169, 200, 30);
       
         this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         this.passwordField.setMargin(new Insets(2, 10, 2, 2));
@@ -149,7 +149,7 @@ public class LoginGUI {
         this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
         this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
 
-        this.passwordField.setBounds(430, 168, 250, 44);
+        this.passwordField.setBounds(430, 168, 200, 30);
         this.passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -198,7 +198,7 @@ public class LoginGUI {
         });
 
       
-        this.loginButton.setBounds(470, 255, 120, 44);
+        this.loginButton.setBounds(470, 229, 80, 40);
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.mainPanel.add(this.loginButton);
 		
