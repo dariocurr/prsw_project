@@ -39,7 +39,7 @@ import javax.swing.text.DocumentFilter;
 import com.formdev.flatlaf.*;
 
 public class RegisterGUI {
-	
+
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JLabel iconLabel;
@@ -49,72 +49,61 @@ public class RegisterGUI {
 	private JTextField surnameField;
 	private JLabel mailLabel;
 	private JTextField mailField;
-	
-	
 	private JLabel passwordLabel;
 	private JLabel confirmPasswordLabel;
 	private JPasswordField passwordField;
 	private JPasswordField confirmPasswordField;
-	
-	
 	private JButton loginButton;
 	private JButton signinButton;
-	
-	final Label message = new Label("");
-	
+
 	public RegisterGUI() {
-		
+
 		try {
-		    UIManager.setLookAndFeel( new FlatLightLaf() );
-		    if(!FlatDarkLaf.install()) {
-		    	System.err.println( "Failed to initialize dark theme" );
-		    	
-		    }
-		} catch( Exception ex ) {
-		    System.err.println( "Failed to initialize LaF" );
+			UIManager.setLookAndFeel(new FlatLightLaf());
+			if (!FlatDarkLaf.install()) {
+				System.err.println("Failed to initialize dark theme");
+
+			}
+		} catch (Exception ex) {
+			System.err.println("Failed to initialize LaF");
 		}
-		
+
 		this.frame = new JFrame();
-		
 		this.startGUI();
-		
 		this.frame.add(mainPanel);
-		
 		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.frame.pack();
 		this.frame.setMinimumSize(this.frame.getSize());
-        this.frame.setVisible(true);
-        this.frame.setLocationRelativeTo(null);
-        
+		this.frame.setVisible(true);
+		this.frame.setLocationRelativeTo(null);
+
 	}
-	
 
 	public void startGUI() {
 		this.mainPanel = new JPanel();
-		
+
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.gridwidth = 2;
-		
 		constraint.gridx = 0;
-        constraint.gridy = 0;
-        ImageIcon icon = new ImageIcon("D:\\code\\rest_eclipse\\progetto\\prsw\\CarRental\\res\\car_img\\fiat_500.png");
+		constraint.gridy = 0;
+		
+		ImageIcon icon = new ImageIcon("D:\\code\\rest_eclipse\\progetto\\prsw\\CarRental\\res\\car_img\\fiat_500.png");
 		Image image = icon.getImage(); // transform it
-        Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newLogoIcon = new ImageIcon(newImg);
-        this.iconLabel = new JLabel(newLogoIcon);
-        this.mainPanel.add(this.iconLabel, constraint);
-		
-        constraint.anchor = GridBagConstraints.WEST;
-        
-		constraint.insets = new Insets(0,8,0,8);
-		
-        constraint.gridwidth = 1;
-        constraint.gridy = 1;
+		Image newImg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newLogoIcon = new ImageIcon(newImg);
+		this.iconLabel = new JLabel(newLogoIcon);
+		this.mainPanel.add(this.iconLabel, constraint);
+
+		constraint.anchor = GridBagConstraints.WEST;
+		constraint.insets = new Insets(0, 8, 0, 8);
+
+		constraint.gridwidth = 1;
+		constraint.gridy = 1;
 		this.nameLabel = new JLabel("Name:");
 		this.mainPanel.add(this.nameLabel, constraint);
 		constraint.gridy = 2;
@@ -122,7 +111,7 @@ public class RegisterGUI {
 		constraint.ipady = 10;
 		this.nameField = new JTextField(15);
 		this.mainPanel.add(this.nameField, constraint);
-		
+
 		constraint.gridy = 1;
 		constraint.gridx = 1;
 		this.surnameLabel = new JLabel("Surname:");
@@ -132,7 +121,7 @@ public class RegisterGUI {
 		constraint.ipady = 10;
 		this.surnameField = new JTextField(15);
 		this.mainPanel.add(this.surnameField, constraint);
-		
+
 		constraint.gridy = 3;
 		constraint.gridx = 0;
 		this.mailLabel = new JLabel("Email:");
@@ -144,7 +133,7 @@ public class RegisterGUI {
 		constraint.fill = GridBagConstraints.HORIZONTAL;
 		this.mailField = new JTextField(15);
 		this.mainPanel.add(this.mailField, constraint);
-		
+
 		constraint.gridy = 5;
 		constraint.gridx = 0;
 		this.passwordLabel = new JLabel("Password:");
@@ -155,7 +144,7 @@ public class RegisterGUI {
 		constraint.ipady = 10;
 		this.passwordField = new JPasswordField();
 		this.mainPanel.add(this.passwordField, constraint);
-		
+
 		constraint.gridy = 5;
 		constraint.gridx = 1;
 		this.confirmPasswordLabel = new JLabel("Repeat password:");
@@ -165,54 +154,51 @@ public class RegisterGUI {
 		constraint.ipady = 10;
 		this.confirmPasswordField = new JPasswordField();
 		this.mainPanel.add(this.confirmPasswordField, constraint);
-		
+
 		confirmPasswordField.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				checkPassword();
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				checkPassword();
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				checkPassword();
 			}
-			
+
 		});
-		
-		
-		
+
 		constraint.gridwidth = 1;
-		constraint.insets = new Insets(24,8,8,8);
-		
+		constraint.insets = new Insets(24, 8, 8, 8);
+
 		constraint.gridy = 7;
 		constraint.gridx = 0;
 		this.loginButton = new JButton("REGISTER");
 		this.mainPanel.add(this.loginButton, constraint);
-		
+
 		constraint.gridy = 7;
 		constraint.gridx = 1;
 		this.signinButton = new JButton("BACK TO SIGN IN");
 		this.mainPanel.add(this.signinButton, constraint);
 	}
-	
-	
+
 	public static void main(String[] args) {
-        new RegisterGUI();
-    }
-	
-	private void checkPassword() {
-		if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())){
-			confirmPasswordField.putClientProperty("JComponent.outline", "error");
-	          
-        } else {
-        	confirmPasswordField.putClientProperty("JComponent.outline", null);
-        }
+		new RegisterGUI();
 	}
-	
+
+	private void checkPassword() {
+		if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
+			confirmPasswordField.putClientProperty("JComponent.outline", "error");
+
+		} else {
+			confirmPasswordField.putClientProperty("JComponent.outline", null);
+		}
+	}
+
 }
