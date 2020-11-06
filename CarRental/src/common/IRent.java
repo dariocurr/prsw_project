@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 
 public interface IRent extends Serializable {
 	
-	public IRenter getRenter();
+	public ARenter getRenter();
 	
 	public IVehicle getVehicle();
 	

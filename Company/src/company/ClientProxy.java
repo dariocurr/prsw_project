@@ -6,9 +6,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
+import common.ARenter;
 import common.ICarRentalObservable;
 import common.IRent;
-import common.IRenter;
 import common.IVehicle;
 import common.Renter;
 
@@ -21,7 +21,7 @@ public class ClientProxy {
 			System.setProperty("java.rmi.server.codebase", "file:///home/dario/Documenti/Rest/progetto/prsw/CarRental/bin/");
 			System.setSecurityManager(new RMISecurityManager());
 			ICarRentalObservable carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
-			IRenter renter = new Renter("cugino", "antonio", "fafas@ga", "123", true);
+			ARenter renter = new Renter("cugino", "antonio", 22, "fafas@ga", "123", true);
 			System.out.println("DISPONIBILI");
 			for (IVehicle vehicle : carRental.getAvailableVehicles()) {
 				System.out.println(vehicle.getModel());
