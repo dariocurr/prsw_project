@@ -1,13 +1,26 @@
 package common;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public interface IVehicle extends Remote {
+public interface IVehicle extends Serializable {
 
-	public String getModel() throws RemoteException;
-	public List<String> getNotes() throws RemoteException;
-	public double getPricePerDay() throws RemoteException;
+	public String getModel();
+
+	public String getYear();
+
+	public int getSeats();
+
+	public int getDoors();
+
+	public String getTrasmission();
+
+	public String getSize();
+
+	public double getPricePerDay();
+
+	public List<String> getNotes();
 	
 }

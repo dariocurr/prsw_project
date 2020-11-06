@@ -2,6 +2,13 @@
 !.gitignore
 !project.pdf
 !README.md
+!BankWebService/
+!BankWebService/src/
+!BankWebService/src/*
+!BankWebService/src/bank/
+!BankWebService/src/bank/*
+!BankWebService/src/common/
+!BankWebService/src/common/*
 !CarRental/
 !CarRental/res/
 !CarRental/res/*
@@ -23,6 +30,10 @@
 !Company/
 !Company/src/
 !Company/src/*
+!Company/res/
+!Company/res/*
+!Company/res/car_img/
+!Company/res/car_img/*
 !Company/src/common/
 !Company/src/common/*
 !Company/src/company/

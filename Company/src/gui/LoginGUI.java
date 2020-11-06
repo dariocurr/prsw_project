@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.*;
 
@@ -39,7 +40,6 @@ public class LoginGUI {
 	private GridBagConstraints constraint;
 	
 	private JLabel iconLabel;
-	private ImageIcon iconImage;
 	
 	private JTextField usernameField;
 	private JLabel usernameLabel;
@@ -48,6 +48,7 @@ public class LoginGUI {
 	private JLabel passwordLabel;
 	
 	private JButton loginButton;
+	private JButton signinButton;
 	
 	public LoginGUI() {
 		
@@ -65,15 +66,10 @@ public class LoginGUI {
 		
 		this.startGUI();
 		
-		this.addLogo();
-		this.addUsernameField();
-		this.addPasswordField();
-		this.addLoginButton();
-		
 		this.frame.add(mainPanel);
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		frame.setSize(screenSize);
 		frame.setPreferredSize(screenSize);
@@ -81,37 +77,104 @@ public class LoginGUI {
 		frame.setMinimumSize(new Dimension(1100,600));
 =======
 		this.frame.setSize(screenSize);
+=======
+		this.frame.setSize(screenSize);*/
+		
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+<<<<<<< HEAD
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.frame.pack();
+		this.frame.setMinimumSize(this.frame.getSize());
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.frame.setVisible(true);
         this.frame.setLocationRelativeTo(null);
-        this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
 	}
 	
 
 	public void startGUI() {
 		this.mainPanel = new JPanel();
+<<<<<<< HEAD
 		this.mainPanel.setSize(new Dimension(800, 400));
 		this.mainPanel.setPreferredSize(new Dimension(800, 400));
 		//this.mainPanel.setLayout(null);
 		this.mainPanel.setLayout(new GridBagLayout());
 		this.constraint = new GridBagConstraints();
+=======
+		
+		/*this.mainPanel.setSize(new Dimension(800, 400));
+		this.mainPanel.setPreferredSize(new Dimension(800, 400));*/
+		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
+		this.mainPanel.setLayout(new GridBagLayout());
+		GridBagConstraints constraint = new GridBagConstraints();
+		constraint.gridwidth = 2;
+		
+		constraint.gridx = 0;
+        constraint.gridy = 0;
+        ImageIcon icon = new ImageIcon("res/logo.png");
+		Image image = icon.getImage(); // transform it
+        Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newLogoIcon = new ImageIcon(newImg);
+        this.iconLabel = new JLabel(newLogoIcon);
+        this.mainPanel.add(this.iconLabel, constraint);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		
 		
-		this.iconLabel = new JLabel();
-		this.passwordLabel = new JLabel("Password:");
+		
+        constraint.anchor = GridBagConstraints.WEST;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        
+        constraint.gridy = 1;
 		this.usernameLabel = new JLabel("Username:");
+<<<<<<< HEAD
 		
 		this.passwordField = new JPasswordField(12);
 		this.usernameField = new JTextField(12);
+=======
+		this.mainPanel.add(this.usernameLabel, constraint);
+		constraint.gridy = 2;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		this.usernameField = new JTextField();
+		this.mainPanel.add(this.usernameField, constraint);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		
+		constraint.gridy = 3;
+		this.passwordLabel = new JLabel("Password:");
+		this.mainPanel.add(this.passwordLabel, constraint);
+		constraint.gridy = 4;
+		constraint.ipadx = 10;
+		constraint.ipady = 10;
+		this.passwordField = new JPasswordField();
+		this.mainPanel.add(this.passwordField, constraint);
+		
+		constraint.gridwidth = 1;
+		constraint.insets = new Insets(24,8,8,8);
+		constraint.weightx = 0.5;
+		//constraint.fill = GridBagConstraints.NONE;
+		
+		//constraint.anchor = GridBagConstraints.LAST_LINE_END;
+		constraint.gridy = 5;
+		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.loginButton = new JButton("LOGIN");
+		this.mainPanel.add(this.loginButton, constraint);
+		
+		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
+		constraint.gridy = 5;
+		constraint.gridx = 1;
+		//constraint.fill = GridBagConstraints.NONE;
+		//constraint.anchor = GridBagConstraints.PAGE_END;
+		this.signinButton = new JButton("SIGN IN");
+		this.mainPanel.add(this.signinButton, constraint);
 	}
 	
 	
-	public void addLogo() {
+	/*public void addLogo() {
 		this.iconLabel.setFocusable(false);
 		
 		this.iconImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/icon.png");
@@ -131,17 +194,25 @@ public class LoginGUI {
 	public void addUsernameField() {
 		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
 <<<<<<< HEAD
+<<<<<<< HEAD
         //this.usernameLabel.setBounds(300, 109, 250, 44);
 =======
         this.usernameLabel.setBounds(330, 109, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+        this.usernameLabel.setBounds(300, 109, 250, 44);
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         
 		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//this.usernameField.setBounds(430, 109, 250, 44);
 =======
 		this.usernameField.setBounds(430, 109, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+		this.usernameField.setBounds(430, 109, 250, 44);
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 		this.usernameField.addFocusListener(new FocusListener() {
             @Override
@@ -177,9 +248,13 @@ public class LoginGUI {
 	public void addPasswordField() {
 		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
 <<<<<<< HEAD
+<<<<<<< HEAD
         //this.passwordLabel.setBounds(302, 168, 250, 44);
 =======
         this.passwordLabel.setBounds(330, 169, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+        this.passwordLabel.setBounds(302, 168, 250, 44);
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
       
         this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
@@ -190,9 +265,13 @@ public class LoginGUI {
         this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         //this.passwordField.setBounds(430, 168, 250, 44);
 =======
         this.passwordField.setBounds(430, 168, 200, 30);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+        this.passwordField.setBounds(430, 168, 250, 44);
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.passwordField.addFocusListener(new FocusListener() {
             @Override
@@ -252,9 +331,13 @@ public class LoginGUI {
 
       
 <<<<<<< HEAD
+<<<<<<< HEAD
         //this.loginButton.setBounds(470, 255, 120, 44);
 =======
         this.loginButton.setBounds(470, 229, 80, 40);
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+=======
+        this.loginButton.setBounds(470, 255, 120, 44);
 >>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
         this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
@@ -269,7 +352,7 @@ public class LoginGUI {
         constraint.fill = GridBagConstraints.NONE;
         this.mainPanel.add(this.loginButton, constraint);
 		
-	}
+	}*/
 	
 	public static void main(String[] args) {
         new LoginGUI();
