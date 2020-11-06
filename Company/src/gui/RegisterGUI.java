@@ -95,7 +95,7 @@ public class RegisterGUI {
 		constraint.gridx = 0;
         constraint.gridy = 0;
         //this.vehicleImage = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\Fiat 500.png");
-        ImageIcon icon = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\fiat_500.png");
+        ImageIcon icon = new ImageIcon("D:\\Desktop\\cars_img\\a.png");
 		Image image = icon.getImage(); // transform it
         Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newLogoIcon = new ImageIcon(newImg);
