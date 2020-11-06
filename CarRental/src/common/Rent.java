@@ -1,14 +1,10 @@
-package car_rental;
+package common;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Objects;
 
-import common.IRent;
-import common.IRenter;
-import common.IVehicle;
-
-public class Rent extends UnicastRemoteObject implements IRent {
+public class Rent implements IRent {
 
 	private IVehicle vehicle;
 	private IRenter renter;
@@ -16,8 +12,6 @@ public class Rent extends UnicastRemoteObject implements IRent {
 	private String endDate;
 	private int daysNumber;
 	private double price;
-	
-	public Rent() throws RemoteException {}
 
 	public Rent(IRenter renter, IVehicle vehicle, String startDate, String endDate, double discount) throws RemoteException {
 		Objects.requireNonNull(vehicle);
@@ -33,12 +27,12 @@ public class Rent extends UnicastRemoteObject implements IRent {
 	}
 
 	@Override
-	public IVehicle getVehicle() throws RemoteException {
+	public IVehicle getVehicle() {
 		return this.vehicle;
 	}
 
 	@Override
-	public IRenter getRenter() throws RemoteException {
+	public IRenter getRenter() {
 		return this.renter;
 	}
 	

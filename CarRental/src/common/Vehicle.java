@@ -1,4 +1,4 @@
-package car_rental;
+package common;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import common.IVehicle;
-
-public class Vehicle extends UnicastRemoteObject implements IVehicle {
+public class Vehicle implements IVehicle {
 	
 	private String model;
 	private String year;
@@ -19,9 +17,7 @@ public class Vehicle extends UnicastRemoteObject implements IVehicle {
 	private double pricePerDay;
 	private List<String> notes;
 	
-	public Vehicle() throws RemoteException {}
-	
-	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay) throws RemoteException {
+	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay) {
 		Objects.requireNonNull(model);
 		Objects.requireNonNull(year);
 		Objects.requireNonNull(trasmission);
@@ -37,17 +33,17 @@ public class Vehicle extends UnicastRemoteObject implements IVehicle {
 	}
 
 	@Override
-	public String getModel() throws RemoteException {
+	public String getModel() {
 		return model;
 	}
 	
 	@Override
-	public List<String> getNotes() throws RemoteException {
+	public List<String> getNotes() {
 		return notes;
 	}
 	
 	@Override
-	public double getPricePerDay() throws RemoteException {
+	public double getPricePerDay() {
 		return this.pricePerDay;
 	}
 	
@@ -63,6 +59,11 @@ public class Vehicle extends UnicastRemoteObject implements IVehicle {
         return this.model.equalsIgnoreCase(otherVehicle.model) && this.year.equalsIgnoreCase(otherVehicle.year);
     }
 	
+	@Override
+	public int hashCode() {
+		return this.model.hashCode() + this.year.hashCode();
+	}
+
 	@Override
 	public String toString() {
 		return this.model + "\t" + this.year + "\tdoors: " + this.doors + "\tseats: " + this.seats + "\ttrasmission: " + this.trasmission + "\tprice per day: " + this.pricePerDay;  
