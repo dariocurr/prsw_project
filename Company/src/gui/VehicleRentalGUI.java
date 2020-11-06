@@ -21,8 +21,8 @@ public class VehicleRentalGUI {
 	private JLabel vehicleRentLabel;
 	private JLabel vehicleReturnLabel;
 	
-	private JTextArea notesArea;
 	private JTextArea descriptionArea;
+	private JTextArea notesArea;
 	
 	private JScrollPane descriptionScrollPane;
 	private JScrollPane notesScrollPane;
