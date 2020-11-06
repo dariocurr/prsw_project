@@ -9,26 +9,10 @@ import java.awt.*;
 import java.rmi.activation.ActivationGroupID;
 
 public class VehicleRentalGUI {
-	private JPanel rentPanel;
-	private BoxLayout rentLayout;
-	
-	private JPanel returnPanel; 
-	private BoxLayout returnLayout;
 	
 	private JPanel selectRentPanel;
-	private BoxLayout selectRentLayout;
 	
 	private JPanel selectReturnPanel;
-	private BoxLayout selectReturnLayout;
-	
-	private JPanel descriptionPanel;
-	private JPanel notesPanel;
-	
-	private JPanel bodyRentPanel; 
-	private JPanel bodyReturnPanel;
-	
-	private JPanel buttonRentPanel;
-	private JPanel buttonReturnPanel;
 	
 	private JComboBox<String> rentComboBox;
 	private JComboBox<String> returnComboBox;
@@ -76,6 +60,8 @@ public class VehicleRentalGUI {
 		this.setReturnTab();
 		
 		frame.setUndecorated(true);
+		frame.setPreferredSize(new Dimension(720, 500));
+		frame.setMinimumSize(new Dimension(580, 400));
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		frame.pack();
         frame.setLocationRelativeTo(null);
@@ -84,34 +70,12 @@ public class VehicleRentalGUI {
 
 
 	private void startGUI() {
-		this.rentPanel = new JPanel();
-		this.rentLayout = new BoxLayout(this.rentPanel, BoxLayout.Y_AXIS);
-		this.rentPanel.setLayout(this.rentLayout);
-		
-		this.returnPanel = new JPanel();
-		this.returnLayout = new BoxLayout(this.returnPanel, BoxLayout.Y_AXIS);
-		this.returnPanel.setLayout(this.returnLayout);
 		
 		this.selectRentPanel = new JPanel();
 		this.selectRentPanel.setLayout(new GridBagLayout());
-        this.constraint = new GridBagConstraints();
-        this.constraint.fill = GridBagConstraints.HORIZONTAL;
-		/*this.selectRentPanel = new JPanel();
-		this.selectRentLayout = new BoxLayout(this.selectRentPanel, BoxLayout.Y_AXIS);
-		this.selectRentPanel.setLayout(this.selectRentLayout);*/
-		
-		this.selectReturnPanel = new JPanel();
-		this.selectReturnLayout = new BoxLayout(this.selectReturnPanel, BoxLayout.Y_AXIS);
-		this.selectReturnPanel.setLayout(this.selectReturnLayout);
-		
-		this.descriptionPanel = new JPanel();
-		this.notesPanel = new JPanel();
-		
-		this.bodyRentPanel = new JPanel();
-		this.bodyReturnPanel = new JPanel();
-		
-		this.buttonReturnPanel = new JPanel();
-		this.buttonRentPanel = new JPanel();
+        
+        this.selectReturnPanel = new JPanel();
+        this.selectReturnPanel.setLayout(new GridBagLayout());
 		
 		this.vehiclesRentable = new String[] {"Giulietta", "Merceder 34736hh", "Ferrari dgdg223"};
 		this.vehiclesRented = new String[] {"500", "Merceder 34436hh", "Lamborghini dgdg223"};
@@ -130,7 +94,7 @@ public class VehicleRentalGUI {
 		
 		
 		this.descriptionScrollPane = new JScrollPane(this.descriptionArea);
-		//this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
+		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
        
 		
@@ -146,6 +110,7 @@ public class VehicleRentalGUI {
 	}
 	
 	private void setRentTab() {
+		constraint = new GridBagConstraints();
 		constraint.insets = new Insets(16, 8, 8, 8);
         constraint.gridx = 0;
         constraint.gridy = 0;
@@ -153,13 +118,15 @@ public class VehicleRentalGUI {
         
         constraint.gridx = 0;
         constraint.gridy = 1;
-        this.vehicleImage = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\Fiat 500.png");
+        //this.vehicleImage = new ImageIcon("C:\\Users\\emanu\\Documents\\Coding\\Java\\Programmation Repartie\\prsw\\CarRental\\res\\car_img\\Fiat 500.png");
+        this.vehicleImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/alfa-romeo-2020-giulia.png");
 		Image image = this.vehicleImage.getImage(); // transform it
-        Image newImg = image.getScaledInstance(160, 160,  java.awt.Image.SCALE_SMOOTH);
+        Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newVehicIcon = new ImageIcon(newImg);
         this.vehicleRentLabel = new JLabel(newVehicIcon);
         this.selectRentPanel.add(this.vehicleRentLabel,constraint);
         
+        constraint.insets = new Insets(10, 8, 8, 8);
         constraint.gridx = 1;
         constraint.gridy = 0;
         constraint.gridheight = 2;
@@ -185,61 +152,42 @@ public class VehicleRentalGUI {
 	}
 	
 	
-	/*private void setRentTab() {
-		this.vehicleImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/alfa-romeo-2020-giulia.png");
-		Image image = this.vehicleImage.getImage(); // transform it
-        Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newVehicIcon = new ImageIcon(newImg);
-        this.vehicleRentLabel = new JLabel(newVehicIcon);
-        
-		this.selectRentPanel.add(this.rentComboBox);
-		this.selectRentPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-		this.selectRentPanel.add(this.vehicleRentLabel);
-		
-		this.descriptionPanel.add(Box.createRigidArea(new Dimension(50, 0)));
-		this.descriptionPanel.add(this.descriptionScrollPane);
-		
-		this.bodyRentPanel.add(this.selectRentPanel);
-		this.bodyRentPanel.add(this.descriptionPanel);
-		this.bodyRentPanel.add(Box.createRigidArea(new Dimension(0, 75)));
-		
-		this.buttonRentPanel.add(this.rentButton);
-		this.buttonRentPanel.add(Box.createRigidArea(new Dimension(0, 75)));
-		
-		this.rentPanel.add(this.bodyRentPanel);
-		this.rentPanel.add(this.buttonRentPanel);
-		
-		this.tabPane.addTab("RENT A VEHICLE", this.rentPanel);
-		this.tabPane.setSelectedIndex(0);
-		
-		this.frame.add(this.tabPane);
-	}*/
-	
 	private void setReturnTab() {
+		constraint = new GridBagConstraints();
+        constraint.insets = new Insets(16, 8, 8, 8);
+        constraint.gridx = 0;
+        constraint.gridy = 0;
+        this.selectReturnPanel.add(this.returnComboBox,constraint);
+        
+        constraint.gridx = 0;
+		constraint.gridy = 1;
 		this.vehicleImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/alfa-romeo-2020-giulia.png");
 		Image image = this.vehicleImage.getImage(); // transform it
         Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newVehicIcon = new ImageIcon(newImg);
         this.vehicleReturnLabel = new JLabel(newVehicIcon);
-        
-		this.selectReturnPanel.add(this.returnComboBox);
-		this.selectReturnPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-		this.selectReturnPanel.add(this.vehicleReturnLabel);
+        this.selectReturnPanel.add(this.vehicleReturnLabel, constraint);
 		
-		this.notesPanel.add(Box.createRigidArea(new Dimension(50, 0)));
-		this.notesPanel.add(this.notesScrollPane);
 		
-		this.bodyReturnPanel.add(this.selectReturnPanel);
-		this.bodyReturnPanel.add(this.notesPanel);
-		this.bodyReturnPanel.add(Box.createRigidArea(new Dimension(0, 75)));
+        constraint.gridx = 1;
+        constraint.gridy = 0;
+        constraint.gridheight = 2;
+        constraint.insets = new Insets(10, 8, 8, 8);
+        constraint.fill = GridBagConstraints.VERTICAL;
+		this.selectReturnPanel.add(this.notesScrollPane, constraint);
 		
-		this.buttonReturnPanel.add(this.returnButton);
-		this.buttonReturnPanel.add(Box.createRigidArea(new Dimension(0, 75)));
 		
-		this.returnPanel.add(this.bodyReturnPanel);
-		this.returnPanel.add(this.buttonReturnPanel);
+		constraint.gridx = 0;
+        constraint.gridy = 2;
+        constraint.ipady = 15;
+        constraint.ipadx = 20;
+        constraint.gridwidth = GridBagConstraints.REMAINDER;
+        constraint.anchor = GridBagConstraints.NORTH;
+        constraint.fill = GridBagConstraints.NONE;
+        this.selectReturnPanel.add(this.returnButton,constraint);
 		
-		this.tabPane.addTab("RETURN A VEHICLE", this.returnPanel);
+		
+		this.tabPane.addTab("RETURN A VEHICLE", this.selectReturnPanel);
 	}
 	
 
