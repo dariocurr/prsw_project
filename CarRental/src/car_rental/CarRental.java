@@ -21,8 +21,6 @@ import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
-import common.Rent;
-import common.Vehicle;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
@@ -137,6 +135,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		if (coupon == "EMP001") {
 			discount = 0.10;
 		}
+		vehicle.setForSale(true);
 		return new Rent(renter, vehicle, startDate, endDate, discount);
 	}
 	
@@ -184,10 +183,11 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		String doors = (String) vehicle.get("doors");
 		String transmission = (String) vehicle.get("transmission");
 		String pricePerDay = (String) vehicle.get("price_per_day");
+		String price = (String) vehicle.get("price");
 		String size = (String) vehicle.get("size");
 		String file_name = (String) vehicle.get("file_name");
 	
-		IVehicle vehicle_obj = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay), file_name);
+		IVehicle vehicle_obj = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay), Double.parseDouble(price), file_name);
          
         return vehicle_obj;
     }
