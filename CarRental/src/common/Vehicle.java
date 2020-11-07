@@ -16,8 +16,9 @@ public class Vehicle implements IVehicle {
 	private String size;
 	private double pricePerDay;
 	private List<String> notes;
+	private String file_name;
 	
-	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay) {
+	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, String file_name) {
 		Objects.requireNonNull(model);
 		Objects.requireNonNull(year);
 		Objects.requireNonNull(trasmission);
@@ -30,6 +31,7 @@ public class Vehicle implements IVehicle {
 		this.size = size;
 		this.pricePerDay = pricePerDay;
 		this.notes = new ArrayList<String>();
+		this.file_name = file_name;
 	}
 
 	@Override
@@ -92,6 +94,11 @@ public class Vehicle implements IVehicle {
 	@Override
 	public String toString() {
 		return this.model + "\t" + this.year + "\tdoors: " + this.doors + "\tseats: " + this.seats + "\ttrasmission: " + this.trasmission + "\tprice per day: " + this.pricePerDay;  
+	}
+	
+	@Override
+	public String getFileName() {
+		return this.file_name;
 	}
 	
 }
