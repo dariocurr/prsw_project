@@ -20,8 +20,15 @@ public interface IVehicle extends Serializable {
 	public String getSize();
 
 	public double getPricePerDay();
+	
+	public double getPrice();
 
 	public List<String> getNotes();
 	
 	public String getFileName();
+	
+	public boolean isForSale();
+
+	public void setForSale(boolean forSale);
+	
 }

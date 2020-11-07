@@ -1,8 +1,10 @@
-package common;
+package car_rental;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import common.IVehicle;
 
 public class Vehicle implements IVehicle {
 	
@@ -13,10 +15,12 @@ public class Vehicle implements IVehicle {
 	private String trasmission;
 	private String size;
 	private double pricePerDay;
+	private double price;
 	private List<String> notes;
 	private String fileName;
+	private boolean forSale;
 	
-	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, String fileName) {
+	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, double price, String fileName) {
 		Objects.requireNonNull(model);
 		Objects.requireNonNull(year);
 		Objects.requireNonNull(trasmission);
@@ -29,8 +33,10 @@ public class Vehicle implements IVehicle {
 		this.trasmission = trasmission;
 		this.size = size;
 		this.pricePerDay = pricePerDay;
+		this.price = price;
 		this.notes = new ArrayList<String>();
 		this.fileName = fileName;
+		this.forSale = false;
 	}
 
 	@Override
@@ -79,6 +85,21 @@ public class Vehicle implements IVehicle {
 	}
 
 	@Override
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
+	public boolean isForSale() {
+		return forSale;
+	}
+
+	@Override
+	public void setForSale(boolean forSale) {
+		this.forSale = forSale;
+	}
+
+	@Override
     public boolean equals(Object otherObject) {
         if (this == otherObject)
             return true;
@@ -93,11 +114,6 @@ public class Vehicle implements IVehicle {
 	@Override
 	public int hashCode() {
 		return this.model.hashCode() + this.year.hashCode();
-	}
-
-	@Override
-	public String toString() {
-		return this.model + "\t" + this.year + "\tdoors: " + this.doors + "\tseats: " + this.seats + "\ttrasmission: " + this.trasmission + "\tprice per day: " + this.pricePerDay;  
 	}
 	
 }

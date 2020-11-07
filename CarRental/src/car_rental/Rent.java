@@ -1,8 +1,11 @@
-package common;
+package car_rental;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Objects;
+
+import common.IRent;
+import common.IRenterObserver;
+import common.IVehicle;
 
 public class Rent implements IRent {
 
@@ -69,11 +72,6 @@ public class Rent implements IRent {
 				&& this.renter.equals(otherRent.renter)
 				&& this.startDate.equalsIgnoreCase(otherRent.startDate)
 				&& this.endDate.equalsIgnoreCase(otherRent.endDate);
-	}
-	
-	@Override
-	public String toString() {
-		return this.renter.toString() + "\t" + this.vehicle + "\t" + this.startDate + "\t" + this.endDate + "\tnumber of days: " + this.daysNumber + "\tprice" + this.price; 
 	}
 
 }
