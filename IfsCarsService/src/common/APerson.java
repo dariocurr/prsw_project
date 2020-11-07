@@ -8,6 +8,8 @@ public abstract class APerson {
 	protected String lastName;
 	protected int age;
 	
+	public APerson() {}
+	
 	public APerson(String firstName, String lastName, int age) {
 		Objects.requireNonNull(firstName);
 		Objects.requireNonNull(lastName);
@@ -29,5 +31,4 @@ public abstract class APerson {
         		&& this.lastName.equals(otherPerson.lastName)
         		&& this.age == otherPerson.age;
 	}
-	
 }

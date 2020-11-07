@@ -8,4 +8,7 @@ public interface IRenterObserver extends Serializable {
 	
 	public boolean isTrusted();
 	
+	public String getEmail();
+	
+	public String getPassword();
 }

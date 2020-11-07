@@ -151,9 +151,8 @@ public class RentPanel extends JPanel {
 			LocalDateTime startDate = LocalDateTime.now();
 			
 			LocalDateTime endDate = startDate.plusMonths(6);
-			
 			try {
-				RentPanel.this.clientProxy.rentVehicle(RentPanel.this.renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
+				clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

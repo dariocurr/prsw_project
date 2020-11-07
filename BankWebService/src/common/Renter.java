@@ -1,15 +1,14 @@
-package company;
+package common;
 
 import java.util.Objects;
-
-import common.APerson;
-import common.IRenterObserver;
 
 public class Renter extends APerson implements IRenterObserver {
 	
 	private String email;
 	private String password;
 	private boolean trusted;
+	
+	public Renter() {}
 	
 	public Renter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
 		super(firstName, lastName, age);

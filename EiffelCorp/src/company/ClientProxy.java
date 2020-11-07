@@ -21,6 +21,7 @@ import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
+import common.Renter;
 import gui.VehicleRentalGUI;
 
 import org.json.simple.JSONArray;
@@ -41,9 +42,9 @@ public class ClientProxy {
 		path = path.substring(0, path.lastIndexOf(File.separator));
 		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "sec.policy";
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
-		System.setSecurityManager(new RMISecurityManager());
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
+		System.setSecurityManager(new RMISecurityManager());
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
 		
 	}
@@ -104,7 +105,7 @@ public class ClientProxy {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
-	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException{
+	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		return this.carRental.rentVehicle(renter, vehicle, startDate, endDate, coupon);
 	}
 	

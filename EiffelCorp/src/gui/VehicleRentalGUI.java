@@ -21,7 +21,7 @@ public class VehicleRentalGUI {
 	private JFrame frame;
 
 	public VehicleRentalGUI(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
-		
+
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
 		    if(!FlatDarkLaf.install()) {
