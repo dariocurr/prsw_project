@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
 
+import common.IRenterObserver;
+
 //import common.Vehicle;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class VehicleRentalGUI {
 	private JTabbedPane tabPane;
 	private JFrame frame;
 
-	public VehicleRentalGUI() throws MalformedURLException, RemoteException, NotBoundException {
+	public VehicleRentalGUI(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 		
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
@@ -34,7 +36,7 @@ public class VehicleRentalGUI {
 		
 		
 		this.tabPane = new JTabbedPane();
-		this.selectRentPanel = new RentPanel();
+		this.selectRentPanel = new RentPanel(renter);
         //this.selectReturnPanel = new ReturnPanel();
 		
         this.tabPane.addTab("RENT A VEHICLE", this.selectRentPanel);

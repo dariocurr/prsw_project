@@ -8,12 +8,19 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -32,6 +39,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.*;
 
+import common.IRenterObserver;
+import company.ClientProxy;
+
 public class LoginGUI {
 	
 	private JFrame frame;
@@ -49,7 +59,9 @@ public class LoginGUI {
 	private JButton loginButton;
 	private JButton signinButton;
 	
-	public LoginGUI() {
+	private ClientProxy clientProxy;
+	
+	public LoginGUI() throws MalformedURLException, RemoteException, NotBoundException {
 		
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
@@ -60,6 +72,8 @@ public class LoginGUI {
 		} catch( Exception ex ) {
 		    System.err.println( "Failed to initialize LaF" );
 		}
+
+		this.clientProxy = new ClientProxy();
 		
 		this.frame = new JFrame();
 		
@@ -133,6 +147,7 @@ public class LoginGUI {
 		constraint.gridy = 5;
 		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.loginButton = new JButton("LOGIN");
+		this.loginButton.addActionListener(new LoginActionListener());
 		this.mainPanel.add(this.loginButton, constraint);
 		
 		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
@@ -145,113 +160,36 @@ public class LoginGUI {
 	}
 	
 	
-	/*public void addLogo() {
-		this.iconLabel.setFocusable(false);
-		
-		this.iconImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/icon.png");
-		Image image = this.iconImage.getImage(); // transform it
-		Image newImg = image.getScaledInstance(110, 110,  java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newIcon = new ImageIcon(newImg);
-		this.iconLabel.setIcon(newIcon);
-		
-		this.iconLabel.setBounds(80, 120, 200, 110);
-		this.mainPanel.add(this.iconLabel);
-		
-	}
-	
-	public void addUsernameField() {
-		this.usernameLabel.setFont(this.usernameLabel.getFont().deriveFont(18.0f));
-        this.usernameLabel.setBounds(300, 109, 250, 44);
-        
-		this.usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		this.usernameField.setFont(this.usernameField.getFont().deriveFont(18.0f));
-		this.usernameField.setBounds(430, 109, 250, 44);
-		this.usernameField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                
-            }
-        });
-		
-		this.mainPanel.add(this.usernameLabel);
-		this.mainPanel.add(this.usernameField);
-	}
-
-
-	
-	public void addPasswordField() {
-		this.passwordLabel.setFont(this.passwordLabel.getFont().deriveFont(18.0f));
-        this.passwordLabel.setBounds(302, 168, 250, 44);
-      
-        this.passwordField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        this.passwordField.setMargin(new Insets(2, 10, 2, 2));
-        this.passwordField.setHorizontalAlignment(SwingConstants.LEFT);
-        
-        this.passwordField.setFont(this.passwordField.getFont().deriveFont(18.0f));
-        this.passwordField.setBorder(BorderFactory.createLineBorder(new Color(103, 112, 120)));
-
-        this.passwordField.setBounds(430, 168, 250, 44);
-        this.passwordField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                
-            }
-        });
-
-        this.passwordField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER);
-
-            }
-        });
-
-        this.mainPanel.add(this.passwordLabel);
-        this.mainPanel.add(this.passwordField);
-		
-	}
-
-	public void addLoginButton() {
-		this.loginButton.setFont(this.loginButton.getFont().deriveFont(16.0f));
-        this.loginButton.setFocusPainted(false);
-        
-        this.loginButton.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                
-            }
-        });
-
-      
-        this.loginButton.setBounds(470, 255, 120, 44);
-        this.loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.mainPanel.add(this.loginButton);
-		
-	}*/
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
         new LoginGUI();
     }
 	
+	
+	class LoginActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			Map<String, String> credentialsMap = LoginGUI.this.clientProxy.getCredentials();
+			List<IRenterObserver> renters = LoginGUI.this.clientProxy.getRenters();
+			IRenterObserver actualRenter = null;
+			
+			
+			if(credentialsMap.containsKey(LoginGUI.this.usernameField.getText())) {
+				if(new String(LoginGUI.this.passwordField.getPassword()).equals(credentialsMap.get(LoginGUI.this.usernameField.getText()))) {
+					for(IRenterObserver renter : renters) {
+						if(renter.getEmail().equals(LoginGUI.this.usernameField.getText()) && renter.getPassword().equals(new String(LoginGUI.this.passwordField.getPassword())))
+							actualRenter = renter;
+					}
+					try {
+						LoginGUI.this.frame.dispose();
+						new VehicleRentalGUI(actualRenter);
+					} catch (MalformedURLException | RemoteException | NotBoundException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
+			}
+			
+		}
+		
+	}
 }

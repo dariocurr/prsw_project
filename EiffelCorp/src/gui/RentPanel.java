@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.IRenterObserver;
 import common.IVehicle;
 import company.ClientProxy;
 
@@ -40,17 +41,19 @@ public class RentPanel extends JPanel {
 	private JTextArea descriptionArea;
 	private JScrollPane descriptionScrollPane;
 	private JButton rentButton;
+	private IRenterObserver renter;
 	private ClientProxy clientProxy;
 	
 	private List<IVehicle> vehiclesRentable;
 	
 	private GridBagConstraints constraint;
 	
-	public RentPanel() throws MalformedURLException, RemoteException, NotBoundException {
+	public RentPanel(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 		super();
 		this.setLayout(new GridBagLayout());
 		
 		this.clientProxy = new ClientProxy();
+		this.renter = renter;
 		
 		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
 		
@@ -78,7 +81,7 @@ public class RentPanel extends JPanel {
         this.descriptionScrollPane.setSize (300,600);
         this.rentButton = new JButton("RENT");
         
-        //this.rentButton
+        this.rentButton.addActionListener(new MyActionListener());
 	}
 	
 	private void paintComponents() {
@@ -136,7 +139,7 @@ public class RentPanel extends JPanel {
 	class MyActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			IVehicle vehicle;
+			IVehicle vehicle = null;
 			String modelName = RentPanel.this.rentComboBox.getSelectedItem().toString();
 			for(IVehicle v : RentPanel.this.vehiclesRentable) {
 	        	  if(v.getModel().equals(modelName)) {
@@ -149,7 +152,11 @@ public class RentPanel extends JPanel {
 			
 			LocalDateTime endDate = startDate.plusMonths(6);
 			
-			RentPanel.this.clientProxy.rentVehicle(new Renter(), vehicle, startDate.toString(), endDate, "EMP001");
+			try {
+				RentPanel.this.clientProxy.rentVehicle(RentPanel.this.renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 			
 			
 		}

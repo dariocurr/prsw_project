@@ -52,5 +52,17 @@ public class Renter extends APerson implements IRenterObserver {
 	public void update() {
 		
 	}
+
+	@Override
+	public String getEmail() {
+		return this.email;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+	
+	
 	
 }

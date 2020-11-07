@@ -29,5 +29,4 @@ public abstract class APerson {
         		&& this.lastName.equals(otherPerson.lastName)
         		&& this.age == otherPerson.age;
 	}
-	
 }

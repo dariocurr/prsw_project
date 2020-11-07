@@ -65,6 +65,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 
 	@Override
 	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
+		System.out.println("Rented by " + renter);
 		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
 		this.availableVehicles.remove(rent.getVehicle());
 		this.insertRent(renter, rent);

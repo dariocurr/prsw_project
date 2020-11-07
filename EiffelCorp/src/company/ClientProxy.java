@@ -13,7 +13,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.ICarRentalObservable;
 import common.IRent;
@@ -39,16 +41,16 @@ public class ClientProxy {
 		path = path.substring(0, path.lastIndexOf(File.separator));
 		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "sec.policy";
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
+		System.setSecurityManager(new RMISecurityManager());
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
-		System.setSecurityManager(new RMISecurityManager());
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
 		
 	}
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
 		
 		new ClientProxy();
-		VehicleRentalGUI gui = new VehicleRentalGUI();
+		//VehicleRentalGUI gui = new VehicleRentalGUI();
 		
 		/*try {
 			
@@ -134,5 +136,18 @@ public class ClientProxy {
 		IRenterObserver renter = new Renter (firstName, lastDay, Integer.parseInt(age), email, password, true);
         return renter;
     }
+	
+	public Map<String, String> getCredentials(){
+		Map<String,String> credentialsMap = new HashMap<>();
+		for(IRenterObserver renter : this.renters)
+			credentialsMap.put(renter.getEmail(), renter.getPassword());
+		
+		return credentialsMap;
+			
+	}
+	
+	public List<IRenterObserver> getRenters() {
+		return this.renters;
+	}
 	
 }
