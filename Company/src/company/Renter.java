@@ -1,6 +1,9 @@
-package common;
+package company;
 
 import java.util.Objects;
+
+import common.APerson;
+import common.IRenterObserver;
 
 public class Renter extends APerson implements IRenterObserver {
 	
