@@ -2,8 +2,11 @@ package common;
 
 import java.util.Objects;
 
-public class Renter extends APerson implements IRenterObserver {
+public class Renter implements IRenterObserver {
 	
+	private String firstName;
+	private String lastName;
+	private int age;
 	private String email;
 	private String password;
 	private boolean trusted;
@@ -11,9 +14,13 @@ public class Renter extends APerson implements IRenterObserver {
 	public Renter() {}
 	
 	public Renter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
-		super(firstName, lastName, age);
+		Objects.requireNonNull(firstName);
+		Objects.requireNonNull(lastName);
 		Objects.requireNonNull(email);
 		Objects.requireNonNull(password);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
 		this.email = email;
 		this.password = password;
 		this.trusted = trusted;
@@ -38,7 +45,9 @@ public class Renter extends APerson implements IRenterObserver {
         if (getClass() != otherObject.getClass())
             return false;
         Renter otherRenter = (Renter) otherObject;
-        return super.equals(otherRenter)
+        return this.firstName.equalsIgnoreCase(otherRenter.firstName) 
+        		&& this.lastName.equals(otherRenter.lastName)
+        		&& this.age == otherRenter.age
         		&& this.email.equalsIgnoreCase(otherRenter.email);
 	}
 
