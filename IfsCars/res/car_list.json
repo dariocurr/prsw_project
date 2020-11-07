@@ -7,8 +7,8 @@
 		"transmission": "Automatic",
 		"size":"Large",
 		"price": "50000",
-		"price_per_day":"200",
-		"file_name": "mercedes_cla200.png"
+		"pricePerDay":"200",
+		"fileName": "mercedes_cla200.png"
 	},
 	
 	{
@@ -19,8 +19,8 @@
 		"transmission": "Manual",
 		"size":"Small",
 		"price": "24000",
-		"price_per_day":"82.29",
-		"file_name": "fiat_500.png"
+		"pricePerDay":"82.29",
+		"fileName": "fiat_500.png"
 	},
 	
 	{
@@ -31,8 +31,8 @@
 		"transmission": "Manual",
 		"size":"Small",
 		"price": "24700",
-		"price_per_day":"83.99",
-		"file_name": "ford_fiesta.png"
+		"pricePerDay":"83.99",
+		"fileName": "ford_fiesta.png"
 	},
 	
 	{
@@ -43,8 +43,8 @@
 		"transmission": "Automatic",
 		"size":"Large",
 		"price": "55000",
-		"price_per_day":"276.75",
-		"file_name": "mercedes_benz_c.png"
+		"pricePerDay":"276.75",
+		"fileName": "mercedes_benz_c.png"
 	},
 	
 	{
@@ -55,8 +55,8 @@
 		"transmission": "Manual",
 		"size":"People Carriers",
 		"price": "54900",
-		"price_per_day":"276.08",
-		"file_name": "citroen_grand_picasso.png"
+		"pricePerDay":"276.08",
+		"fileName": "citroen_grand_picasso.png"
 	},
 	
 	{
@@ -67,8 +67,8 @@
 		"transmission": "Manual",
 		"size":"Mid-size",
 		"price": "30000",
-		"price_per_day":"111.63",
-		"file_name": "volkswagen_passat.png"
+		"pricePerDay":"111.63",
+		"fileName": "volkswagen_passat.png"
 	},
 	
 	{
@@ -79,7 +79,7 @@
 		"transmission": "Automatic",
 		"size":"Mid-size",
 		"price": "37850",
-		"price_per_day":"160.93",
-		"file_name": "hyundai_tucson.png"
+		"pricePerDay":"160.93",
+		"fileName": "hyundai_tucson.png"
 	}
 ]

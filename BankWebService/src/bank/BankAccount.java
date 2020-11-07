@@ -2,7 +2,7 @@ package bank;
 
 import java.util.Objects;
 
-public class BankAccount {
+public class BankAccount implements IBankAccount {
 	
 	private String accountNumber;
 	private double amount;
@@ -13,10 +13,12 @@ public class BankAccount {
 		this.amount = amount;
 	}
 
+	@Override
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
+	@Override
 	public double getAmount() {
 		return amount;
 	}

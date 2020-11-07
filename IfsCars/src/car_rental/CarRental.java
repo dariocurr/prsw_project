@@ -161,46 +161,36 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	}
 	
 
-	private List<IVehicle> loadVehiclesFromFile(String url) throws RemoteException{
+	private List<IVehicle> loadVehiclesFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();
-		
 		List<IVehicle> vehiclesList = new ArrayList<>();
-		
-		try (FileReader reader = new FileReader(url))
-        {
+		try (FileReader reader = new FileReader(url)) {
             Object obj = jsonParser.parse(reader);
- 
             JSONArray vehicles = (JSONArray) obj;
-            
-            for(Object vehicle : vehicles) {
-            	vehiclesList.add(parseVehiclesObject( (JSONObject) vehicle));
+            for (Object vehicle : vehicles) {
+            	vehiclesList.add(parseVehicleObject( (JSONObject) vehicle));
             }
- 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-        }
-		
+        }	
 		return vehiclesList;
 	}
 	
-	private static IVehicle parseVehiclesObject(JSONObject vehicle) throws RemoteException {
-		
-		String model = (String) vehicle.get("model");
-		String year = (String) vehicle.get("year"); 
-		String seats = (String) vehicle.get("seats");
-		String doors = (String) vehicle.get("doors");
-		String transmission = (String) vehicle.get("transmission");
-		String pricePerDay = (String) vehicle.get("price_per_day");
-		String price = (String) vehicle.get("price");
-		String size = (String) vehicle.get("size");
-		String file_name = (String) vehicle.get("file_name");
-	
-		IVehicle vehicle_obj = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay), Double.parseDouble(price), file_name);
-         
-        return vehicle_obj;
+	private static IVehicle parseVehicleObject(JSONObject vehicleObject) {
+		String model = (String) vehicleObject.get("model");
+		String year = (String) vehicleObject.get("year"); 
+		String seats = (String) vehicleObject.get("seats");
+		String doors = (String) vehicleObject.get("doors");
+		String transmission = (String) vehicleObject.get("transmission");
+		String pricePerDay = (String) vehicleObject.get("pricePerDay");
+		String price = (String) vehicleObject.get("price");
+		String size = (String) vehicleObject.get("size");
+		String file_name = (String) vehicleObject.get("fileName");
+		IVehicle vehicle = new Vehicle(model, year, Integer.parseInt(seats), Integer.parseInt(doors), transmission, size, Double.parseDouble(pricePerDay), Double.parseDouble(price), file_name);
+        return vehicle;
     }
 }
