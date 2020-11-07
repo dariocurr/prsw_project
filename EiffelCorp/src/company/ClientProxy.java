@@ -33,7 +33,7 @@ public class ClientProxy {
 	
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
-		this.renters = this.loadRentersFromFile("res/renters_list.json");
+		this.renters = ClientProxy.loadRentersFromFile("res/renters_list.json");
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
@@ -102,7 +102,7 @@ public class ClientProxy {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
-	private List<IRenterObserver> loadRentersFromFile(String url) {
+	private static List<IRenterObserver> loadRentersFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();
 		List<IRenterObserver> rentersList = new ArrayList<>();
 		try (FileReader reader = new FileReader(url)) {

@@ -30,7 +30,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.availableVehicles = this.loadVehiclesFromFile("res/car_list.json");
+		this.availableVehicles = CarRental.loadVehiclesFromFile("res/car_list.json");
 		this.rentals = new HashMap<IRenterObserver, List<IRent>>();
 		this.waitList = new HashMap<IVehicle, List<IRent>>();
 		for (IVehicle vehicle : this.availableVehicles) {
@@ -161,7 +161,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	}
 	
 
-	private List<IVehicle> loadVehiclesFromFile(String url) {
+	private static List<IVehicle> loadVehiclesFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();
 		List<IVehicle> vehiclesList = new ArrayList<>();
 		try (FileReader reader = new FileReader(url)) {

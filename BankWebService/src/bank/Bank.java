@@ -45,6 +45,13 @@ public class Bank implements IBank {
 		return true;
 	}
 	
+	@Override
+	public double getExchangeFromEUR(String currency, double amount) throws ServiceException, RemoteException {
+		Objects.requireNonNull(currency);
+		CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
+		return (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+	}
+	
 	private static List<IBankAccount> loadBankAcoountsFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();	
 		List<IBankAccount> bankAccountsList = new ArrayList<>();

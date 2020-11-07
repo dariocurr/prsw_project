@@ -8,4 +8,6 @@ public interface IBank {
 	
 	public boolean makePayment(String accountNumber, double amount, String currency) throws ServiceException, RemoteException;
 	
+	public double getExchangeFromEUR(String currency, double amount) throws ServiceException, RemoteException;
+	
 }
