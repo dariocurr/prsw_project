@@ -1,6 +1,8 @@
 package company;
 
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
@@ -19,9 +21,14 @@ public class ClientProxy {
 	
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
-		System.setProperty("java.security.policy","C:\\Users\\domy-\\eclipse-workspace\\Progetto REST\\prsw\\Company\\src\\company\\sec.policy");
-		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
+		Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString();
+		System.out.println("Current relative path is: " + s);
+		System.setProperty("java.security.policy","src\\company\\sec.policy");
 		System.setSecurityManager(new RMISecurityManager());
+		System.setProperty("java.rmi.server.codebase", "../CarRental/bin/");
+		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
+		
 		//System.setProperty("java.rmi.server.codebase", "../../../CarRental/bin/");
 		//System.setProperty("java.security.policy","file:///home/dario/Documenti/Rest/progetto/prsw/Company/src/company/sec.policy");
 		//System.setProperty("java.rmi.server.codebase", "file:///home/dario/Documenti/Rest/progetto/prsw/CarRental/bin/");
@@ -77,11 +84,11 @@ public class ClientProxy {
 	} 
 	
 	public List<IVehicle> getAvailableVehicles() throws RemoteException {
-		return carRental.getAvailableVehicles();
+		return this.carRental.getAvailableVehicles();
 	}
 	
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException{
-		return carRental.getRenterRentals(renter);
+		return this.carRental.getRenterRentals(renter);
 	}
 	
 	

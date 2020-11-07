@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -61,6 +63,8 @@ public class RentPanel extends JPanel {
 		this.rentComboBox = new JComboBox<String>();
 		this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
 		this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
+		this.rentComboBox.addItemListener(new ItemChangeListener());
+		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
 		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
@@ -78,14 +82,15 @@ public class RentPanel extends JPanel {
 		this.constraint.gridy = 0;
         this.add(this.rentComboBox,constraint);
         
-        /*this.constraint.gridx = 0;
+        this.constraint.gridx = 0;
         this.constraint.gridy = 1;
-        this.vehicleImage = new ImageIcon();
-		Image image = this.vehicleImage.getImage(); // transform it
-        Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
+        
+        this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRentable.get(0).getFileName());
+		Image image = this.vehicleImage.getImage();
+        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newVehicIcon = new ImageIcon(newImg);
         this.vehicleRentLabel = new JLabel(newVehicIcon);
-        this.add(this.vehicleRentLabel,constraint);*/
+        this.add(this.vehicleRentLabel,constraint);
         
         this.constraint.insets = new Insets(10, 8, 8, 8);
         this.constraint.gridx = 1;
@@ -111,17 +116,23 @@ public class RentPanel extends JPanel {
 	          String model = (String) event.getItem();
 	          
 	          
+	          for(IVehicle vehicle : RentPanel.this.vehiclesRentable) {
+	        	  if(vehicle.getModel().equals(model)) {
+	        		  paintImage(vehicle.getFileName());
+			          return;
+	        	  }
+	          }
 	          
-	          RentPanel.this.constraint.gridx = 0;
-	          RentPanel.this.constraint.gridy = 1;
-	          RentPanel.this.vehicleImage = new ImageIcon();
-	          Image image = RentPanel.this.vehicleImage.getImage(); // transform it
-	          Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
-	          ImageIcon newVehicIcon = new ImageIcon(newImg);
-	          RentPanel.this.vehicleRentLabel = new JLabel(newVehicIcon);
-	          RentPanel.this.add(RentPanel.this.vehicleRentLabel,constraint);
 	       }
 	    }       
+	}
+	
+	public void paintImage(String file_name) {
+         this.vehicleImage = new ImageIcon("res\\car_img\\" + file_name);
+         Image image = this.vehicleImage.getImage();
+         Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+         ImageIcon newVehicIcon = new ImageIcon(newImg);
+         this.vehicleRentLabel.setIcon(newVehicIcon);
 	}
 
 }

@@ -52,7 +52,7 @@ public class ReturnPanel extends JPanel{
 		
 		//INSERIRE RENTER this.renter = 
 		this.clientProxy = new ClientProxy();
-		//this.rents = this.clientProxy.getRenterRentals(renter);
+		this.rents = this.clientProxy.getRenterRentals(renter);
 		
 		
 		this.loadVehicles();
