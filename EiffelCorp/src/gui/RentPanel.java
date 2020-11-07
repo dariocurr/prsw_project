@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
@@ -12,6 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +78,7 @@ public class RentPanel extends JPanel {
         this.descriptionScrollPane.setSize (300,600);
         this.rentButton = new JButton("RENT");
         
-        this.rentButton
+        //this.rentButton
 	}
 	
 	private void paintComponents() {
@@ -132,7 +136,22 @@ public class RentPanel extends JPanel {
 	class MyActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			JButton rentButton = (JButton) event.getItem();
+			IVehicle vehicle;
+			String modelName = RentPanel.this.rentComboBox.getSelectedItem().toString();
+			for(IVehicle v : RentPanel.this.vehiclesRentable) {
+	        	  if(v.getModel().equals(modelName)) {
+	        		  vehicle = v;
+	        	  }
+			}
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+			LocalDateTime startDate = LocalDateTime.now();
+			
+			LocalDateTime endDate = startDate.plusMonths(6);
+			
+			RentPanel.this.clientProxy.rentVehicle(new Renter(), vehicle, startDate.toString(), endDate, "EMP001");
+			
+			
 		}
 	}
 	

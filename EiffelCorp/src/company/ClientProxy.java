@@ -102,6 +102,10 @@ public class ClientProxy {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
+	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException{
+		return this.carRental.rentVehicle(renter, vehicle, startDate, endDate, coupon);
+	}
+	
 	private static List<IRenterObserver> loadRentersFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();
 		List<IRenterObserver> rentersList = new ArrayList<>();
