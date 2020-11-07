@@ -81,5 +81,9 @@ public class ClientProxy {
 		return carRental.getAvailableVehicles();
 	}
 	
+	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException{
+		return carRental.getRenterRentals(renter);
+	}
+	
 	
 }
