@@ -17,5 +17,7 @@ public interface ICarRentalObservable extends Remote {
 	public boolean detach(IRent rent) throws RemoteException;
 	public void notifyObserver(IVehicle vehicle) throws RemoteException;
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException;
+	public List<IVehicle> getAvailableVehiclesForSale() throws RemoteException;
+	public void sellVehicle(IVehicle vehicle) throws RemoteException;
 	
 }

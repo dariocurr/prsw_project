@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import common.ICarRentalObservable;
 import common.IRent;
@@ -123,6 +124,17 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
 		Objects.requireNonNull(renter);
 		return this.rentals.get(renter);
+	}
+	
+	@Override
+	public List<IVehicle> getAvailableVehiclesForSale() throws RemoteException {
+		return this.availableVehicles.stream().filter(IVehicle::isForSale).collect(Collectors.toList());
+	}
+	
+	@Override
+	public void sellVehicle(IVehicle vehicle) throws RemoteException {
+		this.availableVehicles.remove(vehicle);
+		this.waitList.remove(vehicle);
 	}
 	
 	private IRent createRent(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
