@@ -24,5 +24,4 @@ public interface IVehicle extends Serializable {
 	public List<String> getNotes();
 	
 	public String getFileName();
-	
 }

@@ -1,14 +1,11 @@
 package common;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Renter extends APerson implements IRenterObserver {
 	
 	private String email;
 	private String password;
-	private List<IRent> rentals;
 	private boolean trusted;
 	
 	public Renter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
@@ -17,7 +14,6 @@ public class Renter extends APerson implements IRenterObserver {
 		Objects.requireNonNull(password);
 		this.email = email;
 		this.password = password;
-		this.rentals = new ArrayList<>();
 		this.trusted = trusted;
 	}
 	
