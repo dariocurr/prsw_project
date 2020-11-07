@@ -11,7 +11,6 @@ import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
-import common.Renter;
 import gui.VehicleRentalGUI;
 
 public class ClientProxy {
