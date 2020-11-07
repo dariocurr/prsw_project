@@ -73,6 +73,8 @@ public class RentPanel extends JPanel {
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
         this.rentButton = new JButton("RENT");
+        
+        this.rentButton
 	}
 	
 	private void paintComponents() {
@@ -126,6 +128,14 @@ public class RentPanel extends JPanel {
 	       }
 	    }       
 	}
+	
+	class MyActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			JButton rentButton = (JButton) event.getItem();
+		}
+	}
+	
 	
 	public void paintImage(String file_name) {
          this.vehicleImage = new ImageIcon("res\\car_img\\" + file_name);

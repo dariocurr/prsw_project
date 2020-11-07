@@ -48,7 +48,7 @@ public class ClientProxy {
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
 		
 		new ClientProxy();
-		//VehicleRentalGUI gui = new VehicleRentalGUI();
+		VehicleRentalGUI gui = new VehicleRentalGUI();
 		
 		/*try {
 			

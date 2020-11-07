@@ -1,4 +1,4 @@
-package car_rental;
+package IfsCars.src.car_rental;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
