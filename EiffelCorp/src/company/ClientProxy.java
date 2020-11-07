@@ -1,6 +1,12 @@
 package company;
 
+<<<<<<< HEAD
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+=======
 import java.io.File;
+>>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +14,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import common.ICarRentalObservable;
@@ -15,6 +22,11 @@ import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
 import gui.VehicleRentalGUI;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.formdev.flatlaf.json.ParseException;
 
 public class ClientProxy {
 	ICarRentalObservable carRental;
@@ -90,5 +102,45 @@ public class ClientProxy {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
+	private List<IRenterObserver> loadRentersFromFile(String url) throws RemoteException{
+		JSONParser jsonParser = new JSONParser();
+		
+		List<IRenterObserver> rentersList = new ArrayList<>();
+		
+		try (FileReader reader = new FileReader(url))
+        {
+            Object obj = jsonParser.parse(reader);
+ 
+            JSONArray renters = (JSONArray) obj;
+            
+            for(Object renter : renters) {
+            	rentersList.add(parseRentersObject( (JSONObject) renter));
+            }
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return rentersList;
+	}
+	
+	private static IRenterObserver parseRentersObject(JSONObject renter) throws RemoteException {
+		
+		String firstName = (String) renter.get("firstName");
+		String lastDay = (String) renter.get("lastName"); 
+		String age = (String) renter.get("age");
+		String email = (String) renter.get("email");
+		String password = (String) renter.get("password");
+	
+		IRenterObserver renter_obj = new Renter (firstName, lastDay, Integer.parseInt(age), email, password, true);
+         
+        return renter_obj;
+    }
 	
 }
