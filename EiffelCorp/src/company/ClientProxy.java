@@ -1,12 +1,10 @@
 package company;
 
-<<<<<<< HEAD
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-=======
 import java.io.File;
->>>>>>> branch 'main' of https://github.com/dariocurr/prsw.git
+
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,18 +20,20 @@ import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
 import gui.VehicleRentalGUI;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import com.formdev.flatlaf.json.ParseException;
+import org.json.simple.parser.ParseException;
 
 public class ClientProxy {
-	ICarRentalObservable carRental;
 	
+	private ICarRentalObservable carRental;
+	private List<IRenterObserver> renters;
 	
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
+		this.renters = this.loadRentersFromFile("res/renters_list.json");
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
@@ -98,49 +98,37 @@ public class ClientProxy {
 		return this.carRental.getAvailableVehicles();
 	}
 	
-	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException{
+	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
-	private List<IRenterObserver> loadRentersFromFile(String url) throws RemoteException{
+	private List<IRenterObserver> loadRentersFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();
-		
 		List<IRenterObserver> rentersList = new ArrayList<>();
-		
-		try (FileReader reader = new FileReader(url))
-        {
+		try (FileReader reader = new FileReader(url)) {
             Object obj = jsonParser.parse(reader);
- 
             JSONArray renters = (JSONArray) obj;
-            
             for(Object renter : renters) {
             	rentersList.add(parseRentersObject( (JSONObject) renter));
             }
- 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-			e.printStackTrace();
-		}
-		
+        }
 		return rentersList;
 	}
 	
-	private static IRenterObserver parseRentersObject(JSONObject renter) throws RemoteException {
-		
-		String firstName = (String) renter.get("firstName");
-		String lastDay = (String) renter.get("lastName"); 
-		String age = (String) renter.get("age");
-		String email = (String) renter.get("email");
-		String password = (String) renter.get("password");
-	
-		IRenterObserver renter_obj = new Renter (firstName, lastDay, Integer.parseInt(age), email, password, true);
-         
-        return renter_obj;
+	private static IRenterObserver parseRentersObject(JSONObject renterObject) {
+		String firstName = (String) renterObject.get("firstName");
+		String lastDay = (String) renterObject.get("lastName"); 
+		String age = (String) renterObject.get("age");
+		String email = (String) renterObject.get("email");
+		String password = (String) renterObject.get("password");
+		IRenterObserver renter = new Renter (firstName, lastDay, Integer.parseInt(age), email, password, true);
+        return renter;
     }
 	
 }
