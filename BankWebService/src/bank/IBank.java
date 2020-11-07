@@ -1,7 +1,11 @@
 package bank;
 
-public interface IBank {
+import java.rmi.RemoteException;
 
-	public boolean accountHasAvailability(String accountNumber, double amount);
+import javax.xml.rpc.ServiceException;
+
+public interface IBank {
+	
+	public boolean makePayment(String accountNumber, double amount, String currency) throws ServiceException, RemoteException;
 	
 }

@@ -22,5 +22,11 @@ public class BankAccount implements IBankAccount {
 	public double getAmount() {
 		return amount;
 	}
+
+	@Override
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	
 	
 }

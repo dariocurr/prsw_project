@@ -6,5 +6,6 @@ public interface IBankAccount {
 
 	public double getAmount();
 	
+	public void setAmount(double amount);
 	
 }

@@ -3,35 +3,49 @@ package bank;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javax.xml.rpc.ServiceException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.currencysystem.webservices.currencyserver.CurncsrvReturnRate;
+import com.currencysystem.webservices.currencyserver.CurrencyServerLocator;
+import com.currencysystem.webservices.currencyserver.CurrencyServerSoap;
+
 public class Bank implements IBank {
 
 	private List<IBankAccount> accounts;
 	
 	public Bank() {
-		this.accounts = this.loadBankAcoountsFromFile("res/bank_accounts_list.json");
+		this.accounts = Bank.loadBankAcoountsFromFile("res/bank_accounts_list.json");
 	}
 	
 	@Override
-	public boolean accountHasAvailability(String accountNumber, double amount) {
+	public boolean makePayment(String accountNumber, double amount, String currency) throws ServiceException, RemoteException {
 		Objects.requireNonNull(accountNumber);
+		Objects.requireNonNull(currency);
+		if (currency != "EUR") {
+			CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
+			amount = (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+		}
+		System.out.println(amount);
 		for (IBankAccount account : this.accounts) {
 			if(account.getAccountNumber().equalsIgnoreCase(accountNumber)) {
-				return account.getAmount() >= amount;
+				account.setAmount(account.getAmount() - amount);
+				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 	
-	private List<IBankAccount> loadBankAcoountsFromFile(String url) {
+	private static List<IBankAccount> loadBankAcoountsFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();	
 		List<IBankAccount> bankAccountsList = new ArrayList<>();
 		try (FileReader reader = new FileReader(url)) {
