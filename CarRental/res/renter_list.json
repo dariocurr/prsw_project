@@ -1,0 +1,82 @@
+[
+	{
+		"firstName":"Salvatore",
+		"lastName": "Gristina",
+		"age": "23",
+		"email": "salvo97@gmail.com",
+		"password": "123abc"
+	},
+
+	{
+		"firstName":"Aldo",
+		"lastName": "Baglio",
+		"age": "62",
+		"email": "aldoAGG@yahoo.it",
+		"password": "Al62do"
+	},
+	
+	{
+		"firstName":"Giovanni",
+		"lastName": "Storti",
+		"age": "63",
+		"email": "giovanniAGG@yahoo.it",
+		"password": "6363Gio"
+	},
+	
+	{
+		"firstName":"Giacomo",
+		"lastName": "Baglio",
+		"age": "64",
+		"email": "giacomoAGG@yahoo.it",
+		"password": "giacominO64"
+	},
+	
+	{
+		"firstName":"Dario",
+		"lastName": "Cuereri",
+		"age": "22",
+		"email": "lecueri@gmail.com",
+		"password": "Lecueri98"
+	},
+	
+	{
+		"firstName":"Emanuele",
+		"lastName": "Dodo",
+		"age": "37",
+		"email": "ema.dodo@gmail.com",
+		"password": "37emaDoDo"
+	},
+	
+	{
+		"firstName":"Domenico",
+		"lastName": "Pannofino",
+		"age": "18",
+		"email": "nico.fino@hotmail.com",
+		"password": "ILpannoFINO2002"
+	},
+	
+	{
+		"firstName":"Salvo",
+		"lastName": "Pentito",
+		"age": "46",
+		"email": "salvo_perunpelo@yahoo.com",
+		"password": "SalvoErrori46"
+	},
+	
+	{
+		"firstName":"Francesca",
+		"lastName": "Acqua",
+		"age": "20",
+		"email": "la_fraa@libero.com",
+		"password": "cheCCa2000"
+	},
+	
+	{
+		"firstName":"Beatrice",
+		"lastName": "Danteschi",
+		"age": "55",
+		"email": "@gmail.com",
+		"password": "lecueri98"
+	}
+
+]
