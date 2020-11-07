@@ -27,6 +27,9 @@
 !CarSellerClient/src/client/*
 !CarSellerClient/src/client/gui/
 !CarSellerClient/src/client/gui/*
+!CarSellerWebService/
+!CarSellerWebService/src/
+!CarSellerWebService/src/*
 !Company/
 !Company/src/
 !Company/src/*
