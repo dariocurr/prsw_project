@@ -1,5 +1,6 @@
 package company;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,23 +22,21 @@ public class ClientProxy {
 	
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
-		Path currentRelativePath = Paths.get("");
-		String s = currentRelativePath.toAbsolutePath().toString();
-		System.out.println("Current relative path is: " + s);
-		System.setProperty("java.security.policy","src\\company\\sec.policy");
+		Path currentPath = Paths.get("");
+		String path = currentPath.toAbsolutePath().toString();
+		path = path.substring(0, path.lastIndexOf(File.separator));
+		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "sec.policy";
+		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
+		System.setProperty("java.security.policy", policy_path);
+		System.setProperty("java.rmi.server.codebase", codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
-		System.setProperty("java.rmi.server.codebase", "../CarRental/bin/");
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
-		
-		//System.setProperty("java.rmi.server.codebase", "../../../CarRental/bin/");
-		//System.setProperty("java.security.policy","file:///home/dario/Documenti/Rest/progetto/prsw/Company/src/company/sec.policy");
-		//System.setProperty("java.rmi.server.codebase", "file:///home/dario/Documenti/Rest/progetto/prsw/CarRental/bin/");
 		
 	}
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
 		
 		new ClientProxy();
-		VehicleRentalGUI gui = new VehicleRentalGUI();
+		//VehicleRentalGUI gui = new VehicleRentalGUI();
 		
 		/*try {
 			
