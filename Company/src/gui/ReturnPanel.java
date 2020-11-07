@@ -4,6 +4,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,6 +19,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
+import common.IRent;
+import common.IRenterObserver;
+import common.IVehicle;
+import company.ClientProxy;
+
 public class ReturnPanel extends JPanel{
 
 	private JComboBox<String> returnComboBox;
@@ -25,13 +34,20 @@ public class ReturnPanel extends JPanel{
 	private JScrollPane notesScrollPane;
 	private JButton returnButton;
 	
-	private String[] vehiclesRented;
+	private List<IVehicle> vehiclesRented;
 	
 	private GridBagConstraints constraint;
 	
-	public ReturnPanel() {
+	private ClientProxy clientProxy;
+	private List<IRent> rents;
+	
+	public ReturnPanel() throws MalformedURLException, RemoteException, NotBoundException {
 		super();
 		this.setLayout(new GridBagLayout());
+		
+		this.clientProxy = new ClientProxy();
+		this.rente
+		
 		
 		this.loadVehicles();
 		this.initComponents();

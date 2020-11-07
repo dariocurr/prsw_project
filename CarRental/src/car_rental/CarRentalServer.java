@@ -10,7 +10,7 @@ import common.ICarRentalObservable;
 public class CarRentalServer {
 	public static void main(String[] args) {
 		try {
-			LocateRegistry.createRegistry(1099);
+			LocateRegistry.createRegistry(1102);
 			ICarRentalObservable carRental = new CarRental();
 			Naming.rebind("CarRentalService", carRental);
 			System.out.println("Server running...");

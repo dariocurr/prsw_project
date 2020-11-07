@@ -6,6 +6,9 @@ import com.formdev.flatlaf.*;
 //import common.Vehicle;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.activation.ActivationGroupID;
 
 public class VehicleRentalGUI {
@@ -15,7 +18,7 @@ public class VehicleRentalGUI {
 	private JTabbedPane tabPane;
 	private JFrame frame;
 
-	public VehicleRentalGUI() {
+	public VehicleRentalGUI() throws MalformedURLException, RemoteException, NotBoundException {
 		
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
@@ -50,7 +53,7 @@ public class VehicleRentalGUI {
 	}
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
 		new VehicleRentalGUI();
-	}
+	}*/
 }

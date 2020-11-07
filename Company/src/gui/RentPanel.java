@@ -5,8 +5,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import common.IVehicle;
+import company.ClientProxy;
 
 public class RentPanel extends JPanel {
 	
@@ -23,26 +32,32 @@ public class RentPanel extends JPanel {
 	private JTextArea descriptionArea;
 	private JScrollPane descriptionScrollPane;
 	private JButton rentButton;
+	private ClientProxy clientProxy;
 	
-	private String[] vehiclesRentable;
+	private List<IVehicle> vehiclesRentable;
 	
 	private GridBagConstraints constraint;
 	
-	public RentPanel() {
+	public RentPanel() throws MalformedURLException, RemoteException, NotBoundException {
 		super();
 		this.setLayout(new GridBagLayout());
 		
-		this.loadVehicles();
+		this.clientProxy = new ClientProxy();
+		
+		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
+		
 		this.initComponents();
 		this.paintComponents();
 	}
 	
-	private void loadVehicles() {
-		this.vehiclesRentable = new String[] {"Giulietta", "Merceder 34736hh", "Ferrari dgdg223"};
-	}
 	
 	private void initComponents() {
-		this.rentComboBox = new JComboBox<>(this.vehiclesRentable);
+		ArrayList<String> modelVehiclesRentable = new ArrayList<>();
+		for(IVehicle vehicle : this.vehiclesRentable)
+			modelVehiclesRentable.add(vehicle.getModel());
+		
+		this.rentComboBox = new JComboBox<String>();
+		this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
 		this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);

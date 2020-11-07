@@ -5,29 +5,43 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
 import common.Renter;
+import gui.VehicleRentalGUI;
 
 public class ClientProxy {
+	ICarRentalObservable carRental;
 	
-	public static void main(String[] args) {
+	
+	
+	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
+		System.setProperty("java.security.policy","C:\\Users\\domy-\\eclipse-workspace\\Progetto REST\\prsw\\Company\\src\\company\\sec.policy");
+		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
+		System.setSecurityManager(new RMISecurityManager());
+		//System.setProperty("java.rmi.server.codebase", "../../../CarRental/bin/");
+		//System.setProperty("java.security.policy","file:///home/dario/Documenti/Rest/progetto/prsw/Company/src/company/sec.policy");
+		//System.setProperty("java.rmi.server.codebase", "file:///home/dario/Documenti/Rest/progetto/prsw/CarRental/bin/");
 		
-		try {
-			System.setProperty("java.security.policy","file:///home/dario/Documenti/Rest/progetto/prsw/Company/src/company/sec.policy");
-			System.setProperty("java.rmi.server.codebase", "file:///home/dario/Documenti/Rest/progetto/prsw/CarRental/bin/");
-			System.setSecurityManager(new RMISecurityManager());
-			ICarRentalObservable carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
+	}
+	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
+		
+		new ClientProxy();
+		VehicleRentalGUI gui = new VehicleRentalGUI();
+		
+		/*try {
+			
 			IRenterObserver renter = new Renter("cugino", "antonio", 22, "fafas@ga", "123", true);
 			System.out.println("DISPONIBILI");
 			for (IVehicle vehicle : carRental.getAvailableVehicles()) {
 				System.out.println(vehicle.getModel());
 			}
-			carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(0), "26/01/97" , "28/01/97", "EMP001");
-			carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(1), "29/01/97" , "30/01/97", "EMP002");
+			this.carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(0), "26/01/97" , "28/01/97", "EMP001");
+			this.carRental.rentVehicle(renter, carRental.getAvailableVehicles().get(1), "29/01/97" , "30/01/97", "EMP002");
 			System.out.println("\nAFFITTATE");
 			for (IRent rent : carRental.getRenterRentals(renter)) {
 				System.out.println(rent.getVehicle());
@@ -48,7 +62,7 @@ public class ClientProxy {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 	/*
 	@Override
@@ -60,8 +74,12 @@ public class ClientProxy {
 			renter = new Renter(firstName, lastName, email, password, false);
 		}
 		this.renters.stream().forEach(v -> System.out.println(v));
-		return this.renters.add(renter);
-	} */
+		return this.renters.add(renter);*/
+	} 
+	
+	public List<IVehicle> getAvailableVehicles() throws RemoteException {
+		return carRental.getAvailableVehicles();
+	}
 	
 	
 }
