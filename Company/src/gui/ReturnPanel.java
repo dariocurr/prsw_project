@@ -4,12 +4,16 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,13 +44,15 @@ public class ReturnPanel extends JPanel{
 	
 	private ClientProxy clientProxy;
 	private List<IRent> rents;
+	private IRenterObserver renter;
 	
 	public ReturnPanel() throws MalformedURLException, RemoteException, NotBoundException {
 		super();
 		this.setLayout(new GridBagLayout());
 		
+		//INSERIRE RENTER this.renter = 
 		this.clientProxy = new ClientProxy();
-		this.rente
+		//this.rents = this.clientProxy.getRenterRentals(renter);
 		
 		
 		this.loadVehicles();
@@ -55,11 +61,17 @@ public class ReturnPanel extends JPanel{
 	}
 	
 	private void loadVehicles() {
-		this.vehiclesRented = new String[] {"500", "Merceder 34436hh", "Lamborghini dgdg223"};
+		for(IRent rent : this.rents)
+			this.vehiclesRented.add(rent.getVehicle());
 	}
 	
 	private void initComponents() {
-		this.returnComboBox = new JComboBox<>(this.vehiclesRented);
+		ArrayList<String> modelVehiclesRented = new ArrayList<>();
+		for(IVehicle vehicle : this.vehiclesRented)
+			modelVehiclesRented.add(vehicle.getModel());
+		
+		this.returnComboBox = new JComboBox<String>();
+		this.returnComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRented.toArray(new String[0])));
 		this.returnComboBox.setPrototypeDisplayValue("text long like this or more.... ");
 		this.notesArea = new JTextArea(10, 30);
 		this.notesScrollPane = new JScrollPane(this.notesArea);
@@ -102,5 +114,6 @@ public class ReturnPanel extends JPanel{
         this.constraint.fill = GridBagConstraints.NONE;
         this.add(this.returnButton,constraint);
 	}
+
 
 }
