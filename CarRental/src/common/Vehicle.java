@@ -1,7 +1,5 @@
 package common;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,13 +14,14 @@ public class Vehicle implements IVehicle {
 	private String size;
 	private double pricePerDay;
 	private List<String> notes;
-	private String file_name;
+	private String fileName;
 	
-	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, String file_name) {
+	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, String fileName) {
 		Objects.requireNonNull(model);
 		Objects.requireNonNull(year);
 		Objects.requireNonNull(trasmission);
 		Objects.requireNonNull(size);
+		Objects.requireNonNull(fileName);
 		this.model = model;
 		this.year = year;
 		this.seats = seats;
@@ -31,7 +30,7 @@ public class Vehicle implements IVehicle {
 		this.size = size;
 		this.pricePerDay = pricePerDay;
 		this.notes = new ArrayList<String>();
-		this.file_name = file_name;
+		this.fileName = fileName;
 	}
 
 	@Override
@@ -73,6 +72,11 @@ public class Vehicle implements IVehicle {
 	public List<String> getNotes() {
 		return notes;
 	}
+	
+	@Override
+	public String getFileName() {
+		return this.fileName;
+	}
 
 	@Override
     public boolean equals(Object otherObject) {
@@ -94,11 +98,6 @@ public class Vehicle implements IVehicle {
 	@Override
 	public String toString() {
 		return this.model + "\t" + this.year + "\tdoors: " + this.doors + "\tseats: " + this.seats + "\ttrasmission: " + this.trasmission + "\tprice per day: " + this.pricePerDay;  
-	}
-	
-	@Override
-	public String getFileName() {
-		return this.file_name;
 	}
 	
 }
