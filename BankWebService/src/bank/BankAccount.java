@@ -2,6 +2,8 @@ package bank;
 
 import java.util.Objects;
 
+import common.IBankAccount;
+
 public class BankAccount implements IBankAccount {
 	
 	private String accountNumber;

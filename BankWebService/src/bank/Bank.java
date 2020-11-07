@@ -19,6 +19,9 @@ import com.currencysystem.webservices.currencyserver.CurncsrvReturnRate;
 import com.currencysystem.webservices.currencyserver.CurrencyServerLocator;
 import com.currencysystem.webservices.currencyserver.CurrencyServerSoap;
 
+import common.IBank;
+import common.IBankAccount;
+
 public class Bank implements IBank {
 
 	private List<IBankAccount> accounts;
@@ -28,12 +31,19 @@ public class Bank implements IBank {
 	}
 	
 	@Override
-	public boolean makePayment(String accountNumber, double amount, String currency) throws ServiceException, RemoteException {
+	public boolean makePayment(String accountNumber, double amount, String currency) {
 		Objects.requireNonNull(accountNumber);
 		Objects.requireNonNull(currency);
 		if (currency != "EUR") {
-			CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
-			amount = (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+			CurrencyServerSoap currencySystem;
+			try {
+				currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
+				amount = (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 		}
 		System.out.println(amount);
 		for (IBankAccount account : this.accounts) {
@@ -46,10 +56,17 @@ public class Bank implements IBank {
 	}
 	
 	@Override
-	public double getExchangeFromEUR(String currency, double amount) throws ServiceException, RemoteException {
+	public double getExchangeFromEUR(String currency, double amount) {
 		Objects.requireNonNull(currency);
-		CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
-		return (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+		try {
+			CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
+			return (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	private static List<IBankAccount> loadBankAcoountsFromFile(String url) {
