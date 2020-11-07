@@ -126,15 +126,14 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		return this.rentals.get(renter);
 	}
 	
-	@Override
-	public List<IVehicle> getAvailableVehiclesForSale() throws RemoteException {
-		return this.availableVehicles.stream().filter(IVehicle::isForSale).collect(Collectors.toList());
-	}
-	
-	@Override
-	public void sellVehicle(IVehicle vehicle) throws RemoteException {
-		this.availableVehicles.remove(vehicle);
-		this.waitList.remove(vehicle);
+	public boolean removeVehicle(IVehicle vehicle) throws RemoteException {
+		if (this.availableVehicles.contains(vehicle)) {
+			this.waitList.remove(vehicle);
+			return this.availableVehicles.remove(vehicle);
+		} else {
+			//throw new exception
+			return false;
+		}
 	}
 	
 	private IRent createRent(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {

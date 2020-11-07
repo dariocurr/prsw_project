@@ -8,7 +8,9 @@ import java.rmi.registry.LocateRegistry;
 import common.ICarRentalObservable;
 
 public class CarRentalServer {
+	
 	public static void main(String[] args) {
+		
 		try {
 			LocateRegistry.createRegistry(1099);
 			ICarRentalObservable carRental = new CarRental();
@@ -21,4 +23,5 @@ public class CarRentalServer {
 		}
 		
 	}
+	
 }
