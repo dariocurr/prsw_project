@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
@@ -151,12 +152,12 @@ public class LoginGUI {
 		this.mainPanel.add(this.loginButton, constraint);
 		
 		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
-		constraint.gridy = 5;
-		constraint.gridx = 1;
+		//constraint.gridy = 5;
+		//constraint.gridx = 1;
 		//constraint.fill = GridBagConstraints.NONE;
 		//constraint.anchor = GridBagConstraints.PAGE_END;
-		this.signinButton = new JButton("SIGN IN");
-		this.mainPanel.add(this.signinButton, constraint);
+		//this.signinButton = new JButton("SIGN IN");
+		//this.mainPanel.add(this.signinButton, constraint);
 	}
 	
 	
@@ -188,6 +189,8 @@ public class LoginGUI {
 					return;
 				}
 			}
+			
+			JOptionPane.showMessageDialog(null, "Email or Password Wrong");
 			
 		}
 		
