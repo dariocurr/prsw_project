@@ -104,13 +104,9 @@ public class ClientGUI {
         this.totalPrice = new JLabel("Total price: "+10000);
         this.addButton = new JButton("ADD TO CART");
         this.buyButton = new JButton("BUY");
-        this.buyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JDialog d = new BuyDialog(frame);
-				
-			}
-		});
+        this.buyButton.addActionListener(ev -> {
+        	BuyDialog dialog = new BuyDialog(frame);
+        });
 	}
 	
 	private void startGUI() {
