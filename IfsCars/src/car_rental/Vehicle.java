@@ -36,7 +36,7 @@ public class Vehicle implements IVehicle {
 		this.price = price;
 		this.notes = new ArrayList<String>();
 		this.fileName = fileName;
-		this.forSale = false;
+		this.forSale = true;
 	}
 
 	@Override
