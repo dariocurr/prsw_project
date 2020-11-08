@@ -35,7 +35,7 @@ import company.ClientProxy;
 
 public class RentPanel extends JPanel {
 	
-	private JComboBox<String> rentComboBox;
+	private JComboBox<VehicleComboItem> rentComboBox;
 	private ImageIcon vehicleImage;
 	private JLabel vehicleRentLabel;
 	private JTextArea descriptionArea;
@@ -65,13 +65,18 @@ public class RentPanel extends JPanel {
 	
 	
 	private void initComponents() {
-		ArrayList<String> modelVehiclesRentable = new ArrayList<>();
-		for(IVehicle vehicle : this.vehiclesRentable)
-			modelVehiclesRentable.add(vehicle.getModel());
+		//ArrayList<String> modelVehiclesRentable = new ArrayList<>();
+		/*for(IVehicle vehicle : this.vehiclesRentable)
+			modelVehiclesRentable.add(vehicle.getModel());*/
 		
-		this.rentComboBox = new JComboBox<String>();
-		this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
-		this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
+		this.rentComboBox = new JComboBox<VehicleComboItem>();
+		//this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
+		//this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
+		
+		for(IVehicle vehicle : vehiclesRentable) {
+			this.rentComboBox.addItem(new VehicleComboItem(vehicle));
+		}
+		
 		this.rentComboBox.addItemListener(new ItemChangeListener());
 		
 		this.descriptionArea = new JTextArea(10, 30);
@@ -124,15 +129,8 @@ public class RentPanel extends JPanel {
 	    @Override
 	    public void itemStateChanged(ItemEvent event) {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
-	          String model = (String) event.getItem();
-	          
-	          
-	          for(IVehicle vehicle : RentPanel.this.vehiclesRentable) {
-	        	  if(vehicle.getModel().equals(model)) {
-	        		  paintImage(vehicle.getFileName());
-			          return;
-	        	  }
-	          }
+	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
+	          paintImage(v.getFileName());
 	          
 	       }
 	    }       
@@ -141,13 +139,7 @@ public class RentPanel extends JPanel {
 	class RentActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			IVehicle vehicle = null;
-			String modelName = RentPanel.this.rentComboBox.getSelectedItem().toString();
-			for(IVehicle v : RentPanel.this.vehiclesRentable) {
-	        	  if(v.getModel().equals(modelName)) {
-	        		  vehicle = v;
-	        	  }
-			}
+			IVehicle vehicle =((VehicleComboItem)rentComboBox.getSelectedItem()).getVehicle();
 			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
 			LocalDateTime startDate = LocalDateTime.now();
@@ -168,11 +160,11 @@ public class RentPanel extends JPanel {
 	
 	
 	public void paintImage(String file_name) {
-         this.vehicleImage = new ImageIcon("res\\car_img\\" + file_name);
-         Image image = this.vehicleImage.getImage();
+         ImageIcon vehicleImg = new ImageIcon("res\\car_img\\" + file_name);
+         Image image = vehicleImg.getImage();
          Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
-         ImageIcon newVehicIcon = new ImageIcon(newImg);
-         this.vehicleRentLabel.setIcon(newVehicIcon);
+         this.vehicleImage = new ImageIcon(newImg);
+         this.vehicleRentLabel.setIcon(vehicleImage);
 	}
 
 }
