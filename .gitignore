@@ -55,6 +55,10 @@
 !IfsCarsServiceClient/
 !IfsCarsServiceClient/src/
 !IfsCarsServiceClient/src/*
+!IfsCarsServiceClient/res/
+!IfsCarsServiceClient/res/*
+!IfsCarsServiceClient/res/car_img/
+!IfsCarsServiceClient/res/car_img/*
 !IfsCarsServiceClient/src/client/
 !IfsCarsServiceClient/src/client/*
 !IfsCarsServiceClient/src/common/
