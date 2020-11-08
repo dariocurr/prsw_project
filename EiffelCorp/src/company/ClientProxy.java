@@ -102,6 +102,7 @@ public class ClientProxy {
 	}
 	
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
+		System.out.println("Ciao1");
 		return this.carRental.getRenterRentals(renter);
 	}
 	

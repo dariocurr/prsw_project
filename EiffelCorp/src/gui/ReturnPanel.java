@@ -57,6 +57,7 @@ public class ReturnPanel extends JPanel{
 		this.renter = renter; 
 		this.clientProxy = new ClientProxy();
 		this.rents = this.clientProxy.getRenterRentals(renter);
+		
 		this.vehiclesRented = new ArrayList<>();
 		
 		
@@ -126,20 +127,29 @@ public class ReturnPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			IRent rent = null;
-			if(ReturnPanel.this.returnComboBox.getSelectedItem() != null) {
-				String modelName = ReturnPanel.this.returnComboBox.getSelectedItem().toString();
-				for(IRent r : ReturnPanel.this.rents) {
+			if(returnComboBox.getSelectedItem() != null) {
+				String modelName = returnComboBox.getSelectedItem().toString();
+				System.out.println(modelName);
+				for(IRent r : rents) {
 		        	  if(r.getVehicle().getModel().equals(modelName)) {
 		        		  rent = r;
 		        	  }
 				}
 				
 				List<String> notes = new ArrayList<>();
-				for (String line : ReturnPanel.this.notesArea.getText().split("\\n")) 
+				for (String line : notesArea.getText().split("\\n")) 
 					notes.add(line);
 				
 				try {
 					clientProxy.returnVehicle(rent, notes);
+					rents = clientProxy.getRenterRentals(renter);
+					vehiclesRented = new ArrayList<>();
+					
+					
+					loadVehicles();
+					initComponents();
+					paintComponents();
+					
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}

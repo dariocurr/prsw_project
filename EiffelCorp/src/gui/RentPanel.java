@@ -57,6 +57,8 @@ public class RentPanel extends JPanel {
 		
 		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
 		
+		System.out.println("Repaint");
+		
 		this.initComponents();
 		this.paintComponents();
 	}
@@ -153,8 +155,9 @@ public class RentPanel extends JPanel {
 			LocalDateTime endDate = startDate.plusMonths(6);
 			try {
 				clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
-				RentPanel.this.validate();
-				RentPanel.this.repaint();
+				vehiclesRentable = clientProxy.getAvailableVehicles();
+				initComponents();
+				paintComponents();
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
