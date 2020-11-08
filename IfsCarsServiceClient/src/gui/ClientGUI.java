@@ -71,6 +71,7 @@ public class ClientGUI {
 		this.initComponents();
 		this.startGUI();
 		
+		
 		this.frame.add(mainPanel);
 		
 		this.frame.setResizable(false);
@@ -104,16 +105,22 @@ public class ClientGUI {
         this.totalPrice = new JLabel("Total price: "+10000);
         this.addButton = new JButton("ADD TO CART");
         this.buyButton = new JButton("BUY");
+       
         this.buyButton.addActionListener(ev -> {
+        	
         	BuyDialog dialog = new BuyDialog(frame);
         });
+        
 	}
+	
+
 	
 	private void startGUI() {
 		this.mainPanel = new JPanel();
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
 		constraint = new GridBagConstraints();
+		
 		
 		this.constraint.insets = new Insets(16, 8, 0, 8);
 		this.constraint.gridx = 0;

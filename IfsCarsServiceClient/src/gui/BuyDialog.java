@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -27,6 +28,7 @@ public class BuyDialog extends JDialog implements ActionListener{
 		
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+		setModalityType(ModalityType.DOCUMENT_MODAL);
 		
 		panel = new JPanel();
 	    panel.setLayout(new GridBagLayout());
@@ -53,13 +55,14 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.panel.add(confirmButton,constraint);
         
         this.cancelButton.addActionListener(ev -> {
-        	//do thighs 
+        	this.dispose(); 
         });
         
         this.confirmButton.addActionListener(ev -> {
         	//do thighs 
         });
         
+        setMinimumSize(new Dimension(300,150));
         setLocationRelativeTo(parent);
 	    add(panel);
 	    pack();
