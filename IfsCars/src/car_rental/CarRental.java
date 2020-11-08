@@ -115,11 +115,11 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void notifyObserver(IVehicle vehicle) throws RemoteException {
 		Objects.requireNonNull(vehicle);
-		List<IRent> waitlist = this.waitList.get(vehicle);
-		if (!waitlist.isEmpty()) {
-			waitlist.get(0).getRenter().update();
+		List<IRent> vehicleWaitlist = this.waitList.get(vehicle);
+		if (!vehicleWaitlist.isEmpty()) {
+			vehicleWaitlist.get(0).getRenter().update();
+			vehicleWaitlist.remove(0);
 		}
-		this.waitList.get(vehicle).remove(0);
 	}
 	
 	@Override
