@@ -12,36 +12,49 @@ import java.util.List;
 import javax.swing.*;
 
 import client.Basket;
+import common.IVehicle;
 
 public class CartPanel extends JPanel {
    private static final int PREF_W = 200;
    private static final int PREF_H = PREF_W;
+   
+   private JPanel container;
    private Basket basket;
    private List<CartItem> basketList;
 
    public CartPanel() {
-      JScrollPane scrollPane = new JScrollPane();
-      //scrollPane.setViewportBorder(null);
-      scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-      scrollPane.setBorder(null);
-      JPanel container = new JPanel(new GridLayout(0, 1));
+	   
+       JScrollPane scrollPane = new JScrollPane();
+       //scrollPane.setViewportBorder(null);
+       scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+       scrollPane.setBorder(null);
+       container = new JPanel(new GridLayout(0, 1));
 
-      this.loadBasket();
-      for (CartItem item : basketList) {
-      	container.add(item);
-      }
-      scrollPane.setViewportView(container);
+       this.basket = new Basket();
+       
+       /*for (CartItem item : basketList) {
+      	 container.add(item);
+       }*/
+       scrollPane.setViewportView(container);
 
-      setBorder(BorderFactory.createTitledBorder("Shopping cart"));
-      setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-      add(scrollPane);
+       setBorder(BorderFactory.createTitledBorder("Shopping cart"));
+       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+       add(scrollPane);
    }
    
    private void loadBasket() {
-	   basketList = new ArrayList<CartItem>();
-	   for(int i = 0; i< 15; i++)
-		   basketList.add(new CartItem());
+	   for(IVehicle vehicle : basket.getVehiclesInBasket()) {
+		   basketList.add(new CartItem(vehicle));
+	   }
+	   for (CartItem item : basketList) {
+	      	 container.add(item);
+	   }
 
+   }
+   
+   public void additem(IVehicle v) {
+	   this.basket.addVehicleToBasket(v);
+	   this.loadBasket();
    }
 
    @Override

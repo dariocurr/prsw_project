@@ -17,7 +17,7 @@ public class CartItem extends JPanel{
 	private JTextField text;
 	private JButton button;
 	
-	public CartItem() {
+	/*public CartItem() {
 		this.text = new JTextField(13);
 		text.setEditable(false);
 		text.setBorder(BorderFactory.createCompoundBorder(
@@ -28,10 +28,19 @@ public class CartItem extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.add(text, BorderLayout.LINE_START);
 		this.add(button, BorderLayout.LINE_END);
-	}
+	}*/
 	
 	public CartItem(IVehicle vehicle) {
-				
+		this.text = new JTextField(13);
+		text.setEditable(false);
+		text.setBorder(BorderFactory.createCompoundBorder(
+		        text.getBorder(), 
+		        BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		text.setText(vehicle.getModel());
+		this.button = new JButton("X");
+		this.setLayout(new BorderLayout());
+		this.add(text, BorderLayout.LINE_START);
+		this.add(button, BorderLayout.LINE_END);	
 	}
 	
 	public JButton getButton() {

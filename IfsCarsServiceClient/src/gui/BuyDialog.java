@@ -28,9 +28,11 @@ public class BuyDialog extends JDialog implements ActionListener{
 		
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+		
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		
 		panel = new JPanel();
+		
 	    panel.setLayout(new GridBagLayout());
 	    constraint = new GridBagConstraints();
 	    this.text = new JLabel("provaaaaaaaaaaaaaa");
@@ -55,12 +57,14 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.panel.add(confirmButton,constraint);
         
         this.cancelButton.addActionListener(ev -> {
-        	this.dispose(); 
+        	//do thighs 
         });
         
         this.confirmButton.addActionListener(ev -> {
         	//do thighs 
         });
+        
+        
         
         setMinimumSize(new Dimension(300,150));
         setLocationRelativeTo(parent);

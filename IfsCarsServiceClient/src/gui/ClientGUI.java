@@ -31,17 +31,21 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.xml.rpc.ServiceException;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import client.Basket;
+import common.IVehicle;
+import service.CarSeller;
+import service.CarSellerServiceLocator;
 
 public class ClientGUI {
 	private JFrame frame;
 	private JPanel mainPanel;
 	
-	private JComboBox<String> buyComboBox;
+	private JComboBox<VehicleComboItem> buyComboBox;
 	private JLabel vehicleLabel;
 	private JTextArea descriptionArea;
 	private JScrollPane descriptionScrollPane;
@@ -52,6 +56,8 @@ public class ClientGUI {
 	private JLabel totalPrice;
 	private JButton addButton;
 	private JButton buyButton;
+	
+	private CarSeller seller;
 	
 	private GridBagConstraints constraint;
 	
@@ -66,11 +72,15 @@ public class ClientGUI {
 		    System.err.println( "Failed to initialize LaF" );
 		}
 		
-		this.frame = new JFrame();
+		try {
+			CarSeller seller = new CarSellerServiceLocator().getCarSeller();
+		} catch (ServiceException e) {
+			System.out.println("error while loading the service seller");
+		}
 		
+		this.frame = new JFrame();
 		this.initComponents();
 		this.startGUI();
-		
 		
 		this.frame.add(mainPanel);
 		
@@ -85,11 +95,20 @@ public class ClientGUI {
 	}
 	
 	private void initComponents() {
-		this.buyComboBox = new JComboBox<String>();
-		//this.buyComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
-		this.buyComboBox.addItem("macchina 1");
-		this.buyComboBox.addItem("macchina 2");
-		this.buyComboBox.setPrototypeDisplayValue("text long like this or more..... ");
+		this.buyComboBox = new JComboBox<VehicleComboItem>();
+		
+		//TODO get list from service
+		ArrayList<IVehicle> v = new ArrayList<>();
+		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		v.add(testIVehicle);
+		
+		for(IVehicle vehicle : v) {
+			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
+			
+		}
+		
+		//this.buyComboBox.addItem();
+		//this.buyComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		//this.buyComboBox.addItemListener(new ItemChangeListener());
 		
 		this.descriptionArea = new JTextArea(10, 30);
@@ -100,27 +119,25 @@ public class ClientGUI {
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
         
-        cartPanel = new CartPanel();
+        this.cartPanel = new CartPanel();
         
         this.totalPrice = new JLabel("Total price: "+10000);
         this.addButton = new JButton("ADD TO CART");
+        this.addButton.addActionListener(ev -> {
+        	System.out.println(((VehicleComboItem)this.buyComboBox.getSelectedItem()).getVehicle());
+        	//this.cartPanel.additem(this.buy);
+        });
         this.buyButton = new JButton("BUY");
-       
         this.buyButton.addActionListener(ev -> {
-        	
         	BuyDialog dialog = new BuyDialog(frame);
         });
-        
 	}
-	
-
 	
 	private void startGUI() {
 		this.mainPanel = new JPanel();
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
 		constraint = new GridBagConstraints();
-		
 		
 		this.constraint.insets = new Insets(16, 8, 0, 8);
 		this.constraint.gridx = 0;
