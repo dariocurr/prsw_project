@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.xml.rpc.ServiceException;
+//import javax.xml.rpc.ServiceException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import bank.BankServiceLocator;
 import common.IBank;
@@ -25,7 +28,7 @@ public class CarSeller implements ICarSeller {
 	private ICarRentalObservable carRental;
 	private IBank bank;
 	
-	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException, ServiceException {
+	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException {
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
@@ -41,9 +44,27 @@ public class CarSeller implements ICarSeller {
 	@Override
 	public String getAvailableVehiclesForSale() throws RemoteException {
 		// JSON TO RETURN
-		//List<IVehicle> availableVehiclesForSale = this.carRental.getAvailableVehicles().stream().filter(IVehicle::isForSale).collect(Collectors.toList());
+		String vehicles = new String();
+		List<IVehicle> availableVehiclesForSale = this.carRental.getAvailableVehicles().stream().filter(IVehicle::isForSale).collect(Collectors.toList());
 		//return (Vehicle[]) availableVehiclesForSale.toArray(new IVehicle[availableVehiclesForSale.size()]);
-		return null;
+		
+		for(IVehicle vehicle : availableVehiclesForSale) {
+			JSONObject json = new JSONObject();
+			
+			json.put("model", vehicle.getModel());
+			json.put("year", vehicle.getYear());
+			json.put("seats", vehicle.getSeats());
+			json.put("doors", vehicle.getDoors());
+			json.put("transmission", vehicle.getTrasmission());
+			json.put("pricePerDay", vehicle.getPricePerDay());
+			json.put("price", vehicle.getPrice());
+			json.put("size", vehicle.getSize());
+			json.put("fileName", vehicle.getFileName());
+			
+			vehicles += ((JSONObject) vehicle).toString();
+		}		
+		
+		return vehicles;
 	}
 	
 	@Override
@@ -58,6 +79,14 @@ public class CarSeller implements ICarSeller {
 			this.carRental.getAvailableVehicles().removeAll(basket.getVehiclesInBasket());
 		}*/
 		return isPaymentDone;
+	}
+	
+	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
+		CarSeller carSeller = new CarSeller();
+		
+		String vehicles = carSeller.getAvailableVehiclesForSale();
+		
+		System.out.println(vehicles);
 	}
 	
 }
