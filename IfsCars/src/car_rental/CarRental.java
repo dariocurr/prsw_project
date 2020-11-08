@@ -90,6 +90,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException {
 		Objects.requireNonNull(notes);
+		//System.out.println("Restituito: " + rent.getVehicle() + "da: " + rent.getRenter().getEmail());
 		this.returnVehicle(rent);
 		if (rent.getRenter().isTrusted()) {
 			rent.getVehicle().getNotes().addAll(notes);

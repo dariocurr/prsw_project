@@ -4,11 +4,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +50,14 @@ public class ReturnPanel extends JPanel{
 	private List<IRent> rents;
 	private IRenterObserver renter;
 	
-	public ReturnPanel() throws MalformedURLException, RemoteException, NotBoundException {
+	public ReturnPanel(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 		super();
 		this.setLayout(new GridBagLayout());
 		
-		//INSERIRE RENTER this.renter = 
+		this.renter = renter; 
 		this.clientProxy = new ClientProxy();
 		this.rents = this.clientProxy.getRenterRentals(renter);
+		this.vehiclesRented = new ArrayList<>();
 		
 		
 		this.loadVehicles();
@@ -61,8 +66,9 @@ public class ReturnPanel extends JPanel{
 	}
 	
 	private void loadVehicles() {
-		for(IRent rent : this.rents)
-			this.vehiclesRented.add(rent.getVehicle());
+		if(this.rents != null)
+			for(IRent rent : this.rents)
+				this.vehiclesRented.add(rent.getVehicle());
 	}
 	
 	private void initComponents() {
@@ -78,6 +84,7 @@ public class ReturnPanel extends JPanel{
 		this.notesScrollPane.setBorder(BorderFactory.createTitledBorder("Notes"));
         this.notesScrollPane.setSize(300,600);
 		this.returnButton = new JButton("RETURN");
+		this.returnButton.addActionListener(new ReturnActionListener());
 	}
 
 	private void paintComponents() {
@@ -115,5 +122,31 @@ public class ReturnPanel extends JPanel{
         this.add(this.returnButton,constraint);
 	}
 
+	class ReturnActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			IRent rent = null;
+			if(ReturnPanel.this.returnComboBox.getSelectedItem() != null) {
+				String modelName = ReturnPanel.this.returnComboBox.getSelectedItem().toString();
+				for(IRent r : ReturnPanel.this.rents) {
+		        	  if(r.getVehicle().getModel().equals(modelName)) {
+		        		  rent = r;
+		        	  }
+				}
+				
+				List<String> notes = new ArrayList<>();
+				for (String line : ReturnPanel.this.notesArea.getText().split("\\n")) 
+					notes.add(line);
+				
+				try {
+					clientProxy.returnVehicle(rent, notes);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+	}
 
 }

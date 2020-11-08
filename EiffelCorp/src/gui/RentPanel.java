@@ -81,7 +81,7 @@ public class RentPanel extends JPanel {
         this.descriptionScrollPane.setSize (300,600);
         this.rentButton = new JButton("RENT");
         
-        this.rentButton.addActionListener(new MyActionListener());
+        this.rentButton.addActionListener(new RentActionListener());
 	}
 	
 	private void paintComponents() {
@@ -136,7 +136,7 @@ public class RentPanel extends JPanel {
 	    }       
 	}
 	
-	class MyActionListener implements ActionListener{
+	class RentActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			IVehicle vehicle = null;
@@ -153,6 +153,8 @@ public class RentPanel extends JPanel {
 			LocalDateTime endDate = startDate.plusMonths(6);
 			try {
 				clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
+				RentPanel.this.validate();
+				RentPanel.this.repaint();
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

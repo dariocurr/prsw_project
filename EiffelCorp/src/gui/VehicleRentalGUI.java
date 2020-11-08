@@ -37,10 +37,10 @@ public class VehicleRentalGUI {
 		
 		this.tabPane = new JTabbedPane();
 		this.selectRentPanel = new RentPanel(renter);
-        //this.selectReturnPanel = new ReturnPanel();
+        this.selectReturnPanel = new ReturnPanel(renter);
 		
         this.tabPane.addTab("RENT A VEHICLE", this.selectRentPanel);
-        //this.tabPane.addTab("RETURN A VEHICLE", this.selectReturnPanel);
+        this.tabPane.addTab("RETURN A VEHICLE", this.selectReturnPanel);
 		this.tabPane.setSelectedIndex(0);
 		this.frame.add(this.tabPane);
 		

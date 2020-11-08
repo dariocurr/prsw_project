@@ -151,4 +151,8 @@ public class ClientProxy {
 		return this.renters;
 	}
 	
+	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException{
+		this.carRental.returnVehicle(rent, notes);
+	}
+	
 }
