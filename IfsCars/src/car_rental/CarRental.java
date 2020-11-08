@@ -125,9 +125,9 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
 		Objects.requireNonNull(renter);
-		System.out.println("Ciao2");
-		for(IRent rent : this.rentals.get(renter))
-			System.out.println("Ciao: " + rent.getVehicle().getModel());
+		if (this.rentals.get(renter) == null) {
+			this.rentals.put(renter, new ArrayList<IRent>());
+		}
 		return this.rentals.get(renter);
 	}
 	

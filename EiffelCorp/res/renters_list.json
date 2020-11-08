@@ -77,6 +77,14 @@
 		"age": "55",
 		"email": "bea@gmail.com",
 		"password": "beatotoX0X0"
+	},
+	
+	{
+		"firstName":"fname",
+		"lastName": "lname",
+		"age": "55",
+		"email": "test",
+		"password": "test"
 	}
 
 ]
