@@ -10,6 +10,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +49,7 @@ public class ClientGUI {
 	
 	private JComboBox<VehicleComboItem> buyComboBox;
 	private JLabel vehicleLabel;
+	private ImageIcon VehicleIcon;
 	private JTextArea descriptionArea;
 	private JScrollPane descriptionScrollPane;
 	
@@ -95,12 +98,18 @@ public class ClientGUI {
 	}
 	
 	private void initComponents() {
+		this.vehicleLabel = new JLabel();
 		this.buyComboBox = new JComboBox<VehicleComboItem>();
+		this.buyComboBox.addItemListener(new ItemChangeListener());
 		
 		//TODO get list from service
 		ArrayList<IVehicle> v = new ArrayList<>();
 		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000, "ford_fiesta.png");
 		v.add(testIVehicle);
+		v.add(testIVehicle2);
+		v.add(testIVehicle3);
 		
 		for(IVehicle vehicle : v) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
@@ -119,15 +128,22 @@ public class ClientGUI {
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
         
-        this.cartPanel = new CartPanel();
+        this.buyButton = new JButton("BUY");
+        
+        this.cartPanel = new CartPanel(this.buyButton);
+        
         
         this.totalPrice = new JLabel("Total price: "+10000);
         this.addButton = new JButton("ADD TO CART");
+        
         this.addButton.addActionListener(ev -> {
-        	System.out.println(((VehicleComboItem)this.buyComboBox.getSelectedItem()).getVehicle());
-        	//this.cartPanel.additem(this.buy);
+        	IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
+        	this.cartPanel.additem(vehicle);
+        	
         });
-        this.buyButton = new JButton("BUY");
+        
+        
+        this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
         	BuyDialog dialog = new BuyDialog(frame);
         });
@@ -137,7 +153,7 @@ public class ClientGUI {
 		this.mainPanel = new JPanel();
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
-		constraint = new GridBagConstraints();
+		this.constraint = new GridBagConstraints();
 		
 		this.constraint.insets = new Insets(16, 8, 0, 8);
 		this.constraint.gridx = 0;
@@ -147,12 +163,11 @@ public class ClientGUI {
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         
-        //this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRentable.get(0).getFileName());
         ImageIcon vehicleImage = new ImageIcon("res\\car_img\\fiat_500.png");
 		Image image = vehicleImage.getImage();
         Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newVehicIcon = new ImageIcon(newImg);
-        this.vehicleLabel = new JLabel(newVehicIcon);
+        this.VehicleIcon = new ImageIcon(newImg);
+        this.vehicleLabel = new JLabel(VehicleIcon);
         this.mainPanel.add(this.vehicleLabel,constraint);
         
         this.constraint.insets = new Insets(10, 8, 0, 8);
@@ -174,7 +189,6 @@ public class ClientGUI {
         this.constraint.gridy = 3;
         this.constraint.gridheight = 1;
         this.constraint.anchor = GridBagConstraints.LINE_END;
-        //this.constraint.fill = GridBagConstraints.HORIZONTAL;
         this.mainPanel.add(this.totalPrice,constraint);
         
         this.constraint.insets = new Insets(20,0,0,0);
@@ -182,8 +196,6 @@ public class ClientGUI {
         this.constraint.gridy = 4;
         this.constraint.ipadx = 10;
         this.constraint.ipady = 10;
-        //this.constraint.gridheight = 0;
-        //this.constraint.fill = GridBagConstraints.HORIZONTAL;
         this.mainPanel.add(this.buyButton,constraint);
         
         
@@ -193,16 +205,31 @@ public class ClientGUI {
         this.constraint.gridy = 4;
         this.constraint.ipadx = 10;
         this.constraint.ipady = 10;
-        //this.constraint.gridheight = 0;
-        //this.constraint.fill = GridBagConstraints.HORIZONTAL;
         this.mainPanel.add(this.addButton,constraint);
         
 
+	}
+	
+	public void paintImage(String file_name) {
+		ImageIcon vehicleImage = new ImageIcon("res\\car_img\\" + file_name);
+        Image image = vehicleImage.getImage();
+        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+        this.VehicleIcon = new ImageIcon(newImg);
+        this.vehicleLabel.setIcon(VehicleIcon);
 	}
 	
 	public static void main(String[] args) {
         new ClientGUI();
     }
 	
-
+	class ItemChangeListener implements ItemListener{
+	    @Override
+	    public void itemStateChanged(ItemEvent event) {
+	       if (event.getStateChange() == ItemEvent.SELECTED) {
+	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
+	          paintImage(v.getFileName());
+	          
+	       }
+	    }
+	}
 }

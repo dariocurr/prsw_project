@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,8 +22,9 @@ public class CartPanel extends JPanel {
    private JPanel container;
    private Basket basket;
    private List<CartItem> basketList;
+   private JButton parentButton;
 
-   public CartPanel() {
+   public CartPanel(JButton button) {
 	   
        JScrollPane scrollPane = new JScrollPane();
        //scrollPane.setViewportBorder(null);
@@ -31,6 +33,7 @@ public class CartPanel extends JPanel {
        container = new JPanel(new GridLayout(0, 1));
 
        this.basket = new Basket();
+       this.parentButton = button;
        
        /*for (CartItem item : basketList) {
       	 container.add(item);
@@ -43,19 +46,40 @@ public class CartPanel extends JPanel {
    }
    
    private void loadBasket() {
-	   for(IVehicle vehicle : basket.getVehiclesInBasket()) {
-		   basketList.add(new CartItem(vehicle));
+	   container.removeAll();
+	   for (IVehicle v : basket.getVehiclesInBasket()) {
+		   CartItem cItem = new CartItem(v);
+		   cItem.getButton().addActionListener(ev -> {
+			   container.remove(cItem);
+			   basket.removeVehicleFromBasket(v);
+			   if(basket.getVehiclesInBasket().size() <= 0) {
+				   parentButton.setEnabled(false);
+			   }
+			   container.revalidate();
+			   container.repaint();
+		   });
+		   container.add(cItem);
 	   }
-	   for (CartItem item : basketList) {
-	      	 container.add(item);
-	   }
+	   
+	   
+	   
+	   container.revalidate();
+	   container.repaint();
 
    }
    
    public void additem(IVehicle v) {
 	   this.basket.addVehicleToBasket(v);
+	   if(basket.getVehiclesInBasket().size() > 0) {
+		   parentButton.setEnabled(true);
+	   }
 	   this.loadBasket();
    }
+   
+   public int getBasketSize() {
+	   return  basket.getVehiclesInBasket().size();
+   }
+   
 
    @Override
    public Dimension getPreferredSize() {

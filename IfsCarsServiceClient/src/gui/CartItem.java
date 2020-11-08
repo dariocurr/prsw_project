@@ -36,11 +36,23 @@ public class CartItem extends JPanel{
 		text.setBorder(BorderFactory.createCompoundBorder(
 		        text.getBorder(), 
 		        BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		text.setText(vehicle.getModel());
+		text.setText(vehicle.getModel()+" "+vehicle.getPrice());
 		this.button = new JButton("X");
 		this.setLayout(new BorderLayout());
 		this.add(text, BorderLayout.LINE_START);
 		this.add(button, BorderLayout.LINE_END);	
+	}
+	
+	public String getText() {
+		return text.getText();
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		if (isPreferredSizeSet()) {
+			return super.getPreferredSize();
+			}
+		return new Dimension(150, 100);
 	}
 	
 	public JButton getButton() {
