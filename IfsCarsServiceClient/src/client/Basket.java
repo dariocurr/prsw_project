@@ -38,4 +38,13 @@ public class Basket implements IBasket {
 		return totalPrice;
 	}
 	
+	@Override
+	public List<String> getVehicleModel() {
+		List<String> models = new ArrayList<String>();
+		for(IVehicle vehicle : vehiclesBasket) {
+			models.add(vehicle.getModel());
+		}
+		return models;
+	}
+	
 }

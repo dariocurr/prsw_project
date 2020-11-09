@@ -12,4 +12,6 @@ public interface IBasket {
 	
 	public double getTotalPrice();
 	
+	public List<String> getVehicleModel();
+	
 }
