@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import common.IBasket;
@@ -40,12 +41,12 @@ public class BuyDialog extends JDialog implements ActionListener{
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		setModalityType(ModalityType.DOCUMENT_MODAL);
-		
+		this.basket = basket;
 		panel = new JPanel();
 	    panel.setLayout(new GridBagLayout());
 	    constraint = new GridBagConstraints();
-	    this.model = new JLabel("model");
-	    this.price = new JLabel("price");
+	    this.model = new JLabel("model ");
+	    this.price = new JLabel("price " + this.basket.getTotalPrice());
 	    this.confirmButton = new JButton("CONFIRM");
 	    this.cancelButton = new JButton("CANCEL");
 	    this.currencyComboBox = new JComboBox<String>();
@@ -57,6 +58,7 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.constraint.gridx = 0;
         this.constraint.gridy = 0;
         this.constraint.anchor = GridBagConstraints.LINE_START;
+        //this.model.setText("<html><br>model1<br>model2</html>");
         this.model.setFont(new Font(this.model.getName(),Font.PLAIN,18));
         this.panel.add(model,constraint);
         

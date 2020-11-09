@@ -120,7 +120,7 @@ public class ClientGUI {
 		ArrayList<IVehicle> vehhiclesList = new ArrayList<>();
 		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
-		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000, "ford_fiesta.png");
+		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000.07, "ford_fiesta.png");
 		vehhiclesList.add(testIVehicle);
 		vehhiclesList.add(testIVehicle2);
 		vehhiclesList.add(testIVehicle3);
@@ -147,12 +147,13 @@ public class ClientGUI {
         this.cartPanel = new CartPanel(this.buyButton);
         
         
-        this.totalPrice = new JLabel("Total price: "+10000);
+        this.totalPrice = new JLabel("Total price: "+cartPanel.getBasket().getTotalPrice());
         this.addButton = new JButton("ADD TO CART");
         
         this.addButton.addActionListener(ev -> {
         	IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
         	this.cartPanel.additem(vehicle);
+        	this.totalPrice.setText("Total price: "+cartPanel.getBasket().getTotalPrice());
         	
         });
         
