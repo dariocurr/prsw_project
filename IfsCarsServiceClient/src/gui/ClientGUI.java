@@ -66,7 +66,7 @@ public class ClientGUI {
 	private JButton addButton;
 	private JButton buyButton;
 	
-	//private CarSeller seller;
+	private CarSeller seller;
 	
 	private GridBagConstraints constraint;
 	
@@ -81,19 +81,19 @@ public class ClientGUI {
 		    System.err.println( "Failed to initialize LaF" );
 		}
 		
-		/*try {
+		try {
 			CarSeller seller = new CarSellerServiceLocator().getCarSeller();
 		} catch (ServiceException e) {
 			System.out.println("error while loading the service seller");
-		}*/
+		}
 		
-		/*try {
+		try {
 			this.client = new IfsCarsServiceClient();
 			this.vehhiclesList = client.getVehicles();
 		} catch (ServiceException | RemoteException e) {
 			e.printStackTrace();
 			System.out.println("TODO Error message");
-		}*/
+		}
 		
 		this.frame = new JFrame();
 		this.initComponents();

@@ -32,6 +32,7 @@ public class CarSeller implements ICarSeller {
 	private Bank bank;
 	
 	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException, ServiceException {
+		/*
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
@@ -40,6 +41,7 @@ public class CarSeller implements ICarSeller {
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
+		*/
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
 		this.bank = (Bank) new BankServiceLocator().getBank();
 	}
@@ -47,6 +49,7 @@ public class CarSeller implements ICarSeller {
 	@Override
 	public String getAvailableForSaleVehicles() throws RemoteException {
 		List<IVehicle> availableForSaleVehicles = new ArrayList<IVehicle>();
+		
 		for (IVehicle vehicle : carRental.getAvailableVehicles()) {
 			if (vehicle.isForSale()) {
 			availableForSaleVehicles.add(vehicle);
@@ -67,7 +70,7 @@ public class CarSeller implements ICarSeller {
 		return isPaymentDone;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	private static String createJSONString(List<IVehicle> availableVehiclesForSale) {
 		String vehicles = new String();
 		for(IVehicle vehicle : availableVehiclesForSale) {

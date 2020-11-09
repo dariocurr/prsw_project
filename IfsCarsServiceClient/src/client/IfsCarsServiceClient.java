@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
-import common.ICarSeller;
 import common.IVehicle;
 import service.CarSeller;
 import service.CarSellerServiceLocator;
@@ -21,12 +20,10 @@ public class IfsCarsServiceClient {
 	
 	public List<IVehicle> getVehicles() throws RemoteException {
 		List<IVehicle> vehicles = new ArrayList<>();
-		//System.out.println(service.getAvailableForSaleVehicles());
+		// è normale sia vuota, perche nessun veicolo è pronto per la vendita
+		// per test, ti conviene commentare riga 54 e 56 in CarSeller
+		System.out.println(service.getAvailableForSaleVehicles());
 		return vehicles;
-	}
-	
-	public static void main(String[] args) throws ServiceException, RemoteException {
-		new IfsCarsServiceClient().getVehicles();
 	}
 
 }
