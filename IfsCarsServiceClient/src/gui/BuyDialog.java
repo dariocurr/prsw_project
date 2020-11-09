@@ -58,13 +58,23 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.constraint.gridx = 0;
         this.constraint.gridy = 0;
         this.constraint.anchor = GridBagConstraints.LINE_START;
-        //this.model.setText("<html><br>model1<br>model2</html>");
+        this.model.setText("<html>model1<br>model2</html>");
+        
+        String a="";
+        String b="";
+        for(String models : basket.getVehicleModel()) {
+        	a+=b;
+        	b=models+"<br>";
+        }
+        a+=b;
+        this.model.setText("<html> models:<br> "+ a+ "</html>");
         this.model.setFont(new Font(this.model.getName(),Font.PLAIN,18));
         this.panel.add(model,constraint);
         
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         this.constraint.anchor = GridBagConstraints.LINE_START;
+        this.constraint.insets = new Insets(8, 0, 8, 8);
         this.price.setFont(new Font(this.price.getName(),Font.PLAIN,18));
         this.panel.add(price,constraint);
         
