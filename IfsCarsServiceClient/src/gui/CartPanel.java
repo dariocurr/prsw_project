@@ -22,7 +22,7 @@ public class CartPanel extends JPanel {
    private JPanel container;
    private Basket basket;
    private List<CartItem> basketList;
-   private JButton parentButton;
+   private JButton buyButton;
 
    public CartPanel(JButton button) {
 	   
@@ -33,7 +33,7 @@ public class CartPanel extends JPanel {
        container = new JPanel(new GridLayout(0, 1));
 
        this.basket = new Basket();
-       this.parentButton = button;
+       this.buyButton = button;
        
        /*for (CartItem item : basketList) {
       	 container.add(item);
@@ -53,7 +53,7 @@ public class CartPanel extends JPanel {
 			   container.remove(cItem);
 			   basket.removeVehicleFromBasket(v);
 			   if(basket.getVehiclesInBasket().size() <= 0) {
-				   parentButton.setEnabled(false);
+				   buyButton.setEnabled(false);
 			   }
 			   container.revalidate();
 			   container.repaint();
@@ -71,7 +71,7 @@ public class CartPanel extends JPanel {
    public void additem(IVehicle v) {
 	   this.basket.addVehicleToBasket(v);
 	   if(basket.getVehiclesInBasket().size() > 0) {
-		   parentButton.setEnabled(true);
+		   buyButton.setEnabled(true);
 	   }
 	   this.loadBasket();
    }
