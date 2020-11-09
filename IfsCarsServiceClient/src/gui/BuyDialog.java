@@ -16,11 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import common.IBasket;
 import common.IVehicle;
@@ -52,13 +55,12 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    this.model = new JLabel("model ");
 	    this.price = new JLabel("price " + this.basket.getTotalPrice());
 	    this.bankAccountNumber = new JTextField(); 
-	    this.bankResult = new JLabel("bank processing...");
+	    this.bankResult = new JLabel("Insert card number");
 	    this.confirmButton = new JButton("CONFIRM");
 	    this.cancelButton = new JButton("CANCEL");
 	    this.currencyComboBox = new JComboBox<String>();
 	    this.currencyComboBox.addItemListener(event -> {
 	    	if (event.getStateChange() == ItemEvent.SELECTED) {
-		          System.out.println(event.getItem().toString());
 		          String s = "total: "+this.basket.getTotalPrice();
 		          if (event.getItem().toString().equals("EUR")) {
 		        	  s += "€";
@@ -72,7 +74,38 @@ public class BuyDialog extends JDialog implements ActionListener{
 		          this.price.setText(s); 
 		       }
 	    });
-		
+	    this.bankAccountNumber.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				update(e);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				update(e);
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				update(e);
+				
+			}
+			
+			private void update(DocumentEvent e) {
+		    	if (!(bankAccountNumber.getText().length()==10)) {
+		    		confirmButton.setEnabled(false);
+		    		bankAccountNumber.putClientProperty("JComponent.outline", "error");
+		    		bankResult.setText("Invalid card number");
+				} else {
+					bankResult.setText("Valid card number");
+					bankAccountNumber.putClientProperty("JComponent.outline", null);
+					confirmButton.setEnabled(true);
+				}
+			}
+		});
+	    
 		this.currencyComboBox.addItem("EUR");
 		this.currencyComboBox.addItem("USD");
 		this.currencyComboBox.addItem("GBD");
@@ -138,7 +171,13 @@ public class BuyDialog extends JDialog implements ActionListener{
         });
         
         this.confirmButton.addActionListener(ev -> {
-        	//do thighs 
+        	//TODO bank services 
+        	
+        	this.bankAccountNumber.setEnabled(false);
+        	this.cancelButton.setEnabled(false);
+        	this.currencyComboBox.setEnabled(false);
+        	this.bankResult.setText("Waiting bank result...");
+        	this.performBuy();
         });
         
         setMinimumSize(new Dimension(400,200));
@@ -154,5 +193,26 @@ public class BuyDialog extends JDialog implements ActionListener{
       dispose();
    }
 
+	public void performBuy() {
+		//TODO ACCATTATE A DIGNITà
+		
+		if (true) {
+			//default title and icon
+			JOptionPane.showMessageDialog(this,
+			    "Congrats for your new car(s)!");
+			
+			this.dispose();
+		} else {
+			JOptionPane.showMessageDialog(this,
+				    "An error occured during purchase.",
+				    "Bank error",
+				    JOptionPane.ERROR_MESSAGE);
+			this.bankAccountNumber.setEnabled(true);
+        	this.cancelButton.setEnabled(true);
+        	this.currencyComboBox.setEnabled(true);
+        	this.bankAccountNumber.setText("");
+			
+		}
+	}
 
 }

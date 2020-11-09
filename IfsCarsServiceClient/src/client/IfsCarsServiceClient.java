@@ -21,7 +21,7 @@ public class IfsCarsServiceClient {
 	
 	public List<IVehicle> getVehicles() throws RemoteException {
 		List<IVehicle> vehicles = new ArrayList<>();
-		System.out.println(service.getAvailableForSaleVehicles());
+		//System.out.println(service.getAvailableForSaleVehicles());
 		return vehicles;
 	}
 	
