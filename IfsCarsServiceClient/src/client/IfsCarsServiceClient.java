@@ -24,5 +24,9 @@ public class IfsCarsServiceClient {
 		System.out.println(service.getAvailableForSaleVehicles());
 		return vehicles;
 	}
+	
+	public static void main(String[] args) throws ServiceException, RemoteException {
+		new IfsCarsServiceClient().getVehicles().stream().forEach(x -> System.out.println(x));
+	}
 
 }
