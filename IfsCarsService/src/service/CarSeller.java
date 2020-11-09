@@ -24,6 +24,7 @@ import bank.BankServiceLocator;
 import common.IBank;
 import common.IBasket;
 import common.ICarRentalObservable;
+import common.ICarSeller;
 import common.IVehicle;
 import common.Vehicle;
 
