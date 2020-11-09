@@ -10,4 +10,6 @@ public interface IBasket {
 	
 	public boolean removeVehicleFromBasket(IVehicle vehicle);
 	
+	public double getTotalPrice();
+	
 }

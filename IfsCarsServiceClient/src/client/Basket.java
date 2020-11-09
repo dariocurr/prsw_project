@@ -29,4 +29,13 @@ public class Basket implements IBasket {
 		return this.vehiclesBasket.remove(vehicle);
 	}
 	
+	@Override
+	public double getTotalPrice() {
+		double totalPrice = 0.0;
+		for(IVehicle vehicle : vehiclesBasket) {
+			totalPrice += vehicle.getPrice();
+		}
+		return totalPrice;
+	}
+	
 }
