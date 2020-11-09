@@ -159,7 +159,7 @@ public class ClientGUI {
         
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
-        	BuyDialog dialog = new BuyDialog(frame);
+        	BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket());
         });
 	}
 	

@@ -19,11 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.WindowConstants;
 
+import common.IBasket;
 import common.IVehicle;
 import gui.ClientGUI.ItemChangeListener;
 
 public class BuyDialog extends JDialog implements ActionListener{
 	private JPanel panel;
+	private IBasket basket;
 	private GridBagConstraints constraint;
 	private JLabel model;
 	private JLabel price;
@@ -31,7 +33,7 @@ public class BuyDialog extends JDialog implements ActionListener{
 	private JButton confirmButton;
 	private JButton cancelButton;
 	
-	public BuyDialog(JFrame parent) {
+	public BuyDialog(JFrame parent, IBasket basket) {
 		
 		super(parent, "Confirm");
 		
