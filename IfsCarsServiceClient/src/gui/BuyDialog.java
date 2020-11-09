@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,7 +23,7 @@ import javax.swing.WindowConstants;
 
 import common.IBasket;
 import common.IVehicle;
-import gui.ClientGUI.ItemChangeListener;
+
 
 public class BuyDialog extends JDialog implements ActionListener{
 	private JPanel panel;
@@ -50,7 +51,23 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    this.confirmButton = new JButton("CONFIRM");
 	    this.cancelButton = new JButton("CANCEL");
 	    this.currencyComboBox = new JComboBox<String>();
-		this.currencyComboBox.addItemListener(new ItemChangeListener());
+	    this.currencyComboBox.addItemListener(event -> {
+	    	if (event.getStateChange() == ItemEvent.SELECTED) {
+		          System.out.println(event.getItem().toString());
+		          String s = "total: "+this.basket.getTotalPrice();
+		          if (event.getItem().toString().equals("EUR")) {
+		        	  s += "€";
+		          }
+		          if (event.getItem().toString().equals("USD")) {
+		        	  s += "$";
+		          }
+		          if (event.getItem().toString().equals("GBD")) {
+		        	  s += "£";
+		          }
+		          this.price.setText(s); 
+		       }
+	    });
+		
 		this.currencyComboBox.addItem("EUR");
 		this.currencyComboBox.addItem("USD");
 		this.currencyComboBox.addItem("GBD");
@@ -117,14 +134,5 @@ public class BuyDialog extends JDialog implements ActionListener{
       dispose();
    }
 
-	class ItemChangeListener implements ItemListener{
-	    @Override
-	    public void itemStateChanged(ItemEvent event) {
-	       if (event.getStateChange() == ItemEvent.SELECTED) {
-	          System.out.println(event.getItem().toString());
-	          
-	       }
-	    }
-	
-}
+
 }

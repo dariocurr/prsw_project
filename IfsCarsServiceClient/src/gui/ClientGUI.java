@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -113,7 +114,13 @@ public class ClientGUI {
 	private void initComponents() {
 		this.vehicleLabel = new JLabel();
 		this.buyComboBox = new JComboBox<VehicleComboItem>();
-		this.buyComboBox.addItemListener(new ItemChangeListener());
+		this.buyComboBox.addItemListener(event -> {
+			 if (event.getStateChange() == ItemEvent.SELECTED) {
+		          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
+		          paintImage(v.getFileName());
+		          
+		       }
+		});
 		
 		//TODO get list from service
 
@@ -237,14 +244,4 @@ public class ClientGUI {
         new ClientGUI();
     }
 	
-	class ItemChangeListener implements ItemListener{
-	    @Override
-	    public void itemStateChanged(ItemEvent event) {
-	       if (event.getStateChange() == ItemEvent.SELECTED) {
-	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
-	          paintImage(v.getFileName());
-	          
-	       }
-	    }
-	}
 }
