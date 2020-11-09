@@ -52,7 +52,7 @@ public class CarSeller implements ICarSeller {
 		String vehicles = new String();
 		List<Object> availableVehiclesForSale = this.carRental.getAvailableVehicles().stream().filter(IVehicle::isForSale).collect(Collectors.toList());
 		//return (Vehicle[]) availableVehiclesForSale.toArray(new IVehicle[availableVehiclesForSale.size()]);
-		
+
 		for(Object vehicle : availableVehiclesForSale) {
 			IVehicle v = (IVehicle) vehicle;
 			JSONObject json = new JSONObject();
@@ -68,8 +68,8 @@ public class CarSeller implements ICarSeller {
 			json.put("fileName", v.getFileName());
 			
 			vehicles += json.toString() + ";";
-		}		
-		
+		}
+		System.out.println(vehicles);
 		return vehicles;
 	}
 	

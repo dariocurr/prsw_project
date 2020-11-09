@@ -90,6 +90,7 @@ public class ClientGUI {
 			this.client = new IfsCarsServiceClient();
 			this.vehhiclesList = client.getVehicles();
 		} catch (ServiceException | RemoteException e) {
+			e.printStackTrace();
 			System.out.println("TODO Error message");
 		}
 		
