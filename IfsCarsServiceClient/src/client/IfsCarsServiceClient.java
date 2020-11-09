@@ -26,7 +26,7 @@ public class IfsCarsServiceClient {
 	}
 	
 	public static void main(String[] args) throws ServiceException, RemoteException {
-		new IfsCarsServiceClient().getVehicles().stream().forEach(x -> System.out.println(x));
+		new IfsCarsServiceClient().getVehicles();
 	}
 
 }
