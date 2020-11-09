@@ -88,4 +88,10 @@ public class CartPanel extends JPanel {
       }
       return new Dimension(PREF_W, PREF_H);
    }
+
+	public Basket getBasket() {
+		return this.basket;
+	}
+   
+   
 }
