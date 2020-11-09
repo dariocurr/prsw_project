@@ -31,6 +31,7 @@ import common.IVehicle;
 
 public class BuyDialog extends JDialog implements ActionListener{
 	private JPanel panel;
+	private JFrame parent;
 	private IBasket basket;
 	private GridBagConstraints constraint;
 	private JLabel model;
@@ -44,7 +45,7 @@ public class BuyDialog extends JDialog implements ActionListener{
 	public BuyDialog(JFrame parent, IBasket basket) {
 		
 		super(parent, "Confirm");
-		
+		this.parent = parent;
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		setModalityType(ModalityType.DOCUMENT_MODAL);
@@ -200,7 +201,8 @@ public class BuyDialog extends JDialog implements ActionListener{
 			//default title and icon
 			JOptionPane.showMessageDialog(this,
 			    "Congrats for your new car(s)!");
-			
+			basket.empty();
+			this.parent.getContentPane().revalidate();
 			this.dispose();
 		} else {
 			JOptionPane.showMessageDialog(this,
