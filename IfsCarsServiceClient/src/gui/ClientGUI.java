@@ -150,18 +150,17 @@ public class ClientGUI {
         this.descriptionScrollPane.setSize (300,600);
         
         this.buyButton = new JButton("BUY");
+        this.totalPrice = new JLabel("Total price: 0.0");
         
-        this.cartPanel = new CartPanel(this.buyButton);
+        this.cartPanel = new CartPanel(this.buyButton, this.totalPrice);
         
         
-        this.totalPrice = new JLabel("Total price: "+cartPanel.getBasket().getTotalPrice());
+        
         this.addButton = new JButton("ADD TO CART");
         
         this.addButton.addActionListener(ev -> {
         	IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
-        	this.cartPanel.additem(vehicle);
-        	this.totalPrice.setText("Total price: "+cartPanel.getBasket().getTotalPrice());
-        	
+        	this.cartPanel.additem(vehicle);        	
         });
         
         

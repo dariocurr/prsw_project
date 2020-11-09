@@ -23,8 +23,9 @@ public class CartPanel extends JPanel {
    private Basket basket;
    private List<CartItem> basketList;
    private JButton buyButton;
+   private JLabel totalPrice;
 
-   public CartPanel(JButton button) {
+   public CartPanel(JButton button, JLabel totalPrice) {
 	   
        JScrollPane scrollPane = new JScrollPane();
        //scrollPane.setViewportBorder(null);
@@ -34,6 +35,7 @@ public class CartPanel extends JPanel {
 
        this.basket = new Basket();
        this.buyButton = button;
+       this.totalPrice = totalPrice;
        
        /*for (CartItem item : basketList) {
       	 container.add(item);
@@ -55,6 +57,7 @@ public class CartPanel extends JPanel {
 			   if(basket.getVehiclesInBasket().size() <= 0) {
 				   buyButton.setEnabled(false);
 			   }
+			   totalPrice.setText("Total price: "+basket.getTotalPrice());
 			   container.revalidate();
 			   container.repaint();
 		   });
@@ -62,7 +65,7 @@ public class CartPanel extends JPanel {
 	   }
 	   
 	   
-	   
+	   totalPrice.setText("Total price: "+basket.getTotalPrice());
 	   container.revalidate();
 	   container.repaint();
 
