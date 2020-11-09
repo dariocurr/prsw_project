@@ -86,15 +86,13 @@ public class ClientGUI {
 			System.out.println("error while loading the service seller");
 		}*/
 		
-		
-		try {
+		/*try {
 			this.client = new IfsCarsServiceClient();
 			this.vehhiclesList = client.getVehicles();
 		} catch (ServiceException | RemoteException e) {
 			e.printStackTrace();
 			System.out.println("TODO Error message");
-		}
-		
+		}*/
 		
 		this.frame = new JFrame();
 		this.initComponents();
@@ -119,13 +117,13 @@ public class ClientGUI {
 		
 		//TODO get list from service
 
-		//ArrayList<IVehicle> v = new ArrayList<>();
-		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		ArrayList<IVehicle> vehhiclesList = new ArrayList<>();
+		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000, "ford_fiesta.png");
-		v.add(testIVehicle);
-		v.add(testIVehicle2);
-		v.add(testIVehicle3);*/
+		vehhiclesList.add(testIVehicle);
+		vehhiclesList.add(testIVehicle2);
+		vehhiclesList.add(testIVehicle3);
 		
 		for(IVehicle vehicle : vehhiclesList) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
