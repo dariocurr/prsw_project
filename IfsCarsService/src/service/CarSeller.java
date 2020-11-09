@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import bank.Bank;
 import bank.BankServiceLocator;
 import common.IBank;
 import common.ICarRentalObservable;
@@ -28,7 +29,7 @@ import common.Vehicle;
 public class CarSeller implements ICarSeller {
 
 	private ICarRentalObservable carRental;
-	private IBank bank;
+	private Bank bank;
 	
 	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException, ServiceException {
 		Path currentPath = Paths.get("");
@@ -40,7 +41,7 @@ public class CarSeller implements ICarSeller {
 		System.setProperty("java.rmi.server.codebase", codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
-		this.bank = (IBank) new BankServiceLocator().getBank();
+		this.bank = (Bank) new BankServiceLocator().getBank();
 	}
 	
 	@Override

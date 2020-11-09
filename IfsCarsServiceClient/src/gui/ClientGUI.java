@@ -86,6 +86,7 @@ public class ClientGUI {
 			System.out.println("error while loading the service seller");
 		}*/
 		
+		
 		try {
 			this.client = new IfsCarsServiceClient();
 			this.vehhiclesList = client.getVehicles();
@@ -93,6 +94,7 @@ public class ClientGUI {
 			e.printStackTrace();
 			System.out.println("TODO Error message");
 		}
+		
 		
 		this.frame = new JFrame();
 		this.initComponents();
