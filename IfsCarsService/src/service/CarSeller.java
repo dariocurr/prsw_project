@@ -11,18 +11,15 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javax.xml.rpc.ServiceException;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import bank.BankServiceLocator;
 import common.IBank;
-import common.IBasket;
 import common.ICarRentalObservable;
 import common.ICarSeller;
 import common.IVehicle;
@@ -37,7 +34,7 @@ public class CarSeller implements ICarSeller {
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
-		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "sec.policy";
+		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCarsService" + File.separator + "src" + File.separator + "service" + File.separator + "sec.policy";
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
@@ -47,30 +44,14 @@ public class CarSeller implements ICarSeller {
 	}
 	
 	@Override
-	public String getAvailableVehiclesForSale() throws RemoteException {
-		// JSON TO RETURN
-		String vehicles = new String();
-		List<Object> availableVehiclesForSale = this.carRental.getAvailableVehicles().stream().filter(IVehicle::isForSale).collect(Collectors.toList());
-		//return (Vehicle[]) availableVehiclesForSale.toArray(new IVehicle[availableVehiclesForSale.size()]);
-
-		for(Object vehicle : availableVehiclesForSale) {
-			IVehicle v = (IVehicle) vehicle;
-			JSONObject json = new JSONObject();
-			
-			json.put("model", v.getModel());
-			json.put("year", v.getYear());
-			json.put("seats", v.getSeats());
-			json.put("doors", v.getDoors());
-			json.put("transmission", v.getTrasmission());
-			json.put("pricePerDay", v.getPricePerDay());
-			json.put("price", v.getPrice());
-			json.put("size", v.getSize());
-			json.put("fileName", v.getFileName());
-			
-			vehicles += json.toString() + ";";
+	public String getAvailableForSaleVehicles() throws RemoteException {
+		List<IVehicle> availableForSaleVehicles = new ArrayList<IVehicle>();
+		for (IVehicle vehicle : carRental.getAvailableVehicles()) {
+			if (vehicle.isForSale()) {
+			availableForSaleVehicles.add(vehicle);
+			}
 		}
-		System.out.println(vehicles);
-		return vehicles;
+		return CarSeller.createJSONString(availableForSaleVehicles);
 	}
 	
 	@Override
@@ -79,22 +60,40 @@ public class CarSeller implements ICarSeller {
 		Objects.requireNonNull(accountNumber);
 		Objects.requireNonNull(currency);
 		boolean isPaymentDone = this.bank.makePayment(accountNumber, amount, currency);
-		// RECONSTRUCT VEHICLES
-		/*
 		if (isPaymentDone) {
-			this.carRental.getAvailableVehicles().removeAll(basket.getVehiclesInBasket());
-		}*/
-		
+			this.carRental.getAvailableVehicles().removeAll(CarSeller.reconstructFromJSONString(basket));
+		}
+		return isPaymentDone;
+	}
+	
+	
+	private static String createJSONString(List<IVehicle> availableVehiclesForSale) {
+		String vehicles = new String();
+		for(IVehicle vehicle : availableVehiclesForSale) {
+			JSONObject json = new JSONObject();
+			json.put("model", vehicle.getModel());
+			json.put("year", vehicle.getYear());
+			json.put("seats", vehicle.getSeats());
+			json.put("doors", vehicle.getDoors());
+			json.put("transmission", vehicle.getTrasmission());
+			json.put("pricePerDay", vehicle.getPricePerDay());
+			json.put("price", vehicle.getPrice());
+			json.put("size", vehicle.getSize());
+			json.put("fileName", vehicle.getFileName());
+			vehicles += json.toString() + ";";
+		}
+		return vehicles;
+	}
+	
+	private static List<IVehicle> reconstructFromJSONString(String basket) {
 		String[] stringVehicles = basket.split(";");
 		List<IVehicle> listVehicles = new ArrayList<>();
 		JSONParser parser = new JSONParser();
-		
 		for(String vehicle : stringVehicles) {
 			JSONObject json = new JSONObject();
 			try {
 				json = (JSONObject) parser.parse(vehicle);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -107,11 +106,10 @@ public class CarSeller implements ICarSeller {
 			Double price = (Double) json.get("price");
 			String size = (String) json.get("size");
 			String file_name = (String) json.get("fileName");
-			IVehicle v = new Vehicle(model, year, seats.intValue(), doors.intValue(), transmission, size, pricePerDay, price, file_name);
-			listVehicles.add(v);
+			IVehicle newVehicle = new Vehicle(model, year, seats.intValue(), doors.intValue(), transmission, size, pricePerDay, price, file_name);
+			listVehicles.add(newVehicle);
 		}
-			
-			
-		return isPaymentDone;
+		return listVehicles;
 	}
+	
 }

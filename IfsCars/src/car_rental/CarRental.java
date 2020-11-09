@@ -22,6 +22,7 @@ import common.ICarRentalObservable;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
+import common.Vehicle;
 
 public class CarRental extends UnicastRemoteObject implements ICarRentalObservable {
 	
