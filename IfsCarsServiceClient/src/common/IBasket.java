@@ -14,4 +14,6 @@ public interface IBasket {
 	
 	public List<String> getVehicleModel();
 	
+	public void empty();
+	
 }

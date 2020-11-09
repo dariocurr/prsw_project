@@ -47,4 +47,9 @@ public class Basket implements IBasket {
 		return models;
 	}
 	
+	@Override
+	public void empty() {
+		vehiclesBasket.removeAll(vehiclesBasket);
+	}
+	
 }
