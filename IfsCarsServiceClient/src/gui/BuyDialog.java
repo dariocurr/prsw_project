@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -31,6 +32,8 @@ public class BuyDialog extends JDialog implements ActionListener{
 	private GridBagConstraints constraint;
 	private JLabel model;
 	private JLabel price;
+	private JLabel bankResult;
+	private JTextField bankAccountNumber;
 	private JComboBox<String> currencyComboBox;
 	private JButton confirmButton;
 	private JButton cancelButton;
@@ -48,6 +51,8 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    constraint = new GridBagConstraints();
 	    this.model = new JLabel("model ");
 	    this.price = new JLabel("price " + this.basket.getTotalPrice());
+	    this.bankAccountNumber = new JTextField(); 
+	    this.bankResult = new JLabel("bank processing...");
 	    this.confirmButton = new JButton("CONFIRM");
 	    this.cancelButton = new JButton("CANCEL");
 	    this.currencyComboBox = new JComboBox<String>();
@@ -71,28 +76,26 @@ public class BuyDialog extends JDialog implements ActionListener{
 		this.currencyComboBox.addItem("EUR");
 		this.currencyComboBox.addItem("USD");
 		this.currencyComboBox.addItem("GBD");
-	    
-        this.constraint.gridx = 0;
-        this.constraint.gridy = 0;
-        this.constraint.anchor = GridBagConstraints.LINE_START;
-        this.model.setText("<html>model1<br>model2</html>");
-        
-        String a="";
-        String b="";
+		this.constraint.insets = new Insets(24, 0, 0, 0);
+		
+		String a="";
         for(String models : basket.getVehicleModel()) {
-        	a+=b;
-        	b=models+"<br>";
+        	a+=models+"<br>";
         }
-        a+=b;
+		this.constraint.gridx = 0;
+        this.constraint.gridy = 0;
+        this.constraint.gridwidth = 2;
+        this.constraint.anchor = GridBagConstraints.LINE_START;
+        this.constraint.gridwidth = 1;
         this.model.setText("<html> models:<br> "+ a+ "</html>");
-        this.model.setFont(new Font(this.model.getName(),Font.PLAIN,18));
+        this.model.setFont(new Font(this.model.getName(),Font.PLAIN,16));
         this.panel.add(model,constraint);
         
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         this.constraint.anchor = GridBagConstraints.LINE_START;
-        this.constraint.insets = new Insets(8, 0, 8, 8);
-        this.price.setFont(new Font(this.price.getName(),Font.PLAIN,18));
+        this.constraint.insets = new Insets(8, 0, 0, 8);
+        this.price.setFont(new Font(this.price.getName(),Font.PLAIN,16));
         this.panel.add(price,constraint);
         
         this.constraint.gridx = 1;
@@ -100,18 +103,35 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.constraint.anchor = GridBagConstraints.LINE_END;
         this.panel.add(currencyComboBox,constraint);
         
-        this.constraint.insets = new Insets(8, 8, 8, 8);
+        this.constraint.insets = new Insets(16, 0, 0, 8);
+        this.constraint.gridwidth = 2;
+        this.constraint.gridx = 0;
         this.constraint.gridy = 2;
+        this.constraint.fill = GridBagConstraints.HORIZONTAL;
+        this.panel.add(bankAccountNumber,constraint);
+        
+        this.constraint.insets = new Insets(0, 0, 8, 8);
+        this.constraint.gridwidth = 1;
+        this.constraint.gridx = 0;
+        this.constraint.gridy = 3;
+        this.constraint.anchor = GridBagConstraints.LINE_START;
+        this.panel.add(bankResult,constraint);
+        
+        this.constraint.insets = new Insets(8, 8, 24, 8);
+        this.constraint.gridy = 4;
         this.constraint.gridx = 0;
         this.constraint.anchor = GridBagConstraints.LINE_START;
         this.constraint.ipadx = 10;
         this.constraint.ipady = 5;
         this.panel.add(cancelButton,constraint);
         
-        this.constraint.gridy = 2;
+        this.constraint.gridy = 4;
         this.constraint.gridx = 1;
         this.constraint.anchor = GridBagConstraints.LINE_END;
+        this.confirmButton.setEnabled(false);
         this.panel.add(confirmButton,constraint);
+        
+        
         
         this.cancelButton.addActionListener(ev -> {
         	dispose();
@@ -121,7 +141,7 @@ public class BuyDialog extends JDialog implements ActionListener{
         	//do thighs 
         });
         
-        setMinimumSize(new Dimension(300,150));
+        setMinimumSize(new Dimension(400,200));
         setLocationRelativeTo(parent);
 	    add(panel);
 	    pack();
