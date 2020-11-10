@@ -101,12 +101,14 @@ public class RentPanel extends JPanel {
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         
-        this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRentable.get(0).getFileName());
-		Image image = this.vehicleImage.getImage();
-        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newVehicIcon = new ImageIcon(newImg);
-        this.vehicleRentLabel = new JLabel(newVehicIcon);
-        this.add(this.vehicleRentLabel,constraint);
+        if(!this.vehiclesRentable.isEmpty()) {
+	        this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRentable.get(0).getFileName());
+			Image image = this.vehicleImage.getImage();
+	        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+	        ImageIcon newVehicIcon = new ImageIcon(newImg);
+	        this.vehicleRentLabel = new JLabel(newVehicIcon);
+	        this.add(this.vehicleRentLabel,constraint);
+        }
         
         this.constraint.insets = new Insets(10, 8, 8, 8);
         this.constraint.gridx = 1;
@@ -131,6 +133,7 @@ public class RentPanel extends JPanel {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
 	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
 	          paintImage(v.getFileName());
+	          paintDescription(v);
 	          
 	       }
 	    }       
@@ -139,22 +142,24 @@ public class RentPanel extends JPanel {
 	class RentActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			IVehicle vehicle =((VehicleComboItem)rentComboBox.getSelectedItem()).getVehicle();
 			
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-			LocalDateTime startDate = LocalDateTime.now();
+			if(rentComboBox.getSelectedItem() != null) {
+				IVehicle vehicle =((VehicleComboItem)rentComboBox.getSelectedItem()).getVehicle();
+				
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+				LocalDateTime startDate = LocalDateTime.now();
+				
+				LocalDateTime endDate = startDate.plusMonths(6);
+				try {
+					clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
+					//ReturnPanel.getComboBox().addItem((VehicleComboItem)rentComboBox.getSelectedItem());
+					rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
 			
-			LocalDateTime endDate = startDate.plusMonths(6);
-			try {
-				clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
-				vehiclesRentable = clientProxy.getAvailableVehicles();
-				initComponents();
-				paintComponents();
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			}
-			
-			
 		}
 	}
 	
@@ -165,6 +170,12 @@ public class RentPanel extends JPanel {
          Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
          this.vehicleImage = new ImageIcon(newImg);
          this.vehicleRentLabel.setIcon(vehicleImage);
+	}
+
+
+	public void paintDescription(IVehicle v) {
+		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+		
 	}
 
 }

@@ -1,9 +1,13 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import com.formdev.flatlaf.*;
 
 import common.IRenterObserver;
+import company.ClientProxy;
 
 //import common.Vehicle;
 
@@ -19,6 +23,7 @@ public class VehicleRentalGUI {
 	private JPanel selectReturnPanel;
 	private JTabbedPane tabPane;
 	private JFrame frame;
+	private ClientProxy clientProxy;
 
 	public VehicleRentalGUI(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 
@@ -34,6 +39,8 @@ public class VehicleRentalGUI {
 		
 		this.frame = new JFrame("Vehicles Rental");
 		
+		this.clientProxy = new ClientProxy();
+		
 		
 		this.tabPane = new JTabbedPane();
 		this.selectRentPanel = new RentPanel(renter);
@@ -42,7 +49,31 @@ public class VehicleRentalGUI {
         this.tabPane.addTab("RENT A VEHICLE", this.selectRentPanel);
         this.tabPane.addTab("RETURN A VEHICLE", this.selectReturnPanel);
 		this.tabPane.setSelectedIndex(0);
+		
 		this.frame.add(this.tabPane);
+		
+		this.tabPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+	        	JTabbedPane tab = (JTabbedPane)e.getSource();
+	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.RentPanel")) {
+	            	try {
+						selectRentPanel = new RentPanel(renter);
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						e1.printStackTrace();
+					}
+	            }
+	            
+	            else if(tab.getSelectedComponent().getClass().toString().equals("class gui.ReturnPanel")) {
+	            	try {
+						selectReturnPanel = new ReturnPanel(renter);
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	            }
+					
+	        }
+	    });
 		
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
@@ -52,6 +83,10 @@ public class VehicleRentalGUI {
 		this.frame.pack();
 		this.frame.setLocationRelativeTo(null);
 		this.frame.setVisible(true);
+	}
+	
+	public JPanel getSelectReturnPanel() {
+		return selectReturnPanel;
 	}
 
 

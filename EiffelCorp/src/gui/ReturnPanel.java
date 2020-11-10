@@ -31,10 +31,11 @@ import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
 import company.ClientProxy;
+import gui.RentPanel.ItemChangeListener;
 
 public class ReturnPanel extends JPanel{
 
-	private JComboBox<String> returnComboBox;
+	private JComboBox<VehicleComboItem> returnComboBox;
 	
 	private ImageIcon vehicleImage;
 	private JLabel vehicleReturnLabel;
@@ -46,9 +47,10 @@ public class ReturnPanel extends JPanel{
 	
 	private GridBagConstraints constraint;
 	
-	private ClientProxy clientProxy;
 	private List<IRent> rents;
 	private IRenterObserver renter;
+
+	private ClientProxy clientProxy;
 	
 	public ReturnPanel(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 		super();
@@ -58,8 +60,6 @@ public class ReturnPanel extends JPanel{
 		this.clientProxy = new ClientProxy();
 		this.rents = this.clientProxy.getRenterRentals(renter);
 		
-		this.vehiclesRented = new ArrayList<>();
-		
 		
 		this.loadVehicles();
 		this.initComponents();
@@ -67,19 +67,27 @@ public class ReturnPanel extends JPanel{
 	}
 	
 	private void loadVehicles() {
+		this.vehiclesRented = new ArrayList<>();
 		if(this.rents != null)
 			for(IRent rent : this.rents)
 				this.vehiclesRented.add(rent.getVehicle());
 	}
 	
+	
 	private void initComponents() {
-		ArrayList<String> modelVehiclesRented = new ArrayList<>();
+		/*ArrayList<String> modelVehiclesRented = new ArrayList<>();
 		for(IVehicle vehicle : this.vehiclesRented)
-			modelVehiclesRented.add(vehicle.getModel());
+			modelVehiclesRented.add(vehicle.getModel());*/
 		
-		this.returnComboBox = new JComboBox<String>();
-		this.returnComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRented.toArray(new String[0])));
-		this.returnComboBox.setPrototypeDisplayValue("text long like this or more.... ");
+		this.returnComboBox = new JComboBox<VehicleComboItem>();
+		//this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
+		//this.returnComboBox.setPrototypeDisplayValue("text long like this or more..... ");
+		
+		for(IVehicle vehicle : this.vehiclesRented) {
+			this.returnComboBox.addItem(new VehicleComboItem(vehicle));
+		}
+		
+		this.returnComboBox.addItemListener(new ItemChangeListener());
 		this.notesArea = new JTextArea(10, 30);
 		this.notesScrollPane = new JScrollPane(this.notesArea);
 		this.notesScrollPane.setBorder(BorderFactory.createTitledBorder("Notes"));
@@ -95,14 +103,17 @@ public class ReturnPanel extends JPanel{
         this.constraint.gridy = 0;
         this.add(this.returnComboBox,constraint);
         
+        
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
-		this.vehicleImage = new ImageIcon("C:/Users/domy-/OneDrive/Desktop/alfa-romeo-2020-giulia.png");
-		Image image = this.vehicleImage.getImage(); // transform it
-        Image newImg = image.getScaledInstance(160, 100,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newVehicIcon = new ImageIcon(newImg);
-        this.vehicleReturnLabel = new JLabel(newVehicIcon);
-        this.add(this.vehicleReturnLabel, constraint);
+        if(!this.vehiclesRented.isEmpty()) {
+	        this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRented.get(0).getFileName());
+			Image image = this.vehicleImage.getImage();
+	        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+	        ImageIcon newVehicIcon = new ImageIcon(newImg);
+	        this.vehicleReturnLabel = new JLabel(newVehicIcon);
+	        this.add(this.vehicleReturnLabel,constraint);
+        }
 		
 		
         this.constraint.gridx = 1;
@@ -122,16 +133,34 @@ public class ReturnPanel extends JPanel{
         this.constraint.fill = GridBagConstraints.NONE;
         this.add(this.returnButton,constraint);
 	}
+	
+	class ItemChangeListener implements ItemListener{
+	    @Override
+	    public void itemStateChanged(ItemEvent event) {
+	       if (event.getStateChange() == ItemEvent.SELECTED) {
+	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
+	          paintImage(v.getFileName());
+	       }
+	    }       
+	}
+	
+	public void paintImage(String file_name) {
+        ImageIcon vehicleImg = new ImageIcon("res\\car_img\\" + file_name);
+        Image image = vehicleImg.getImage();
+        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+        this.vehicleImage = new ImageIcon(newImg);
+        this.vehicleReturnLabel.setIcon(vehicleImage);
+	}
 
 	class ReturnActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			IRent rent = null;
 			if(returnComboBox.getSelectedItem() != null) {
-				String modelName = returnComboBox.getSelectedItem().toString();
-				System.out.println(modelName);
+				//String modelName = returnComboBox.getSelectedItem().toString();
+				//System.out.println(modelName);
 				for(IRent r : rents) {
-		        	  if(r.getVehicle().getModel().equals(modelName)) {
+		        	  if(r.getVehicle().equals(((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle())) {
 		        		  rent = r;
 		        	  }
 				}
@@ -141,14 +170,18 @@ public class ReturnPanel extends JPanel{
 					notes.add(line);
 				
 				try {
+					//System.out.println(rent.getVehicle().getModel() + "Returned");
 					clientProxy.returnVehicle(rent, notes);
-					rents = clientProxy.getRenterRentals(renter);
-					vehiclesRented = new ArrayList<>();
+					//clientProxy = new ClientProxy();
+					//rents = clientProxy.getRenterRentals(renter);
 					
+					//loadVehicles();
 					
-					loadVehicles();
-					initComponents();
-					paintComponents();
+					System.out.println("Ciao" + ((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle().getModel());
+					
+					returnComboBox.removeItem(((VehicleComboItem)returnComboBox.getSelectedItem()));
+			
+					
 					
 				} catch (RemoteException e) {
 					e.printStackTrace();

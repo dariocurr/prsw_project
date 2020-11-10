@@ -83,7 +83,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void returnVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
-		this.rentals.remove(rent.getRenter()).remove(rent);
+		this.rentals.get(rent.getRenter()).remove(rent);
 		this.availableVehicles.add(rent.getVehicle());
 		this.notifyObserver(rent.getVehicle());
 	}
