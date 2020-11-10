@@ -127,12 +127,12 @@ public class ClientGUI {
 		//TODO get list from service
 
 		List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
-		/*try {
+		try {
 			vehhiclesList = client.getVehicles();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("TODO error veichle list");
-		}*/
+		}
 		
 		
 		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
@@ -204,13 +204,15 @@ public class ClientGUI {
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         
-        for(IVehicle vehicle : vehiclesList) {
-        	System.out.println(vehicle);
+        if(vehiclesList.size() > 0) {
+        	ImageIcon vehicleImage = new ImageIcon("res\\car_img\\"+vehiclesList.get(0).getFileName());
+    		Image image = vehicleImage.getImage();
+            Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
+            this.VehicleIcon = new ImageIcon(newImg);
+        } else {
+        	this.VehicleIcon = new ImageIcon();
         }
-        ImageIcon vehicleImage = new ImageIcon("res\\car_img\\"+vehiclesList.get(0).getFileName());
-		Image image = vehicleImage.getImage();
-        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
-        this.VehicleIcon = new ImageIcon(newImg);
+        
         this.vehicleLabel = new JLabel(VehicleIcon);
         this.mainPanel.add(this.vehicleLabel,constraint);
         
