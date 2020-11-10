@@ -1,9 +1,14 @@
 package bank;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +32,24 @@ public class Bank implements IBank {
 
 	private List<IBankAccount> accounts;
 	
-	public Bank() {
-		this.accounts = Bank.loadBankAcoountsFromFile("res" + File.separator + "bank_accounts_list.json");
+	public Bank() throws IOException {
+		/*
+		Class cls = Class.forName("Bank");
+		ClassLoader clsLoader = cls.getClassLoader();
+		InputStream inputStream = clsLoader.getResourceAsStream("bank_accounts_list.json");
+		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+		"res" + File.separator + "bank_accounts_list.json"
+		*/
+		/*
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("bank_accounts_list.json");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String str = reader.readLine();
+        while (str != null) {
+        	System.out.println(str);
+        	str = reader.readLine();
+        }
+        */
+		//this.accounts = Bank.loadBankAccountsFromFile("res" + File.separator + "bank_accounts_list.json");
 	}
 	
 	@Override
@@ -70,7 +91,7 @@ public class Bank implements IBank {
 		return 0;
 	}
 	
-	private static List<IBankAccount> loadBankAcoountsFromFile(String url) {
+	private static List<IBankAccount> loadBankAccountsFromFile(String url) {
 		JSONParser jsonParser = new JSONParser();	
 		List<IBankAccount> bankAccountsList = new ArrayList<>();
 		try (FileReader reader = new FileReader(url)) {
@@ -81,7 +102,6 @@ public class Bank implements IBank {
             }
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: Reading from bank accounts json");
-            System.out.println(System.getProperty("user.dir"));
             e.printStackTrace();
         } catch (IOException e) {
         	System.out.println("ERROR: Reading from bank accounts json");
@@ -99,5 +119,6 @@ public class Bank implements IBank {
 		IBankAccount bankAccount = new BankAccount(accountNumber, Double.parseDouble(amount));
         return bankAccount;
     }
+    
 	
 }
