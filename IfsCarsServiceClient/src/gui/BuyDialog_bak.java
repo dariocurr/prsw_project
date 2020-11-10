@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.sound.midi.Soundbank;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -26,8 +25,6 @@ import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import client.IfsCarsServiceClient;
-import common.IBank;
 import common.IBasket;
 import common.IVehicle;
 
@@ -36,7 +33,6 @@ public class BuyDialog extends JDialog implements ActionListener{
 	private JPanel panel;
 	private JFrame parent;
 	private IBasket basket;
-	private IfsCarsServiceClient client;
 	private GridBagConstraints constraint;
 	private JLabel model;
 	private JLabel price;
@@ -46,16 +42,14 @@ public class BuyDialog extends JDialog implements ActionListener{
 	private JButton confirmButton;
 	private JButton cancelButton;
 	
-	public BuyDialog(JFrame parent, IBasket basket, IfsCarsServiceClient client) {
+	public BuyDialog(JFrame parent, IBasket basket) {
+		
 		super(parent, "Confirm");
 		this.parent = parent;
-		this.basket = basket;
-		this.client = client;
-		
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		setModalityType(ModalityType.DOCUMENT_MODAL);
-		
+		this.basket = basket;
 		panel = new JPanel();
 	    panel.setLayout(new GridBagLayout());
 	    constraint = new GridBagConstraints();
@@ -202,12 +196,9 @@ public class BuyDialog extends JDialog implements ActionListener{
 
 	public void performBuy() {
 		//TODO ACCATTATE A DIGNITà
-		if (client.sell(
-				this.basket, 
-				this.bankAccountNumber.getText(), 
-				this.basket.getTotalPrice(), 
-				(String) this.currencyComboBox.getSelectedItem()
-		)) {
+		
+		if (true) {
+			//default title and icon
 			JOptionPane.showMessageDialog(this,
 			    "Congrats for your new car(s)!");
 			basket.empty();
