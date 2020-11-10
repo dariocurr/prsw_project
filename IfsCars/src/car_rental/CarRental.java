@@ -50,7 +50,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		for (IVehicle vehicle : this.waitList.keySet()) {
 			List<IRent> vehicleWaitList = this.waitList.get(vehicle);
 			if (!vehicleWaitList.isEmpty()) {
-				notAvailableVehicles.put(vehicle, vehicleWaitList.get(vehicleWaitList.size() - 1).getEndDate());
+				notAvailableVehicles.put(vehicle, vehicleWaitList.get(0).getEndDate());
 			}
 			
 		}
