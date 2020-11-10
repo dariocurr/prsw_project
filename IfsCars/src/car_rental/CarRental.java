@@ -126,7 +126,9 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(vehicle);
 		List<IRent> vehicleWaitlist = this.waitList.get(vehicle);
 		if (!vehicleWaitlist.isEmpty()) {
-			vehicleWaitlist.get(0).getRenter().update();
+			if (vehicleWaitlist.get(0).getRenter().update()) {
+				this.rentVehicle(vehicleWaitlist.get(0));
+			}
 			vehicleWaitlist.remove(0);
 		}
 	}
