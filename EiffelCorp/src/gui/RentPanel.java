@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -57,7 +58,7 @@ public class RentPanel extends JPanel {
 		
 		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
 		
-		System.out.println("Repaint");
+		//System.out.println("Repaint");
 		
 		this.initComponents();
 		this.paintComponents();
@@ -149,11 +150,20 @@ public class RentPanel extends JPanel {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
 				LocalDateTime startDate = LocalDateTime.now();
 				
-				LocalDateTime endDate = startDate.plusMonths(6);
+				
+				String endDate = startDate.plusMonths(6).format(dtf);
 				try {
-					clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
-					//ReturnPanel.getComboBox().addItem((VehicleComboItem)rentComboBox.getSelectedItem());
-					rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+					if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, "EMP001") == null) {
+						int dialogButton = JOptionPane.YES_NO_OPTION;
+						int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is not available now. Do you want to be in the Wait List?","Warning",dialogButton);
+						if(dialogResult == JOptionPane.YES_OPTION){
+							rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+							clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, "EMP001");
+						}
+						
+					}
+					else
+						rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 	
 					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 				} catch (RemoteException e) {

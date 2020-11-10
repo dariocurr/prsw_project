@@ -156,4 +156,12 @@ public class ClientProxy {
 		this.carRental.returnVehicle(rent, notes);
 	}
 	
+	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException{
+		return this.carRental.getNotAvailableVehicles();
+	}
+	
+	public IRent attach(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException{
+		return this.carRental.attach(renter, vehicle, startDate, endDate, coupon);
+	}
+	
 }

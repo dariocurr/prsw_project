@@ -85,6 +85,14 @@
 		"age": "55",
 		"email": "test",
 		"password": "test"
+	},
+	{
+		"firstName":"fname",
+		"lastName": "lname",
+		"age": "55",
+		"email": "a",
+		"password": "a"
 	}
+	
 
 ]
