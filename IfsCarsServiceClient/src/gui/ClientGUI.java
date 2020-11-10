@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Area;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class ClientGUI {
 	private JFrame frame;
 	private JPanel mainPanel;
 	private IfsCarsServiceClient client;
-	private List<IVehicle> vehhiclesList;
+	private List<IVehicle> vehiclesList;
 	
 	private JComboBox<VehicleComboItem> buyComboBox;
 	private JLabel vehicleLabel;
@@ -89,7 +91,7 @@ public class ClientGUI {
 		
 		try {
 			this.client = new IfsCarsServiceClient();
-			this.vehhiclesList = client.getVehicles();
+			this.vehiclesList = client.getVehicles();
 		} catch (ServiceException | RemoteException e) {
 			e.printStackTrace();
 			System.out.println("TODO Error message");
@@ -124,13 +126,21 @@ public class ClientGUI {
 		
 		//TODO get list from service
 
-		ArrayList<IVehicle> vehhiclesList = new ArrayList<>();
-		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
+		/*try {
+			vehhiclesList = client.getVehicles();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("TODO error veichle list");
+		}*/
+		
+		
+		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000.07, "ford_fiesta.png");
 		vehhiclesList.add(testIVehicle);
 		vehhiclesList.add(testIVehicle2);
-		vehhiclesList.add(testIVehicle3);
+		vehhiclesList.add(testIVehicle3);*/
 		
 		for(IVehicle vehicle : vehhiclesList) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
@@ -155,18 +165,28 @@ public class ClientGUI {
         this.cartPanel = new CartPanel(this.buyButton, this.totalPrice);
         
         
-        
         this.addButton = new JButton("ADD TO CART");
-        
         this.addButton.addActionListener(ev -> {
-        	IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
-        	this.cartPanel.additem(vehicle);        	
+        	if(this.buyComboBox.getItemCount() > 0) {
+        		IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
+            	this.cartPanel.additem(vehicle);  
+        	} else {
+        		System.out.println("TODO error not veichles in the combobox");
+        	}
+        	      	
         });
-        
         
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
-        	BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket());
+        	 BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket(), this.client);
+        	 dialog.addWindowListener(new WindowAdapter()
+        	    {
+        	      public void windowClosed(WindowEvent e)
+        	      {
+        	        cartPanel.reload();
+        	      }
+        	    });
+        	
         });
 	}
 	
@@ -184,7 +204,10 @@ public class ClientGUI {
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
         
-        ImageIcon vehicleImage = new ImageIcon("res\\car_img\\fiat_500.png");
+        for(IVehicle vehicle : vehiclesList) {
+        	System.out.println(vehicle);
+        }
+        ImageIcon vehicleImage = new ImageIcon("res\\car_img\\"+vehiclesList.get(0).getFileName());
 		Image image = vehicleImage.getImage();
         Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
         this.VehicleIcon = new ImageIcon(newImg);

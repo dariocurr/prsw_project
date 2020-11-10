@@ -57,8 +57,8 @@ public class Renter implements IRenterObserver {
 	}
 	
 	@Override
-	public void update() {
-		
+	public boolean update() {
+		return true;
 	}
 
 	@Override
