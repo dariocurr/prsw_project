@@ -51,9 +51,9 @@ public class CarSeller implements ICarSeller {
 		List<IVehicle> availableForSaleVehicles = new ArrayList<IVehicle>();
 		
 		for (IVehicle vehicle : carRental.getAvailableVehicles()) {
-			if (vehicle.isForSale()) {
+			//if (vehicle.isForSale()) {
 			availableForSaleVehicles.add(vehicle);
-			}
+			//}
 		}
 		return CarSeller.createJSONString(availableForSaleVehicles);
 	}
