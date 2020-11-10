@@ -27,7 +27,7 @@ public class Bank implements IBank {
 	private List<IBankAccount> accounts;
 	
 	public Bank() {
-		this.accounts = Bank.loadBankAcoountsFromFile("res/bank_accounts_list.json");
+		this.accounts = Bank.loadBankAcoountsFromFile("res\\bank_accounts_list.json");
 	}
 	
 	@Override
@@ -80,6 +80,7 @@ public class Bank implements IBank {
             }
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: Reading from bank accounts json");
+            System.out.println(System.getProperty("user.dir"));
             e.printStackTrace();
         } catch (IOException e) {
         	System.out.println("ERROR: Reading from bank accounts json");
