@@ -73,8 +73,8 @@ public class VehicleRentalGUI {
 					//int selectedIndex = tabPane.getSelectedIndex();
 					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
 					tabPane.setSelectedIndex(0);
-					tabPane.revalidate();
-					tabPane.repaint();
+					//tabPane.revalidate();
+					//tabPane.repaint();
 	            }
 	            
 	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.ReturnPanel")) {
@@ -90,8 +90,8 @@ public class VehicleRentalGUI {
 					//int selectedIndex = tabPane.getSelectedIndex();
 					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
 					tabPane.setSelectedIndex(1);
-					tabPane.revalidate();
-					tabPane.repaint();
+					//tabPane.revalidate();
+					//tabPane.repaint();
 					//tabPane.setSelectedComponent(selectReturnPanel);
 					//frame.add(tabPane);
 	            }
