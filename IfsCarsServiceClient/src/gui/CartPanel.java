@@ -79,6 +79,10 @@ public class CartPanel extends JPanel {
 	   this.loadBasket();
    }
    
+   public void reload() {
+	   this.loadBasket();
+   }
+   
    public int getBasketSize() {
 	   return  basket.getVehiclesInBasket().size();
    }

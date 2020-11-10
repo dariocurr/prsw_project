@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.GridBagConstraints;
@@ -10,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -167,27 +165,18 @@ public class ClientGUI {
         	this.cartPanel.additem(vehicle);        	
         });
         
-        
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
-        	BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket());
+        	 BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket());
+        	 dialog.addWindowListener(new WindowAdapter()
+        	    {
+        	      public void windowClosed(WindowEvent e)
+        	      {
+        	        cartPanel.reload();
+        	      }
+        	    });
         	
-        	dialog.addWindowListener(new WindowAdapter() 
-            {
-              public void windowClosed(WindowEvent e)
-              {
-                System.out.println("jdialog window closed event received");
-              }
-
-              public void windowClosing(WindowEvent e)
-              {
-                System.out.println("jdialog window closing event received");
-              }
-            });
         });
-        
-        
-		
 	}
 	
 	private void startGUI() {

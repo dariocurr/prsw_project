@@ -20,9 +20,9 @@ public class IfsCarsServiceClient {
 	
 	public List<IVehicle> getVehicles() throws RemoteException {
 		List<IVehicle> vehicles = new ArrayList<>();
-		// Ã¨ normale sia vuota, perche nessun veicolo Ã¨ pronto per la vendita
+		//è normale sia vuota, perche nessun veicolo è pronto per la vendita
 		// per test, ti conviene commentare riga 54 e 56 in CarSeller
-		System.out.println(service.getAvailableForSaleVehicles());
+		System.out.println(service.getAvailableVehiclesForSale());
 		return vehicles;
 	}
 
