@@ -178,7 +178,7 @@ public class ClientGUI {
         
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
-        	 BuyDialog_bak dialog = new BuyDialog_bak(frame, this.cartPanel.getBasket(), this.client);
+        	 BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket(), this.client);
         	 dialog.addWindowListener(new WindowAdapter()
         	    {
         	      public void windowClosed(WindowEvent e)
