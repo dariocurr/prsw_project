@@ -27,7 +27,7 @@ public class Bank implements IBank {
 	private List<IBankAccount> accounts;
 	
 	public Bank() {
-		this.accounts = Bank.loadBankAcoountsFromFile("res/bank_accounts_list.json");
+		this.accounts = Bank.loadBankAcoountsFromFile("../res/bank_accounts_list.json");
 	}
 	
 	@Override
