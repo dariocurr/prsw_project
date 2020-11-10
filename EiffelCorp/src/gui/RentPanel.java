@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,15 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.font.TextAttribute;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.AttributedString;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -44,6 +48,7 @@ public class RentPanel extends JPanel {
 	private JButton rentButton;
 	private IRenterObserver renter;
 	private ClientProxy clientProxy;
+	private JLabel isAvailable;
 	
 	private List<IVehicle> vehiclesRentable;
 	
@@ -80,6 +85,8 @@ public class RentPanel extends JPanel {
 		
 		this.rentComboBox.addItemListener(new ItemChangeListener());
 		
+		this.isAvailable = new JLabel("AVAILABLE");
+		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
 		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
@@ -92,12 +99,13 @@ public class RentPanel extends JPanel {
         this.rentButton.addActionListener(new RentActionListener());
 	}
 	
-	private void paintComponents() {
+	private void paintComponents() throws RemoteException {
 		this.constraint = new GridBagConstraints();
 		this.constraint.insets = new Insets(16, 8, 8, 8);
 		this.constraint.gridx = 0;
 		this.constraint.gridy = 0;
         this.add(this.rentComboBox,constraint);
+		
         
         this.constraint.gridx = 0;
         this.constraint.gridy = 1;
@@ -109,6 +117,7 @@ public class RentPanel extends JPanel {
 	        ImageIcon newVehicIcon = new ImageIcon(newImg);
 	        this.vehicleRentLabel = new JLabel(newVehicIcon);
 	        this.add(this.vehicleRentLabel,constraint);
+	        this.paintDescription(this.vehiclesRentable.get(0));
         }
         
         this.constraint.insets = new Insets(10, 8, 8, 8);
@@ -134,7 +143,12 @@ public class RentPanel extends JPanel {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
 	          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
 	          paintImage(v.getFileName());
-	          paintDescription(v);
+	          try {
+				paintDescription(v);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	          
 	       }
 	    }       
@@ -151,7 +165,7 @@ public class RentPanel extends JPanel {
 				LocalDateTime startDate = LocalDateTime.now();
 				
 				
-				String endDate = startDate.plusMonths(6).format(dtf);
+				String endDate = startDate.plusMonths(3).format(dtf);
 				try {
 					if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, "EMP001") == null) {
 						int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -184,8 +198,12 @@ public class RentPanel extends JPanel {
 	}
 
 
-	public void paintDescription(IVehicle v) {
-		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+	public void paintDescription(IVehicle v) throws RemoteException {
+		Map<IVehicle, String> map = this.clientProxy.getNotAvailableVehicles();
+		if(map.containsKey(v))
+			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+		else
+			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
 		
 	}
 
