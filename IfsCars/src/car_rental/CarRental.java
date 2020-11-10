@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	private Map<IVehicle, List<IRent>> waitList;
 
 	public CarRental() throws RemoteException {
-		this.availableVehicles = CarRental.loadVehiclesFromFile("res/car_list.json");
+		this.availableVehicles = CarRental.loadVehiclesFromFile("res" + File.separator + "car_list.json");
 		this.rentals = new HashMap<IRenterObserver, List<IRent>>();
 		this.waitList = new HashMap<IVehicle, List<IRent>>();
 		for (IVehicle vehicle : this.availableVehicles) {

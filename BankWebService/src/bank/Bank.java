@@ -1,5 +1,6 @@
 package bank;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class Bank implements IBank {
 	private List<IBankAccount> accounts;
 	
 	public Bank() {
-		this.accounts = Bank.loadBankAcoountsFromFile("res\\bank_accounts_list.json");
+		this.accounts = Bank.loadBankAcoountsFromFile("res" + File.separator + "bank_accounts_list.json");
 	}
 	
 	@Override

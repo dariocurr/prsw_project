@@ -36,7 +36,7 @@ public class ClientProxy {
 	
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
-		this.renters = ClientProxy.loadRentersFromFile("res/renters_list.json");
+		this.renters = ClientProxy.loadRentersFromFile("res" + File.separator + "renters_list.json");
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));

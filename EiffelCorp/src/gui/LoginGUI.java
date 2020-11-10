@@ -16,6 +16,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -109,7 +110,7 @@ public class LoginGUI {
 		
 		constraint.gridx = 0;
         constraint.gridy = 0;
-        ImageIcon icon = new ImageIcon("res/logo.png");
+        ImageIcon icon = new ImageIcon("res" + File.separator + "logo.png");
 		Image image = icon.getImage(); // transform it
         Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newLogoIcon = new ImageIcon(newImg);

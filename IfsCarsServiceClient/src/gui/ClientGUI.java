@@ -16,6 +16,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Area;
+import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -205,7 +206,7 @@ public class ClientGUI {
         this.constraint.gridy = 1;
         
         if(vehiclesList.size() > 0) {
-        	ImageIcon vehicleImage = new ImageIcon("res\\car_img\\"+vehiclesList.get(0).getFileName());
+        	ImageIcon vehicleImage = new ImageIcon("res" + File.separator + "car_img" + File.separator + vehiclesList.get(0).getFileName());
     		Image image = vehicleImage.getImage();
             Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
             this.VehicleIcon = new ImageIcon(newImg);
@@ -257,7 +258,7 @@ public class ClientGUI {
 	}
 	
 	public void paintImage(String file_name) {
-		ImageIcon vehicleImage = new ImageIcon("res\\car_img\\" + file_name);
+		ImageIcon vehicleImage = new ImageIcon("res" + File.separator + "car_img" + File.separator + file_name);
         Image image = vehicleImage.getImage();
         Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
         this.VehicleIcon = new ImageIcon(newImg);
