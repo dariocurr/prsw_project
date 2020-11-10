@@ -154,6 +154,7 @@ public class RentPanel extends JPanel {
 					clientProxy.rentVehicle(renter, vehicle, startDate.toString(), endDate.toString(), "EMP001");
 					//ReturnPanel.getComboBox().addItem((VehicleComboItem)rentComboBox.getSelectedItem());
 					rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+	
 					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 				} catch (RemoteException e) {
 					e.printStackTrace();

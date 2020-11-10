@@ -12,6 +12,9 @@ import company.ClientProxy;
 //import common.Vehicle;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -52,28 +55,50 @@ public class VehicleRentalGUI {
 		
 		this.frame.add(this.tabPane);
 		
-		this.tabPane.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-	        	JTabbedPane tab = (JTabbedPane)e.getSource();
+		this.tabPane.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseReleased(MouseEvent ev) {
+				JTabbedPane tab = (JTabbedPane)ev.getSource();
 	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.RentPanel")) {
 	            	try {
 						selectRentPanel = new RentPanel(renter);
 					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 						e1.printStackTrace();
 					}
+	            	
+	          
+	            	tabPane.remove(0);
+					tabPane.insertTab("RENT A VEHICLE", null, selectRentPanel, null, 0);
+					//int selectedIndex = tabPane.getSelectedIndex();
+					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
+					tabPane.setSelectedIndex(0);
+					tabPane.revalidate();
+					tabPane.repaint();
 	            }
 	            
-	            else if(tab.getSelectedComponent().getClass().toString().equals("class gui.ReturnPanel")) {
+	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.ReturnPanel")) {
 	            	try {
 						selectReturnPanel = new ReturnPanel(renter);
 					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					//frame.remove(tabPane);
+					tabPane.remove(1);
+					tabPane.addTab("RETURN A VEHICLE", selectReturnPanel);
+					//int selectedIndex = tabPane.getSelectedIndex();
+					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
+					tabPane.setSelectedIndex(1);
+					tabPane.revalidate();
+					tabPane.repaint();
+					//tabPane.setSelectedComponent(selectReturnPanel);
+					//frame.add(tabPane);
 	            }
-					
-	        }
-	    });
+				
+			}
+		});
+		
 		
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
