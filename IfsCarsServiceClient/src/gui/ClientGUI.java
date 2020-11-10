@@ -126,13 +126,21 @@ public class ClientGUI {
 		
 		//TODO get list from service
 
-		ArrayList<IVehicle> vehhiclesList = new ArrayList<>();
-		IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
+		List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
+		try {
+			vehhiclesList = client.getVehicles();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("TODO error veichle list");
+		}
+		
+		
+		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
 		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000.07, "ford_fiesta.png");
 		vehhiclesList.add(testIVehicle);
 		vehhiclesList.add(testIVehicle2);
-		vehhiclesList.add(testIVehicle3);
+		vehhiclesList.add(testIVehicle3);*/
 		
 		for(IVehicle vehicle : vehhiclesList) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
@@ -161,13 +169,18 @@ public class ClientGUI {
         this.addButton = new JButton("ADD TO CART");
         
         this.addButton.addActionListener(ev -> {
-        	IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
-        	this.cartPanel.additem(vehicle);        	
+        	if(this.buyComboBox.getItemCount() > 0) {
+        		IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
+            	this.cartPanel.additem(vehicle);  
+        	} else {
+        		System.out.println("TODO error not veichles in the combobox");
+        	}
+        	      	
         });
         
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {
-        	 BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket());
+        	 BuyDialog dialog = new BuyDialog(frame, this.cartPanel.getBasket(), this.client);
         	 dialog.addWindowListener(new WindowAdapter()
         	    {
         	      public void windowClosed(WindowEvent e)

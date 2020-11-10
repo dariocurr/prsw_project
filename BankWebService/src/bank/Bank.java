@@ -45,14 +45,14 @@ public class Bank implements IBank {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(amount);
+		//System.out.println(amount);
 		for (IBankAccount account : this.accounts) {
 			if(account.getAccountNumber().equalsIgnoreCase(accountNumber)) {
 				account.setAmount(account.getAmount() - amount);
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -79,10 +79,13 @@ public class Bank implements IBank {
             	bankAccountsList.add(parseBankAccountObject( (JSONObject) bankAccount));
             }
         } catch (FileNotFoundException e) {
+            System.out.println("ERROR: Reading from bank accounts json");
             e.printStackTrace();
         } catch (IOException e) {
+        	System.out.println("ERROR: Reading from bank accounts json");
             e.printStackTrace();
         } catch (ParseException e) {
+        	System.out.println("ERROR: Reading from bank accounts json");
             e.printStackTrace();
         }
 		return bankAccountsList;
