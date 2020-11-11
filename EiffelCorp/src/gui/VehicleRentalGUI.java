@@ -99,6 +99,51 @@ public class VehicleRentalGUI {
 			}
 		});
 		
+		/*this.tabPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent ev) {
+				JTabbedPane tab = (JTabbedPane)ev.getSource();
+	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.RentPanel")) {
+	            	try {
+						selectRentPanel = new RentPanel(renter);
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						e1.printStackTrace();
+					}
+	            	
+	          
+	            	/*tabPane.removeAll();
+					tabPane.insertTab("RENT A VEHICLE", null, selectRentPanel, null, 0);
+					tabPane.insertTab("RETURN A VEHICLE", null, selectReturnPanel, null, 1);
+					//int selectedIndex = tabPane.getSelectedIndex();
+					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
+					tabPane.setSelectedIndex(0);
+					//tabPane.revalidate();
+					//tabPane.repaint();
+	            }
+	            
+	            if(tab.getSelectedComponent().getClass().toString().equals("class gui.ReturnPanel")) {
+	            	try {
+						selectReturnPanel = new ReturnPanel(renter);
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					//frame.remove(tabPane);
+	            	//int selectedIndex = tabPane.getSelectedIndex();
+					//tabPane.removeAll();
+					//tabPane.insertTab("RENT A VEHICLE", null, selectRentPanel, null, 0);
+					//tabPane.insertTab("RETURN A VEHICLE", null, selectReturnPanel, null, 1);
+					//int selectedIndex = tabPane.getSelectedIndex();
+					//int nextIndex = selectedIndex == tabPane.getTabCount()-1 ? 0 : selectedIndex+1;
+					//tabPane.setSelectedIndex(1);
+					//tabPane.setSelectedComponent(selectReturnPanel);
+					//frame.add(tabPane);
+	            }
+				
+			}
+		});*/
+		
 		
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
