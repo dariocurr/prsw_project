@@ -1,0 +1,52 @@
+[
+	{
+		"accountNumber":"0000624152",
+		"amount": "24178.90"
+	},
+
+	{
+		"accountNumber":"0000182634",
+		"amount": "1531.50"
+	},
+	
+	{
+		"accountNumber":"0000173294",
+		"amount": "271445.30"
+	},
+	
+	{
+		"accountNumber":"0000473826",
+		"amount": "7932.10"
+	},
+	
+	{
+		"accountNumber":"0000182632",
+		"amount": "10500.00"
+	},
+	
+	{
+		"accountNumber":"0000173233",
+		"amount": "2778.93"
+	},
+	
+	{
+		"accountNumber":"00001836458",
+		"amount": "52168.22"
+	},
+	
+	{
+		"accountNumber":"0000381663",
+		"amount": "1001243.12"
+	},
+	
+	{
+		"accountNumber":"0000162215",
+		"amount": "500.50"
+	},
+	
+	{
+		"accountNumber":"0000126946",
+		"amount": "70635.62"
+	}
+
+]
