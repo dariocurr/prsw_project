@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.rpc.ServiceException;
 
@@ -40,16 +41,10 @@ public class Bank implements IBank {
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 		"res" + File.separator + "bank_accounts_list.json"
 		*/
-		/*
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("bank_accounts_list.json");
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(".." + File.separator + "BankService" + File.separator + "bank_accounts_list.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String str = reader.readLine();
-        while (str != null) {
-        	System.out.println(str);
-        	str = reader.readLine();
-        }
-        */
-		//this.accounts = Bank.loadBankAccountsFromFile("res" + File.separator + "bank_accounts_list.json");
+        String json = reader.lines().collect(Collectors.joining());
+        this.loadBankAccountsFromFile(json);
 	}
 	
 	@Override
@@ -91,7 +86,7 @@ public class Bank implements IBank {
 		return 0;
 	}
 	
-	private static List<IBankAccount> loadBankAccountsFromFile(String url) {
+	private static List<IBankAccount> loadBankAccountsFromFile(String json) {
 		JSONParser jsonParser = new JSONParser();	
 		List<IBankAccount> bankAccountsList = new ArrayList<>();
 		try (FileReader reader = new FileReader(url)) {
