@@ -55,6 +55,7 @@ public class VehicleRentalGUI {
 		
 		this.frame.add(this.tabPane);
 		
+		/*
 		this.tabPane.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -97,9 +98,10 @@ public class VehicleRentalGUI {
 	            }
 				
 			}
-		});
+		});*/
 		
-		/*this.tabPane.addChangeListener(new ChangeListener() {
+		/*
+		this.tabPane.addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent ev) {

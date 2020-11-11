@@ -64,6 +64,7 @@ public class RentPanel extends JPanel {
 		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
 		
 		//System.out.println("Repaint");
+		System.out.println("costruisco panel rent");
 		
 		this.initComponents();
 		this.paintComponents();

@@ -12,8 +12,10 @@ public class CarRentalServer {
 	public static void main(String[] args) {
 		
 		try {
+			
 			LocateRegistry.createRegistry(1099);
 			ICarRentalObservable carRental = new CarRental();
+			System.setProperty("java.security.policy", "file:./server.policy");
 			Naming.rebind("CarRentalService", carRental);
 			System.out.println("Server running...");
 		} catch (RemoteException e) {

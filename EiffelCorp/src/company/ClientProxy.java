@@ -37,18 +37,19 @@ public class ClientProxy {
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
 		this.renters = ClientProxy.loadRentersFromFile("res" + File.separator + "renters_list.json");
-		/*
+		
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
-		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "sec.policy";
+		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "EiffelCorp" + File.separator + "src" + File.separator + "company" + File.separator + "client.policy";
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
+		//System.out.println("policy: "+policy_path+", codebase: "+codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
-		*/
+		
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
-		carRental.getAvailableVehicles().stream().forEach(System.out::println);
+		//carRental.getAvailableVehicles().stream().forEach(System.out::println);
 		
 	}
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
@@ -105,7 +106,7 @@ public class ClientProxy {
 	}
 	
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
-		System.out.println("Ciao1");
+		//System.out.println("Ciao1");
 		return this.carRental.getRenterRentals(renter);
 	}
 	

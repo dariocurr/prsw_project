@@ -76,7 +76,6 @@ public class LoginGUI {
 		}
 
 		this.clientProxy = new ClientProxy();
-		
 		this.frame = new JFrame();
 		
 		this.startGUI();

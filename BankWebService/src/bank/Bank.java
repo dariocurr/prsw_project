@@ -89,7 +89,19 @@ public class Bank implements IBank {
 	private static List<IBankAccount> loadBankAccountsFromFile(String json) {
 		JSONParser jsonParser = new JSONParser();	
 		List<IBankAccount> bankAccountsList = new ArrayList<>();
-		try (FileReader reader = new FileReader(url)) {
+		Object obj;
+		try {
+			obj = jsonParser.parse(json);
+			JSONArray bankAccounts = (JSONArray) obj;
+	        for(Object bankAccount : bankAccounts) {
+	        	bankAccountsList.add(parseBankAccountObject( (JSONObject) bankAccount));
+	        }
+		} catch (ParseException e) {
+			System.out.println("ERROR: Reading from bank accounts json");
+			e.printStackTrace();
+		}
+        
+		/*try (FileReader reader = new FileReader(url)) {
             Object obj = jsonParser.parse(reader);
             JSONArray bankAccounts = (JSONArray) obj;
             for(Object bankAccount : bankAccounts) {
@@ -104,7 +116,7 @@ public class Bank implements IBank {
         } catch (ParseException e) {
         	System.out.println("ERROR: Reading from bank accounts json");
             e.printStackTrace();
-        }
+        }*/
 		return bankAccountsList;
 	}
 	

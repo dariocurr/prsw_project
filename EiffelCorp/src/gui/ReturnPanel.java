@@ -59,7 +59,7 @@ public class ReturnPanel extends JPanel{
 		this.renter = renter; 
 		this.clientProxy = new ClientProxy();
 		this.rents = this.clientProxy.getRenterRentals(renter);
-		
+		System.out.println("costruisco panel return");
 		
 		this.loadVehicles();
 		this.initComponents();
@@ -177,7 +177,7 @@ public class ReturnPanel extends JPanel{
 					
 					//loadVehicles();
 					
-					System.out.println("Ciao" + ((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle().getModel());
+					//System.out.println("Ciao" + ((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle().getModel());
 					
 					returnComboBox.removeItem(((VehicleComboItem)returnComboBox.getSelectedItem()));
 			
