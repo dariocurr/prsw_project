@@ -37,6 +37,7 @@ public class ClientProxy {
 	
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
 		this.renters = ClientProxy.loadRentersFromFile("res" + File.separator + "renters_list.json");
+		/*
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
@@ -45,7 +46,9 @@ public class ClientProxy {
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
+		*/
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
+		carRental.getAvailableVehicles().stream().forEach(System.out::println);
 		
 	}
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
