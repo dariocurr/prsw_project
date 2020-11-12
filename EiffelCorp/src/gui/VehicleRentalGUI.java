@@ -53,10 +53,8 @@ public class VehicleRentalGUI {
 		this.tabPane.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				System.out.println("event");
 				JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
 		        int selectedIndex = tabbedPane.getSelectedIndex();
-		        System.out.println("selected index is "+selectedIndex);
 		        if(selectedIndex == 0) {
 					try {
 						tabPane.setComponentAt(selectedIndex, new RentPanel(renter));

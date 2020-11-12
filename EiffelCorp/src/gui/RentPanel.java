@@ -61,8 +61,6 @@ public class RentPanel extends JPanel {
 		this.clientProxy = new ClientProxy();
 		this.renter = renter;
 		
-		System.out.println("costruisco panel rent");
-		
 		this.initComponents();
 	}
 	

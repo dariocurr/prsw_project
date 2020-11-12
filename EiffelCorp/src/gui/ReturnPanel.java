@@ -59,7 +59,6 @@ public class ReturnPanel extends JPanel{
 		this.renter = renter; 
 		this.clientProxy = new ClientProxy();
 		this.rents = this.clientProxy.getRenterRentals(renter);
-		System.out.println("costruisco panel return");
 		
 		this.loadVehicles();
 		this.initComponents();
