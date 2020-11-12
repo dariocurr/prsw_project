@@ -98,6 +98,11 @@ public class Vehicle implements IVehicle {
 	public void setForSale(boolean forSale) {
 		this.forSale = forSale;
 	}
+	
+	@Override
+	public String toString() {
+		return this.model+" ["+this.year+"]";
+	}
 
 	@Override
     public boolean equals(Object otherObject) {

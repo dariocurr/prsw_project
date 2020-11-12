@@ -67,18 +67,18 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 
 	@Override
 	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
-		System.out.println("Rented by " + renter);
+		System.out.println(renter+" is trying to rent...");
 		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
 		
 		if(waitList.get(vehicle).isEmpty()) {
-			System.out.println("Rent!!");
+			System.out.println("Rented "+ vehicle +" by " + renter);
 			this.insertRent(renter, rent);
 			this.attach(renter, vehicle, startDate, endDate, coupon);
 		//this.availableVehicles.remove(rent.getVehicle());
 			return rent;
 		}
 		
-		System.out.println("Already Rented");
+		System.out.println("Car "+vehicle+" is already rented");
 		return null;
 	}
 	
@@ -92,6 +92,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void returnVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
+		System.out.println(rent.getRenter().getEmail()+" returned the car "+rent.getVehicle());
 		this.rentals.get(rent.getRenter()).remove(rent);
 		//this.availableVehicles.add(rent.getVehicle());
 		this.notifyObserver(rent.getVehicle());
@@ -100,12 +101,12 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException {
 		Objects.requireNonNull(notes);
-		//System.out.println("Restituito: " + rent.getVehicle() + "da: " + rent.getRenter().getEmail());
+		System.out.println(rent.getRenter().getEmail()+" returned the car "+rent.getVehicle()+" with notes added");
 		this.returnVehicle(rent);
 		if (rent.getRenter().isTrusted()) {
 			rent.getVehicle().getNotes().addAll(notes);
 		} else {
-			// throw new exception
+			System.out.println("Error while returning the car "+rent.getVehicle()+" from "+rent.getRenter().getEmail());
 		}
 	}
 

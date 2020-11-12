@@ -61,24 +61,20 @@ public class RentPanel extends JPanel {
 		this.clientProxy = new ClientProxy();
 		this.renter = renter;
 		
-		this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
-		
-		//System.out.println("Repaint");
 		System.out.println("costruisco panel rent");
 		
 		this.initComponents();
-		this.paintComponents();
 	}
 	
 	
 	private void initComponents() {
-		//ArrayList<String> modelVehiclesRentable = new ArrayList<>();
-		/*for(IVehicle vehicle : this.vehiclesRentable)
-			modelVehiclesRentable.add(vehicle.getModel());*/
+		try {
+			this.vehiclesRentable = this.clientProxy.getAvailableVehicles();
+		} catch (RemoteException e) {
+			this.generateError("Impossible to fecth avalaible cars");
+		}
 		
 		this.rentComboBox = new JComboBox<VehicleComboItem>();
-		//this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
-		//this.rentComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		
 		for(IVehicle vehicle : vehiclesRentable) {
 			this.rentComboBox.addItem(new VehicleComboItem(vehicle));
@@ -87,6 +83,8 @@ public class RentPanel extends JPanel {
 		this.rentComboBox.addItemListener(new ItemChangeListener());
 		
 		this.isAvailable = new JLabel("AVAILABLE");
+		
+		this.vehicleRentLabel = new JLabel();
 		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
@@ -98,9 +96,11 @@ public class RentPanel extends JPanel {
         this.rentButton = new JButton("RENT");
         
         this.rentButton.addActionListener(new RentActionListener());
+        
+        this.paintComponents();
 	}
 	
-	private void paintComponents() throws RemoteException {
+	private void paintComponents() {
 		this.constraint = new GridBagConstraints();
 		this.constraint.insets = new Insets(16, 8, 8, 8);
 		this.constraint.gridx = 0;
@@ -112,13 +112,13 @@ public class RentPanel extends JPanel {
         this.constraint.gridy = 1;
         
         if(!this.vehiclesRentable.isEmpty()) {
-	        this.vehicleImage = new ImageIcon("res\\car_img\\" + this.vehiclesRentable.get(0).getFileName());
-			Image image = this.vehicleImage.getImage();
-	        Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
-	        ImageIcon newVehicIcon = new ImageIcon(newImg);
-	        this.vehicleRentLabel = new JLabel(newVehicIcon);
+	        this.paintImage(this.vehiclesRentable.get(0).getFileName());
 	        this.add(this.vehicleRentLabel,constraint);
-	        this.paintDescription(this.vehiclesRentable.get(0));
+	        try {
+				this.paintDescription(this.vehiclesRentable.get(0));
+			} catch (RemoteException e) {
+				this.descriptionArea.setText("Impossibile to print description of the car");
+			}
         }
         
         this.constraint.insets = new Insets(10, 8, 8, 8);
@@ -147,8 +147,7 @@ public class RentPanel extends JPanel {
 	          try {
 				paintDescription(v);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				generateError("Impossible to print image of the car");
 			}
 	          
 	       }
@@ -182,7 +181,7 @@ public class RentPanel extends JPanel {
 	
 					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					generateError("Rent failed.");
 				}
 			
 			}
@@ -206,6 +205,13 @@ public class RentPanel extends JPanel {
 		else
 			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
 		
+	}
+	
+	private void generateError(String error) {
+		JOptionPane.showMessageDialog(this,
+			    error,
+			    "Error",
+			    JOptionPane.ERROR_MESSAGE);
 	}
 
 }

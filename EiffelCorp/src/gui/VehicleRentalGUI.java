@@ -22,8 +22,8 @@ import java.rmi.activation.ActivationGroupID;
 
 public class VehicleRentalGUI {
 	
-	private JPanel selectRentPanel;
-	private JPanel selectReturnPanel;
+	//private JPanel selectRentPanel;
+	//private JPanel selectReturnPanel;
 	private JTabbedPane tabPane;
 	private JFrame frame;
 	private ClientProxy clientProxy;
@@ -46,12 +46,36 @@ public class VehicleRentalGUI {
 		
 		
 		this.tabPane = new JTabbedPane();
-		this.selectRentPanel = new RentPanel(renter);
-        this.selectReturnPanel = new ReturnPanel(renter);
 		
-        this.tabPane.addTab("RENT A VEHICLE", this.selectRentPanel);
-        this.tabPane.addTab("RETURN A VEHICLE", this.selectReturnPanel);
+        this.tabPane.addTab("RENT A VEHICLE", new RentPanel(renter));
+        this.tabPane.addTab("RETURN A VEHICLE", new ReturnPanel(renter));
 		this.tabPane.setSelectedIndex(0);
+		this.tabPane.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				System.out.println("event");
+				JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
+		        int selectedIndex = tabbedPane.getSelectedIndex();
+		        System.out.println("selected index is "+selectedIndex);
+		        if(selectedIndex == 0) {
+					try {
+						tabPane.setComponentAt(selectedIndex, new RentPanel(renter));
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		        } else {
+		        	try {
+						tabPane.setComponentAt(selectedIndex, new ReturnPanel(renter));
+					} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		        }
+				
+			}
+		});
+		
 		
 		this.frame.add(this.tabPane);
 		
@@ -157,9 +181,9 @@ public class VehicleRentalGUI {
 		this.frame.setVisible(true);
 	}
 	
-	public JPanel getSelectReturnPanel() {
+	/*public JPanel getSelectReturnPanel() {
 		return selectReturnPanel;
-	}
+	}*/
 
 
 	/*public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
