@@ -123,4 +123,8 @@ public class ClientProxy {
 		return this.carRental.attach(renter, vehicle, startDate, endDate, coupon);
 	}
 	
+	public boolean detach(IRent rent) throws RemoteException{
+		return this.carRental.detach(rent);
+	}
+	
 }

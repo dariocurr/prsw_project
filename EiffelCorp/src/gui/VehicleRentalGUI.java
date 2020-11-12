@@ -27,6 +27,9 @@ public class VehicleRentalGUI {
 	private JTabbedPane tabPane;
 	private JFrame frame;
 	private ClientProxy clientProxy;
+	
+	private RentPanel selectRentPanel;
+	private ReturnPanel selectReturnPanel;
 
 	public VehicleRentalGUI(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 
@@ -77,8 +80,8 @@ public class VehicleRentalGUI {
 		
 		this.frame.add(this.tabPane);
 		
-		/*
-		this.tabPane.addMouseListener(new MouseAdapter() {
+		
+		/*this.tabPane.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseReleased(MouseEvent ev) {
