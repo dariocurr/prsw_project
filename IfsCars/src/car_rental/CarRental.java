@@ -104,11 +104,10 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(notes);
 		System.out.println(rent.getRenter().getEmail()+" returned the car "+rent.getVehicle()+" with notes added");
 		this.returnVehicle(rent);
-		if (rent.getRenter().isTrusted()) {
-			rent.getVehicle().getNotes().addAll(notes);
-		} else {
-			System.out.println("Error while returning the car "+rent.getVehicle()+" from "+rent.getRenter().getEmail());
-		}
+		for(String note : notes)
+			System.out.println(note);
+		rent.getVehicle().getNotes().addAll(notes);
+		this.availableVehicles.get(this.availableVehicles.indexOf(rent.getVehicle())).getNotes().addAll(notes);
 	}
 
 	@Override

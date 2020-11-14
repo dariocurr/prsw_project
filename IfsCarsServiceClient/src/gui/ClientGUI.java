@@ -21,6 +21,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -115,25 +116,41 @@ public class ClientGUI {
 	}
 	
 	private void initComponents() {
-		this.vehicleLabel = new JLabel();
-		this.buyComboBox = new JComboBox<VehicleComboItem>();
-		this.buyComboBox.addItemListener(event -> {
-			 if (event.getStateChange() == ItemEvent.SELECTED) {
-		          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
-		          paintImage(v.getFileName());
-		          
-		       }
-		});
 		
-		//TODO get list from service
-
-		List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
+		
+		this.descriptionArea = new JTextArea(10, 30);
+		this.descriptionArea.setOpaque(false);
+		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
+		this.descriptionArea.setEditable(false);
+		this.descriptionScrollPane = new JScrollPane(this.descriptionArea);
+		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
+        this.descriptionScrollPane.setSize (300,600);
+        
+        
+        List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
 		try {
 			vehhiclesList = client.getVehicles();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("TODO error veichle list");
 		}
+        
+        
+		this.vehicleLabel = new JLabel();
+		this.buyComboBox = new JComboBox<VehicleComboItem>();
+		this.buyComboBox.addItemListener(event -> {
+			 if (event.getStateChange() == ItemEvent.SELECTED) {
+		          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
+		          //IVehicle veh = this.vehiclesList.get(this.vehiclesList.indexOf(v));
+		          paintImage(v.getFileName());
+		          paintDescription(v);
+		          
+		       }
+		});
+		
+		//TODO get list from service
+
+		
 		
 		
 		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
@@ -152,13 +169,6 @@ public class ClientGUI {
 		//this.buyComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		//this.buyComboBox.addItemListener(new ItemChangeListener());
 		
-		this.descriptionArea = new JTextArea(10, 30);
-		this.descriptionArea.setOpaque(false);
-		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
-		this.descriptionArea.setEditable(false);
-		this.descriptionScrollPane = new JScrollPane(this.descriptionArea);
-		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
-        this.descriptionScrollPane.setSize (300,600);
         
         this.buyButton = new JButton("BUY");
         this.totalPrice = new JLabel("Total price: 0.0");
@@ -263,6 +273,17 @@ public class ClientGUI {
         Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
         this.VehicleIcon = new ImageIcon(newImg);
         this.vehicleLabel.setIcon(VehicleIcon);
+	}
+	
+	public void paintDescription(IVehicle v) {
+		String notes = "";
+		for(String line : v.getNotes()) {
+			notes += line + "\n";
+			System.out.println(notes);
+		}
+			
+		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€" + "\n" + "Notes: " + "\n"+  notes);
+		
 	}
 	
 	public static void main(String[] args) {

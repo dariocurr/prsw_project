@@ -171,6 +171,7 @@ public class ReturnPanel extends JPanel{
 				try {
 					//System.out.println(rent.getVehicle().getModel() + "Returned");
 					clientProxy.returnVehicle(rent, notes);
+					notesArea.setText("");
 					//clientProxy.detach(rent);
 					//clientProxy = new ClientProxy();
 					//rents = clientProxy.getRenterRentals(renter);

@@ -30,5 +30,6 @@ public interface IVehicle extends Serializable {
 	public boolean isForSale();
 
 	public void setForSale(boolean forSale);
+
 	
 }

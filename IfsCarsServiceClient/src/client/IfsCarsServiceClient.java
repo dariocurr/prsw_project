@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -82,7 +83,13 @@ public class IfsCarsServiceClient {
 				Double price = (Double) json.get("price");
 				String size = (String) json.get("size");
 				String file_name = (String) json.get("fileName");
+				JSONArray notes = (JSONArray) json.get("notes");
+				List<String> listNotes = new ArrayList<>();
+				for(Object note : notes)
+					listNotes.add((String) note);
+					
 				IVehicle newVehicle = new Vehicle(model, year, seats.intValue(), doors.intValue(), transmission, size, pricePerDay, price, file_name);
+				newVehicle.getNotes().addAll(listNotes);
 				listVehicles.add(newVehicle);
 			}
 		}

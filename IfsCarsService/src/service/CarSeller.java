@@ -53,7 +53,7 @@ public class CarSeller implements ICarSeller {
 		for (IVehicle vehicle : carRental.getAvailableVehicles()) {
 			if (vehicle.isForSale()) {
 				availableForSaleVehicles.add(vehicle);
-				System.out.println(vehicle.getSeats());
+				System.out.println(vehicle.getNotes());
 			}
 		}
 		if(!availableForSaleVehicles.isEmpty())
@@ -87,6 +87,7 @@ public class CarSeller implements ICarSeller {
 			json.put("price", vehicle.getPrice());
 			json.put("size", vehicle.getSize());
 			json.put("fileName", vehicle.getFileName());
+			json.put("notes", vehicle.getNotes());
 			vehicles += json.toString() + ";";
 		}
 		return vehicles;
