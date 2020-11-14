@@ -74,6 +74,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 			System.out.println("Rented "+ vehicle +" by " + renter);
 			this.insertRent(renter, rent);
 			this.attach(renter, vehicle, startDate, endDate, coupon);
+			this.availableVehicles.get(this.availableVehicles.indexOf(vehicle)).setForSale(false);
 		//this.availableVehicles.remove(rent.getVehicle());
 			return rent;
 		}
@@ -134,6 +135,8 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 			}*/
 			this.rentVehicle(vehicleWaitlist.get(0));
 		}
+		else
+			this.availableVehicles.get(this.availableVehicles.indexOf(vehicle)).setForSale(true);
 	}
 	
 	@Override

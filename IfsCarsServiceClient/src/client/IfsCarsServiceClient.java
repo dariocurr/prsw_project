@@ -60,28 +60,31 @@ public class IfsCarsServiceClient {
 	}
 	
 	private List<IVehicle> reconstructFromJSONString(String veichlesList) {
-		String[] stringVehicles = veichlesList.split(";");
 		List<IVehicle> listVehicles = new ArrayList<>();
-		JSONParser parser = new JSONParser();
-		for(String vehicle : stringVehicles) {
-			JSONObject json = new JSONObject();
-			try {
-				json = (JSONObject) parser.parse(vehicle);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+		if(veichlesList != null) {
+			String[] stringVehicles = veichlesList.split(";");
 			
-			String model = (String) json.get("model");
-			String year = (String) json.get("year"); 
-			Long seats = (Long) json.get("seats");
-			Long doors = (Long) json.get("doors");
-			String transmission = (String) json.get("transmission");
-			Double pricePerDay = (Double) json.get("pricePerDay");
-			Double price = (Double) json.get("price");
-			String size = (String) json.get("size");
-			String file_name = (String) json.get("fileName");
-			IVehicle newVehicle = new Vehicle(model, year, seats.intValue(), doors.intValue(), transmission, size, pricePerDay, price, file_name);
-			listVehicles.add(newVehicle);
+			JSONParser parser = new JSONParser();
+			for(String vehicle : stringVehicles) {
+				JSONObject json = new JSONObject();
+				try {
+					json = (JSONObject) parser.parse(vehicle);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				String model = (String) json.get("model");
+				String year = (String) json.get("year"); 
+				Long seats = (Long) json.get("seats");
+				Long doors = (Long) json.get("doors");
+				String transmission = (String) json.get("transmission");
+				Double pricePerDay = (Double) json.get("pricePerDay");
+				Double price = (Double) json.get("price");
+				String size = (String) json.get("size");
+				String file_name = (String) json.get("fileName");
+				IVehicle newVehicle = new Vehicle(model, year, seats.intValue(), doors.intValue(), transmission, size, pricePerDay, price, file_name);
+				listVehicles.add(newVehicle);
+			}
 		}
 		return listVehicles;
 	}

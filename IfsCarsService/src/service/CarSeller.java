@@ -32,16 +32,16 @@ public class CarSeller implements ICarSeller {
 	private Bank bank;
 	
 	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException, ServiceException {
-		/*
-		Path currentPath = Paths.get("");
+		
+		/*Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
 		path = path.substring(0, path.lastIndexOf(File.separator));
 		String policy_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCarsService" + File.separator + "src" + File.separator + "service" + File.separator + "sec.policy";
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
-		System.setSecurityManager(new RMISecurityManager());
-		*/
+		System.setSecurityManager(new RMISecurityManager());*/
+		
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
 		this.bank = (Bank) new BankServiceLocator().getBank();
 	}
@@ -51,11 +51,14 @@ public class CarSeller implements ICarSeller {
 		List<IVehicle> availableForSaleVehicles = new ArrayList<IVehicle>();
 		
 		for (IVehicle vehicle : carRental.getAvailableVehicles()) {
-			//if (vehicle.isForSale()) {
-			availableForSaleVehicles.add(vehicle);
-			//}
+			if (vehicle.isForSale()) {
+				availableForSaleVehicles.add(vehicle);
+				System.out.println(vehicle.getSeats());
+			}
 		}
-		return CarSeller.createJSONString(availableForSaleVehicles);
+		if(!availableForSaleVehicles.isEmpty())
+			return CarSeller.createJSONString(availableForSaleVehicles);
+		else return null;
 	}
 	
 	@Override
