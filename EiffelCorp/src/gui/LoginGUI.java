@@ -44,6 +44,7 @@ import com.formdev.flatlaf.*;
 import common.IRenterObserver;
 import company.ClientProxy;
 
+/** GUI class for employee's log in  */
 public class LoginGUI {
 	
 	private JFrame frame;
@@ -63,6 +64,7 @@ public class LoginGUI {
 	
 	private ClientProxy clientProxy;
 	
+	/** Constructor which is used to initialize the frame and the proxy */
 	public LoginGUI() throws MalformedURLException, RemoteException, NotBoundException {
 		
 		try {
@@ -97,6 +99,8 @@ public class LoginGUI {
 	}
 	
 
+	/** Initialize the main panel with all the gui components. 
+	 * @return Nothing*/
 	public void startGUI() {
 		this.mainPanel = new JPanel();
 		
@@ -160,13 +164,18 @@ public class LoginGUI {
 		//this.mainPanel.add(this.signinButton, constraint);
 	}
 	
-	
+	/** Main method, used to build the login gui 
+	 * @param args Unused 
+	 * @return Nothing */
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
         new LoginGUI();
     }
 	
-	
+	/** Listener for the clicks in the login button. */
 	class LoginActionListener implements ActionListener{
+		/** When someone click on the login button, it is checked if username and password are correct.
+		 * @param event The event of the listener.
+		 * @return Nothing */
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			Map<String, String> credentialsMap = LoginGUI.this.clientProxy.getCredentials();
