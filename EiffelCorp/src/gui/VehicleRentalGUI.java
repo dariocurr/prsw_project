@@ -20,6 +20,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.activation.ActivationGroupID;
 
+/** Class for the rental gui, it joins the rent's panel and the return's panel */
 public class VehicleRentalGUI {
 	
 	//private JPanel selectRentPanel;
@@ -31,6 +32,9 @@ public class VehicleRentalGUI {
 	private RentPanel selectRentPanel;
 	private ReturnPanel selectReturnPanel;
 
+	/** Main constructor, it initializes the frame and the tapPane where we can switch between
+	 * the two panels (@RentPanel and @ReturnPanel). 
+	 * @param renter the renter who logged in. */
 	public VehicleRentalGUI(IRenterObserver renter) throws MalformedURLException, RemoteException, NotBoundException {
 
 		try {
