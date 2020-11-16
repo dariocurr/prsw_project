@@ -139,8 +139,7 @@ public class ReturnPanel extends JPanel{
 	/** Listener class used when the vehicle in the combobox is changed. */
 	class ItemChangeListener implements ItemListener{
 		/** Paint the image of the selected vehicle.
-		 * @param event the event called by the listener.
-		 * @return Nothing */
+		 * @param event the event called by the listener.*/
 	    @Override
 	    public void itemStateChanged(ItemEvent event) {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -151,8 +150,7 @@ public class ReturnPanel extends JPanel{
 	}
 	
 	/** It paints the image of the car.
-	 * @param file_name the name of the image's file.
-	 * @return Nothing */
+	 * @param file_name the name of the image's file.*/
 	public void paintImage(String file_name) {
         ImageIcon vehicleImg = new ImageIcon("res\\car_img\\" + file_name);
         Image image = vehicleImg.getImage();
@@ -164,8 +162,7 @@ public class ReturnPanel extends JPanel{
 	/** Listener class used when the employee click on the return button */
 	class ReturnActionListener implements ActionListener{
 		/** Return a vehicle and remove it from the combobox.
-		 * @param event the event of the listener
-		 * @return Nothing */
+		 * @param event the event of the listener */
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			IRent rent = null;

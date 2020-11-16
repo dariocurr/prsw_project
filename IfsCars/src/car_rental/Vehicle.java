@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import common.IVehicle;
 
+/** Class which implements the @IVehicle interface */
 public class Vehicle implements IVehicle {
 	
 	private String model;
@@ -20,6 +21,16 @@ public class Vehicle implements IVehicle {
 	private String fileName;
 	private boolean forSale;
 	
+	/** Main constructor which initialize a vehicle 
+	 * @param model the vehicle's model 
+	 * @param year the vehicle's year
+	 * @param seats the vehicle's number of seats
+	 * @param doors the vehicle's number of doors
+	 * @param trasmission the vehicle's transmission
+	 * @param size the vehicle's size
+	 * @param pricePerDay the vehicle's price per day
+	 * @param price the vehicle's price
+	 * @param fileName the vehicle's file name */
 	public Vehicle(String model, String year, int seats, int doors, String trasmission, String size, double pricePerDay, double price, String fileName) {
 		Objects.requireNonNull(model);
 		Objects.requireNonNull(year);
@@ -36,67 +47,84 @@ public class Vehicle implements IVehicle {
 		this.price = price;
 		this.notes = new ArrayList<String>();
 		this.fileName = fileName;
-		this.forSale = true;
+		this.forSale = false;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getModel() {
 		return model;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getYear() {
 		return year;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int getSeats() {
 		return seats;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int getDoors() {
 		return doors;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getTrasmission() {
 		return trasmission;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getSize() {
 		return size;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double getPricePerDay() {
 		return pricePerDay;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<String> getNotes() {
 		return notes;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getFileName() {
 		return this.fileName;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double getPrice() {
 		return price;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isForSale() {
 		return forSale;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setForSale(boolean forSale) {
 		this.forSale = forSale;
+	}
+	
+	@Override
+	public String toString() {
+		return this.model+" ["+this.year+"]";
 	}
 
 	@Override

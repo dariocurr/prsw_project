@@ -7,8 +7,11 @@ import java.rmi.registry.LocateRegistry;
 
 import common.ICarRentalObservable;
 
+/** Server RMI for the @CarRental object */
 public class CarRentalServer {
 	
+	/** Main method to rebind the @carRental object
+	 * @param args Unused */
 	public static void main(String[] args) {
 		
 		try {

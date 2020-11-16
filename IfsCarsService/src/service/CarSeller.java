@@ -26,11 +26,13 @@ import common.ICarSeller;
 import common.IVehicle;
 import common.Vehicle;
 
+/** Class which implements @ICarSeller interface */
 public class CarSeller implements ICarSeller {
 
 	private ICarRentalObservable carRental;
 	private Bank bank;
 	
+	/** Default constructor used to initialize the bank service */
 	public CarSeller() throws MalformedURLException, RemoteException, NotBoundException, ServiceException {
 		
 		/*Path currentPath = Paths.get("");
@@ -46,6 +48,7 @@ public class CarSeller implements ICarSeller {
 		this.bank = (Bank) new BankServiceLocator().getBank();
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getAvailableForSaleVehicles() throws RemoteException {
 		List<IVehicle> availableForSaleVehicles = new ArrayList<IVehicle>();
@@ -61,6 +64,7 @@ public class CarSeller implements ICarSeller {
 		else return null;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public boolean sellVehicle(String basket, String accountNumber, double amount, String currency) throws RemoteException {
 		Objects.requireNonNull(basket);
@@ -72,6 +76,7 @@ public class CarSeller implements ICarSeller {
 		}
 		return isPaymentDone;
 	}
+	
 	
 	@SuppressWarnings("unchecked")
 	private static String createJSONString(List<IVehicle> availableVehiclesForSale) {

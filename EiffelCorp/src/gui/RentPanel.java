@@ -143,8 +143,7 @@ public class RentPanel extends JPanel {
 	class ItemChangeListener implements ItemListener{
 		
 		/** Paint the image and the description of the selected vehicle.
-		 * @param event the event called by the listener.
-		 * @return Nothing */
+		 * @param event the event called by the listener.*/
 	    @Override
 	    public void itemStateChanged(ItemEvent event) {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -164,8 +163,7 @@ public class RentPanel extends JPanel {
 	class RentActionListener implements ActionListener{
 		
 		/** Rent a vehicle and remove it from the combobox.
-		 * @param event the event of the listener
-		 * @return Nothing */
+		 * @param event the event of the listener*/
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			
@@ -200,8 +198,7 @@ public class RentPanel extends JPanel {
 	}
 	
 	/** It paints the image of the car.
-	 * @param file_name the name of the image's file.
-	 * @return Nothing */
+	 * @param file_name the name of the image's file.*/
 	public void paintImage(String file_name) {
          ImageIcon vehicleImg = new ImageIcon("res\\car_img\\" + file_name);
          Image image = vehicleImg.getImage();
@@ -212,8 +209,7 @@ public class RentPanel extends JPanel {
 
 
 	/** It paints the description of a vehicle.
-	 * @param v the vehicle which description has to be painted.
-	 * @return Nothing */
+	 * @param v the vehicle which description has to be painted.*/
 	public void paintDescription(IVehicle v) throws RemoteException {
 		Map<IVehicle, String> map = this.clientProxy.getNotAvailableVehicles();
 		if(map.containsKey(v))

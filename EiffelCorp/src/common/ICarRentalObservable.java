@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+
+/** Interface to manage all the car rental operation (rent, return, etc...) */
 public interface ICarRentalObservable extends Remote {
 	
 	/** Get the available vehicles 

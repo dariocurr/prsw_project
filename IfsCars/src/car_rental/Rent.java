@@ -7,6 +7,7 @@ import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
 
+/** Class which implements the @IRent interface */
 public class Rent implements IRent {
 
 	private IRenterObserver renter;
@@ -16,6 +17,12 @@ public class Rent implements IRent {
 	private int daysNumber;
 	private double price;
 
+	/** Main constructor used to initialize the informations about a rent
+	 * @param renter the renter of the rent 
+	 * @param vehicle the vehicle involved in the rent 
+	 * @param startDate the start date of the rent 
+	 * @param endDate the end date of the rent
+	 * @param discount the discount */
 	public Rent(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, double discount) throws RemoteException {
 		Objects.requireNonNull(vehicle);
 		Objects.requireNonNull(renter);
@@ -29,31 +36,37 @@ public class Rent implements IRent {
 		this.price = (this.vehicle.getPricePerDay() * this.daysNumber) * (1 - discount);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IRenterObserver getRenter() {
 		return renter;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public IVehicle getVehicle() {
 		return vehicle;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getStartDate() {
 		return startDate;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getEndDate() {
 		return endDate;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int getDaysNumber() {
 		return daysNumber;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public double getPrice() {
 		return price;

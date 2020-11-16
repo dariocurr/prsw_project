@@ -99,8 +99,7 @@ public class LoginGUI {
 	}
 	
 
-	/** Initialize the main panel with all the gui components. 
-	 * @return Nothing*/
+	/** Initialize the main panel with all the gui components. */
 	public void startGUI() {
 		this.mainPanel = new JPanel();
 		
@@ -165,8 +164,7 @@ public class LoginGUI {
 	}
 	
 	/** Main method, used to build the login gui 
-	 * @param args Unused 
-	 * @return Nothing */
+	 * @param args Unused */
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
         new LoginGUI();
     }
@@ -174,8 +172,7 @@ public class LoginGUI {
 	/** Listener for the clicks in the login button. */
 	class LoginActionListener implements ActionListener{
 		/** When someone click on the login button, it is checked if username and password are correct.
-		 * @param event The event of the listener.
-		 * @return Nothing */
+		 * @param event The event of the listener. */
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			Map<String, String> credentialsMap = LoginGUI.this.clientProxy.getCredentials();

@@ -17,14 +17,18 @@ import common.Vehicle;
 import service.CarSeller;
 import service.CarSellerServiceLocator;
 
+/** Client class for the IfsCars Service */
 public class IfsCarsServiceClient {
 	
 	private CarSeller service;
 
+	/** Default constructor used to initialize the car seller */
 	public IfsCarsServiceClient() throws ServiceException {
 		this.service = (CarSeller) new CarSellerServiceLocator().getCarSeller();
 	}
 	
+	/** Get the vehicles available for sale
+	 * @return list of vehicles available for sale */
 	public List<IVehicle> getVehicles() throws RemoteException {
 		List<IVehicle> vehicles = new ArrayList<>();
 		//è normale sia vuota, perche nessun veicolo è pronto per la vendita
@@ -32,6 +36,12 @@ public class IfsCarsServiceClient {
 		return reconstructFromJSONString(service.getAvailableForSaleVehicles());
 	}
 	
+	/** Sell all the vehicles in the basket
+	 * @param basket the basket where vehicles to be sold are placed
+	 * @param accountNumber account number of the seller
+	 * @param amount total amount of money
+	 * @param currency currency of the payment
+	 * @return true if the sell operation is done correctly, false otherwise */
 	public boolean sell(IBasket basket, String accountNumber, Double amount, String currency) {
 		try {
 			return service.sellVehicle(createJSONString(basket.getVehiclesInBasket()), accountNumber, amount, currency);

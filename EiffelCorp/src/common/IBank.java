@@ -3,7 +3,7 @@ package common;
 /** Interface to make the payments when clients buy vehicles. */
 public interface IBank {
 	
-	/** Make the payment of an amount of money to a given account number with a specified currency.
+	/** Make the payment of an amount of money from a given account number with a specified currency.
 	 * @param accountNumber the account which receive the payment
 	 * @param amount the amount of money of the payment
 	 * @param currency the currency which is used for the payment

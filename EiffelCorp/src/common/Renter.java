@@ -2,6 +2,7 @@ package common;
 
 import java.util.Objects;
 
+/** Class which implements @IRenterObserver interface */
 public class Renter implements IRenterObserver {
 	
 	private String firstName;
@@ -11,8 +12,16 @@ public class Renter implements IRenterObserver {
 	private String password;
 	private boolean trusted;
 	
+	/** Default constructor, empty*/
 	public Renter() {}
 	
+	/** Main constructor which initialize the renter's informations
+	 * @param firstName the renter's first name
+	 * @param lastName the renter's last name
+	 * @param age the renter's age
+	 * @param email the renter's email
+	 * @param password the renter's password
+	 * @param trusted if the renter is trusted */
 	public Renter(String firstName, String lastName, int age, String email, String password, boolean trusted) {
 		Objects.requireNonNull(firstName);
 		Objects.requireNonNull(lastName);
@@ -26,11 +35,13 @@ public class Renter implements IRenterObserver {
 		this.trusted = trusted;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public boolean isTrusted() {
 		return this.trusted;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return this.firstName + "\t" + this.lastName + "\t" + this.email;
@@ -56,16 +67,19 @@ public class Renter implements IRenterObserver {
 		return this.firstName.hashCode() + this.lastName.hashCode() + this.email.hashCode();
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public boolean update() {
 		return true;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getEmail() {
 		return this.email;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getPassword() {
 		return this.password;

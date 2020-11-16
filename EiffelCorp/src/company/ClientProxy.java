@@ -29,12 +29,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/** Proxy used to connect the client with the server */
 public class ClientProxy {
 	
 	private ICarRentalObservable carRental;
 	private List<IRenterObserver> renters;
 	
-	
+	/** Default constructor which initialize the @carRental object */
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
 		this.renters = ClientProxy.loadRentersFromFile("res" + File.separator + "renters_list.json");
 		
@@ -57,6 +58,7 @@ public class ClientProxy {
 		new ClientProxy();
 	}*/ 
 	
+	/**  */
 	public List<IVehicle> getAvailableVehicles() throws RemoteException {
 		return this.carRental.getAvailableVehicles();
 	}
