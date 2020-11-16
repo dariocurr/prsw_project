@@ -29,10 +29,12 @@ import com.currencysystem.webservices.currencyserver.CurrencyServerSoap;
 import common.IBank;
 import common.IBankAccount;
 
+/** Class that implements @IBank interface */
 public class Bank implements IBank {
 
 	private List<IBankAccount> accounts;
 	
+	/** Default constructor used to keep all the bank accounts informations */
 	public Bank() throws IOException {
 		/*
 		Class cls = Class.forName("Bank");
@@ -47,6 +49,7 @@ public class Bank implements IBank {
         this.loadBankAccountsFromFile(json);
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public boolean makePayment(String accountNumber, double amount, String currency) {
 		Objects.requireNonNull(accountNumber);
@@ -72,6 +75,7 @@ public class Bank implements IBank {
 		return false;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public double getExchangeFromEUR(String currency, double amount) {
 		Objects.requireNonNull(currency);
