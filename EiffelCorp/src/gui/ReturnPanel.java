@@ -167,34 +167,19 @@ public class ReturnPanel extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			IRent rent = null;
 			if(returnComboBox.getSelectedItem() != null) {
-				//String modelName = returnComboBox.getSelectedItem().toString();
-				//System.out.println(modelName);
 				for(IRent r : rents) {
 		        	  if(r.getVehicle().equals(((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle())) {
 		        		  rent = r;
 		        	  }
 				}
-				
 				List<String> notes = new ArrayList<>();
 				for (String line : notesArea.getText().split("\\n")) 
 					notes.add(line);
-				
 				try {
-					//System.out.println(rent.getVehicle().getModel() + "Returned");
 					clientProxy.returnVehicle(rent, notes);
 					notesArea.setText("");
-					//clientProxy.detach(rent);
-					//clientProxy = new ClientProxy();
-					//rents = clientProxy.getRenterRentals(renter);
-					
-					//loadVehicles();
-					
-					//System.out.println("Ciao" + ((VehicleComboItem)returnComboBox.getSelectedItem()).getVehicle().getModel());
-					
+					vehicleReturnLabel.setIcon(null);
 					returnComboBox.removeItem(((VehicleComboItem)returnComboBox.getSelectedItem()));
-			
-					
-					
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
