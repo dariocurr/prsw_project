@@ -79,13 +79,9 @@ public class Bank implements IBank {
 	@Override
 	public double getExchangeFromEUR(String currency, double amount) {
 		Objects.requireNonNull(currency);
-		System.out.println("Bank: chiamato metodo ");
 		try {
-			System.out.println("Bank: crea ");
 			CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap();
-			System.out.println("Bank: soldi da convertire "+amount);
-			Double soldi_convertitiDouble = (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
-			return soldi_convertitiDouble;
+			return (double) currencySystem.convert("", currency, "EUR", amount, false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", ""); 
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (ServiceException e) {

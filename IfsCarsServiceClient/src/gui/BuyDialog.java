@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.rmi.RemoteException;
+import java.util.Currency;
 
 import javax.sound.midi.Soundbank;
 import javax.swing.JButton;
@@ -83,14 +84,17 @@ public class BuyDialog extends JDialog implements ActionListener{
 				}
 	    		String s = "total: "+String.format("%.2f", converted_priceString);
 		        if (event.getItem().toString().equals("EUR")) {
-		        	s += "€";
+		        	s += " €";
 		        }
 		          
 		        if (event.getItem().toString().equals("USD")) {
-		        	s += "$";
+		        	s += " $";
 		        }
-	            if (event.getItem().toString().equals("GBD")) {
-	        	    s += "£";
+	            if (event.getItem().toString().equals("GBP")) {
+	        	    s += " £";
+		        }
+	            if (event.getItem().toString().equals("JPY")) {
+	            	s += " \u00A5";
 		        }
 		        this.price.setText(s); 
 		       }

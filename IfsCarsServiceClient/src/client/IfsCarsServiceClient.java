@@ -53,11 +53,7 @@ public class IfsCarsServiceClient {
 	}
 	
 	public double convert(String currency, Double amount) throws RemoteException {
-		System.out.println("IfcarsServiceClient: soldi da convertire: "+amount);
-		Double soldi_convertitiDouble =  service.convert(currency, amount);
-		System.out.println("IfcarsServiceClient: soldi convertiti: "+ soldi_convertitiDouble);
-		return soldi_convertitiDouble;
-		
+		return service.convert(currency, amount);
 	}
 	
 	private String createJSONString(List<IVehicle> availableVehiclesForSale) {
