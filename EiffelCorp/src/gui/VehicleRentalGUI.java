@@ -178,7 +178,7 @@ public class VehicleRentalGUI {
 		
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
-		this.frame.setPreferredSize(new Dimension(720, 500));
+		this.frame.setPreferredSize(new Dimension(780, 500));
 		this.frame.setMinimumSize(new Dimension(580, 400));
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 		this.frame.pack();
