@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.rmi.RemoteException;
 
 import javax.sound.midi.Soundbank;
 import javax.swing.JButton;
@@ -68,18 +69,32 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    this.currencyComboBox = new JComboBox<String>();
 	    this.currencyComboBox.addItemListener(event -> {
 	    	if (event.getStateChange() == ItemEvent.SELECTED) {
-		          String s = "total: "+this.basket.getTotalPrice();
-		          if (event.getItem().toString().equals("EUR")) {
-		        	  s += "€";
-		          }
-		          if (event.getItem().toString().equals("USD")) {
-		        	  s += "$";
-		          }
-		          if (event.getItem().toString().equals("GBD")) {
-		        	  s += "£";
-		          }
-		          this.price.setText(s); 
+	    		
+	    		Double converted_priceString=0.0;
+	    		try {
+					converted_priceString = client.convert(event.getItem().toString(), basket.getTotalPrice());
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(this,
+						    "An error occured during coversion.",
+						    "Bank error",
+						    JOptionPane.ERROR_MESSAGE);
+				}
+	    		String s = "total: "+converted_priceString;
+		        if (event.getItem().toString().equals("EUR")) {
+		        	s += "€";
+		        }
+		          
+		        if (event.getItem().toString().equals("USD")) {
+		        	s += "$";
+		        }
+	            if (event.getItem().toString().equals("GBD")) {
+	        	    s += "£";
+		        }
+		        this.price.setText(s); 
 		       }
+		          
 	    });
 	    this.bankAccountNumber.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -179,7 +194,7 @@ public class BuyDialog extends JDialog implements ActionListener{
         
         this.confirmButton.addActionListener(ev -> {
         	//TODO bank services 
-        	
+        	client.sell(this.basket, this.bankAccountNumber.getText(), this.basket.getTotalPrice(), this.currencyComboBox.getSelectedItem().toString());
         	this.bankAccountNumber.setEnabled(false);
         	this.cancelButton.setEnabled(false);
         	this.currencyComboBox.setEnabled(false);

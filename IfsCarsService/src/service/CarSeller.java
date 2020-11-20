@@ -125,4 +125,11 @@ public class CarSeller implements ICarSeller {
 		return listVehicles;
 	}
 	
+	public double convert(String currency, Double amount) throws RemoteException {
+		System.out.println("CarSeller: soldi da convertire: "+amount);
+		Double soldi_convertitiDouble = this.bank.getExchangeFromEUR(currency, amount);
+		System.out.println("CarSeller: soldi convertiti: "+ soldi_convertitiDouble);
+		return soldi_convertitiDouble;
+	}
+	
 }
