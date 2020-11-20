@@ -120,7 +120,7 @@ public class ClientGUI {
 		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
-		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
+		this.descriptionArea.setText("");
 		this.descriptionArea.setEditable(false);
 		this.descriptionScrollPane = new JScrollPane(this.descriptionArea);
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
