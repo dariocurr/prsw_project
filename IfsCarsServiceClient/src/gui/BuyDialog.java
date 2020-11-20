@@ -81,7 +81,7 @@ public class BuyDialog extends JDialog implements ActionListener{
 						    "Bank error",
 						    JOptionPane.ERROR_MESSAGE);
 				}
-	    		String s = "total: "+converted_priceString;
+	    		String s = "total: "+String.format("%.2f", converted_priceString);
 		        if (event.getItem().toString().equals("EUR")) {
 		        	s += "€";
 		        }
@@ -130,7 +130,8 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    
 		this.currencyComboBox.addItem("EUR");
 		this.currencyComboBox.addItem("USD");
-		this.currencyComboBox.addItem("GBD");
+		this.currencyComboBox.addItem("GBP");
+		this.currencyComboBox.addItem("JPY");
 		this.constraint.insets = new Insets(24, 0, 0, 0);
 		
 		String a="";
