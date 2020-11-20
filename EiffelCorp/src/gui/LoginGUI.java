@@ -14,6 +14,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -86,7 +87,7 @@ public class LoginGUI {
 		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
 		this.frame.setSize(screenSize);*/
-		
+		this.frame.getRootPane().setDefaultButton(loginButton);
 		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
 		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
@@ -170,7 +171,7 @@ public class LoginGUI {
     }
 	
 	/** Listener for the clicks in the login button. */
-	class LoginActionListener implements ActionListener{
+	class LoginActionListener implements ActionListener, KeyListener{
 		/** When someone click on the login button, it is checked if username and password are correct.
 		 * @param event The event of the listener. */
 		@Override
@@ -197,6 +198,45 @@ public class LoginGUI {
 			}
 			
 			JOptionPane.showMessageDialog(null, "Email or Password Wrong");
+			
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent ev) {
+			if (ev.getKeyCode()==KeyEvent.VK_ENTER){
+				Map<String, String> credentialsMap = LoginGUI.this.clientProxy.getCredentials();
+				List<IRenterObserver> renters = LoginGUI.this.clientProxy.getRenters();
+				IRenterObserver actualRenter = null;
+				
+				if(credentialsMap.containsKey(LoginGUI.this.usernameField.getText())) {
+					if(new String(LoginGUI.this.passwordField.getPassword()).equals(credentialsMap.get(LoginGUI.this.usernameField.getText()))) {
+						for(IRenterObserver renter : renters) {
+							if(renter.getEmail().equals(LoginGUI.this.usernameField.getText()) && renter.getPassword().equals(new String(LoginGUI.this.passwordField.getPassword())))
+								actualRenter = renter;
+						}
+						try {
+							LoginGUI.this.frame.dispose();
+							new VehicleRentalGUI(actualRenter);
+						} catch (MalformedURLException | RemoteException | NotBoundException e) {
+							e.printStackTrace();
+						}
+						return;
+					}
+				}
+				
+				JOptionPane.showMessageDialog(null, "Email or Password Wrong");
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent ev) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent ev) {
+			// TODO Auto-generated method stub
 			
 		}
 		
