@@ -201,6 +201,8 @@ public class LoginGUI {
 			
 		}
 		
+		/** When someone press ENTER, it is checked if username and password are correct.
+		 * @param event The event of the listener. */
 		@Override
 		public void keyPressed(KeyEvent ev) {
 			if (ev.getKeyCode()==KeyEvent.VK_ENTER){
