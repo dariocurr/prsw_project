@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.font.TextAttribute;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -200,7 +201,7 @@ public class RentPanel extends JPanel {
 	/** It paints the image of the car.
 	 * @param file_name the name of the image's file.*/
 	public void paintImage(String file_name) {
-         ImageIcon vehicleImg = new ImageIcon("res\\car_img\\" + file_name);
+         ImageIcon vehicleImg = new ImageIcon("res" + File.separator + "car_img" + File.separator + file_name);
          Image image = vehicleImg.getImage();
          Image newImg = image.getScaledInstance(190, 200,  java.awt.Image.SCALE_SMOOTH);
          this.vehicleImage = new ImageIcon(newImg);
@@ -213,9 +214,9 @@ public class RentPanel extends JPanel {
 	public void paintDescription(IVehicle v) throws RemoteException {
 		Map<IVehicle, String> map = this.clientProxy.getNotAvailableVehicles();
 		if(map.containsKey(v))
-			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "ï¿½");
 		else
-			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "ï¿½");
 		
 	}
 	
