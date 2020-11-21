@@ -17,12 +17,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Area;
 import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -100,6 +102,12 @@ public class ClientGUI {
 		}
 		
 		this.frame = new JFrame();
+		try {
+		    frame.setIconImage(ImageIO.read(new File("res/icon.png")));
+		}
+		catch (IOException exc) {
+		    exc.printStackTrace();
+		}
 		this.initComponents();
 		this.startGUI();
 		
