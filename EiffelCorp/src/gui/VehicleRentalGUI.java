@@ -53,7 +53,7 @@ public class VehicleRentalGUI {
 		this.frame = new JFrame("Vehicles Rental");
 		
 		try {
-		    frame.setIconImage(ImageIO.read(new File("res/icon.png")));
+		    frame.setIconImage(ImageIO.read(new File("res/logo.png")));
 		}
 		catch (IOException exc) {
 		    exc.printStackTrace();

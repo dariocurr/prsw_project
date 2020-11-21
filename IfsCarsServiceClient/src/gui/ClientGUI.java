@@ -103,7 +103,7 @@ public class ClientGUI {
 		
 		this.frame = new JFrame();
 		try {
-		    frame.setIconImage(ImageIO.read(new File("res/icon.png")));
+		    frame.setIconImage(ImageIO.read(new File("res/logo.png")));
 		}
 		catch (IOException exc) {
 		    exc.printStackTrace();
