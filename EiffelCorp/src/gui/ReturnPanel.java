@@ -30,6 +30,7 @@ import javax.swing.JTextArea;
 import common.IRent;
 import common.IRenterObserver;
 import common.IVehicle;
+import common.Vehicle;
 import company.ClientProxy;
 import gui.RentPanel.ItemChangeListener;
 
@@ -82,6 +83,7 @@ public class ReturnPanel extends JPanel{
 			modelVehiclesRented.add(vehicle.getModel());*/
 		
 		this.returnComboBox = new JComboBox<VehicleComboItem>();
+		this.returnComboBox.setPrototypeDisplayValue(new VehicleComboItem(new Vehicle("                                                               ", "", 0, 0, "", "", 0, 0, "")));
 		//this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
 		//this.returnComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		

@@ -37,6 +37,7 @@ import javax.swing.JTextArea;
 
 import common.IRenterObserver;
 import common.IVehicle;
+import common.Vehicle;
 import company.ClientProxy;
 
 /** Class for the panel in the gui used to rent a car */
@@ -77,6 +78,7 @@ public class RentPanel extends JPanel {
 		}
 		
 		this.rentComboBox = new JComboBox<VehicleComboItem>();
+		this.rentComboBox.setPrototypeDisplayValue(new VehicleComboItem(new Vehicle("                                                               ", "", 0, 0, "", "", 0, 0, "")));
 		
 		for(IVehicle vehicle : vehiclesRentable) {
 			this.rentComboBox.addItem(new VehicleComboItem(vehicle));
@@ -181,13 +183,18 @@ public class RentPanel extends JPanel {
 						int dialogButton = JOptionPane.YES_NO_OPTION;
 						int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is not available now. Do you want to be in the Wait List?","Warning",dialogButton);
 						if(dialogResult == JOptionPane.YES_OPTION){
+							descriptionArea.setText("");
+							vehicleRentLabel.setIcon(null);
 							rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 							clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, "EMP001");
 						}
 						
 					}
-					else
+					else {
+						descriptionArea.setText("");
+						vehicleRentLabel.setIcon(null);
 						rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+					}
 	
 					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 				} catch (RemoteException e) {
