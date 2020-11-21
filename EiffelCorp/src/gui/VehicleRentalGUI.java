@@ -1,5 +1,6 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,6 +16,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -48,6 +51,13 @@ public class VehicleRentalGUI {
 		}
 		
 		this.frame = new JFrame("Vehicles Rental");
+		
+		try {
+		    frame.setIconImage(ImageIO.read(new File("res/icon.png")));
+		}
+		catch (IOException exc) {
+		    exc.printStackTrace();
+		}
 		
 		this.clientProxy = new ClientProxy();
 		

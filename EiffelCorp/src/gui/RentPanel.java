@@ -214,9 +214,9 @@ public class RentPanel extends JPanel {
 	public void paintDescription(IVehicle v) throws RemoteException {
 		Map<IVehicle, String> map = this.clientProxy.getNotAvailableVehicles();
 		if(map.containsKey(v))
-			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "ï¿½");
+			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
 		else
-			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "ï¿½");
+			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
 		
 	}
 	
