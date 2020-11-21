@@ -35,7 +35,7 @@ public class ClientProxy {
 	private ICarRentalObservable carRental;
 	private List<IRenterObserver> renters;
 	
-	/** Default constructor which initialize the @carRental object */
+	/** Default constructor which initialize the @ICarRentalObservable object */
 	public ClientProxy() throws MalformedURLException, RemoteException, NotBoundException {
 		this.renters = ClientProxy.loadRentersFromFile("res" + File.separator + "renters_list.json");
 		
