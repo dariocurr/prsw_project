@@ -11,7 +11,9 @@ import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -170,6 +173,9 @@ public class ReturnPanel extends JPanel{
 		 * @param event the event of the listener */
 		@Override
 		public void actionPerformed(ActionEvent event) {
+			
+			
+			
 			IRent rent = null;
 			if(returnComboBox.getSelectedItem() != null) {
 				for(IRent r : rents) {
@@ -177,6 +183,20 @@ public class ReturnPanel extends JPanel{
 		        		  rent = r;
 		        	  }
 				}
+				
+				LocalDate now = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				String date = rent.getStartDate();
+
+				LocalDate localDate = LocalDate.parse(date, formatter);
+				Period period = Period.between(now, localDate);
+				int days = period.getDays();
+				System.out.println(days);
+				double finalPrice = rent.getVehicle().getPricePerDay() * (days+1);
+				
+				int dialogButton = JOptionPane.CLOSED_OPTION;
+				int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is now returned. The final price is: " + finalPrice,"Warning",dialogButton);
+				
 				List<String> notes = new ArrayList<>();
 				for (String line : notesArea.getText().split("\\n")) 
 					notes.add(line);
