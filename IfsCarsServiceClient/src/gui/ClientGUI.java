@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
@@ -96,9 +97,11 @@ public class ClientGUI {
 		try {
 			this.client = new IfsCarsServiceClient();
 			this.vehiclesList = client.getVehicles();
-		} catch (ServiceException | RemoteException e) {
-			e.printStackTrace();
-			System.out.println("TODO Error message");
+		} catch (ServiceException | RemoteException  e) {
+			JOptionPane.showMessageDialog(this.frame,
+				    "Error while connecting to remote host. Please contact ad administrator.",
+				    "No vehicles",
+				    JOptionPane.ERROR_MESSAGE);
 		}
 		
 		this.frame = new JFrame();
@@ -134,18 +137,22 @@ public class ClientGUI {
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
         
-        
-        List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
+
+        /*List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
 		try {
 			vehhiclesList = client.getVehicles();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
-			System.out.println("TODO error veichle list");
-		}
+			JOptionPane.showMessageDialog(this.frame,
+				    "Error while loading vehicles from remote host. Please contact ad administrator.",
+				    "No vehicles",
+				    JOptionPane.ERROR_MESSAGE);
+		}*/
         
         
 		this.vehicleLabel = new JLabel();
 		this.buyComboBox = new JComboBox<VehicleComboItem>();
+		this.buyComboBox.setPrototypeDisplayValue(new VehicleComboItem(new Vehicle("XXXXXXXXXXXXXXXXXXX", "", 0, 0, "", "", 0, 0, "")));
 		this.buyComboBox.addItemListener(event -> {
 			 if (event.getStateChange() == ItemEvent.SELECTED) {
 		          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
@@ -168,7 +175,7 @@ public class ClientGUI {
 		vehhiclesList.add(testIVehicle2);
 		vehhiclesList.add(testIVehicle3);*/
 		
-		for(IVehicle vehicle : vehhiclesList) {
+		for(IVehicle vehicle : this.vehiclesList) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
 			
 		}
@@ -181,19 +188,33 @@ public class ClientGUI {
         this.buyButton = new JButton("BUY");
         this.totalPrice = new JLabel("Total price: 0.0");
         
-        this.cartPanel = new CartPanel(this.buyButton, this.totalPrice);
-        
         
         this.addButton = new JButton("ADD TO CART");
         this.addButton.addActionListener(ev -> {
         	if(this.buyComboBox.getItemCount() > 0) {
         		IVehicle vehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
+        		this.buyComboBox.removeItemAt(this.buyComboBox.getSelectedIndex());
+        		if(this.buyComboBox.getItemCount() > 0) {
+        			IVehicle nextVehicle = ((VehicleComboItem) this.buyComboBox.getSelectedItem()).getVehicle();
+        			paintImage(nextVehicle.getFileName());
+        		} else {
+            		this.vehicleLabel.setIcon(null);
+
+            		this.vehicleLabel.setMinimumSize(new Dimension(400,400));
+            		this.vehicleLabel.setOpaque(true);
+            		this.vehicleLabel.setBackground(Color.yellow);
+        		}
             	this.cartPanel.additem(vehicle);  
         	} else {
-        		System.out.println("TODO error not veichles in the combobox");
+        		JOptionPane.showMessageDialog(this.frame,
+    				    "Unfortunately no vehicles are avalaible to be sold, please wait some returns!",
+    				    "No vehicles",
+    				    JOptionPane.INFORMATION_MESSAGE);
         	}
         	      	
         });
+        
+        this.cartPanel = new CartPanel(this.buyButton, this.totalPrice, this.buyComboBox);
         
         this.buyButton.setEnabled(false);
         this.buyButton.addActionListener(ev -> {

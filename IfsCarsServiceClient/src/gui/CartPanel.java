@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,35 +27,41 @@ public class CartPanel extends JPanel {
    private JButton buyButton;
    private JLabel totalPrice;
 
-   public CartPanel(JButton button, JLabel totalPrice) {
-	   
-       JScrollPane scrollPane = new JScrollPane();
+   private JComboBox<VehicleComboItem> combobox;
+
+   public CartPanel(JButton button, JLabel totalPrice, JComboBox<VehicleComboItem> combobox) {
+	   setBorder(BorderFactory.createTitledBorder("Shopping cart"));
+       setLayout(new BorderLayout());
+       
+       container = new JPanel(new GridBagLayout());
+       /*GridBagConstraints gbc = new GridBagConstraints();
+       gbc.gridwidth = GridBagConstraints.REMAINDER;
+       gbc.weightx = 1;
+       gbc.weighty = 1;
+       container.add(new JPanel(), gbc);*/
+       
+       JScrollPane scrollPane = new JScrollPane(container);
        //scrollPane.setViewportBorder(null);
        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
        scrollPane.setBorder(null);
-       container = new JPanel(new GridLayout(0, 1));
+       
+       add(scrollPane);
 
        this.basket = new Basket();
        this.buyButton = button;
        this.totalPrice = totalPrice;
-       
-       /*for (CartItem item : basketList) {
-      	 container.add(item);
-       }*/
-       scrollPane.setViewportView(container);
-
-       setBorder(BorderFactory.createTitledBorder("Shopping cart"));
-       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-       add(scrollPane);
+       this.combobox = combobox;
    }
    
    private void loadBasket() {
 	   container.removeAll();
+	  
 	   for (IVehicle v : basket.getVehiclesInBasket()) {
 		   CartItem cItem = new CartItem(v);
 		   cItem.getButton().addActionListener(ev -> {
 			   container.remove(cItem);
 			   basket.removeVehicleFromBasket(v);
+			   combobox.addItem(new VehicleComboItem(v));
 			   if(basket.getVehiclesInBasket().size() <= 0) {
 				   buyButton.setEnabled(false);
 			   }
@@ -61,9 +69,15 @@ public class CartPanel extends JPanel {
 			   container.revalidate();
 			   container.repaint();
 		   });
-		   container.add(cItem);
+		   GridBagConstraints gbc = new GridBagConstraints();
+		   gbc.insets = new Insets(5, 0, 0, 0);
+           gbc.gridwidth = GridBagConstraints.REMAINDER;
+           gbc.weightx = 1;
+           gbc.fill = GridBagConstraints.HORIZONTAL;
+           container.add(cItem, gbc, 0);
+		   
 	   }
-	   
+  
 	   
 	   totalPrice.setText("Total price: "+basket.getTotalPrice());
 	   container.revalidate();
