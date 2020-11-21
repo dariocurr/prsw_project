@@ -18,12 +18,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -80,6 +82,13 @@ public class LoginGUI {
 
 		this.clientProxy = new ClientProxy();
 		this.frame = new JFrame();
+		
+		try {
+		    frame.setIconImage(ImageIO.read(new File("res/icon.png")));
+		}
+		catch (IOException exc) {
+		    exc.printStackTrace();
+		}
 		
 		this.startGUI();
 		
