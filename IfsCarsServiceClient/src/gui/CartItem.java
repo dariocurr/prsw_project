@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import common.IVehicle;
 
 public class CartItem extends JPanel{
-	private JTextField text;
+	private JTextArea text;
 	private JButton button;
 	
 	/*public CartItem() {
@@ -31,29 +31,29 @@ public class CartItem extends JPanel{
 	}*/
 	
 	public CartItem(IVehicle vehicle) {
-		this.text = new JTextField(13);
+		this.text = new JTextArea(2,13);
 		text.setEditable(false);
 		text.setBorder(BorderFactory.createCompoundBorder(
 		        text.getBorder(), 
 		        BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		text.setText(vehicle.getModel()+" "+vehicle.getPrice());
+		text.setLineWrap(true);
 		this.button = new JButton("X");
 		this.setLayout(new BorderLayout());
 		this.add(text, BorderLayout.LINE_START);
-		this.add(button, BorderLayout.LINE_END);	
+		this.add(button, BorderLayout.LINE_END);
 	}
+	
 	
 	public String getText() {
 		return text.getText();
 	}
 	
-	@Override
+	@Override 
 	public Dimension getPreferredSize() {
-		if (isPreferredSizeSet()) {
-			return super.getPreferredSize();
-			}
-		return new Dimension(150, 100);
+		return new Dimension(150, 50);
 	}
+	
 	
 	public JButton getButton() {
 		return this.button;
