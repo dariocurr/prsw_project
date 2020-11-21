@@ -58,15 +58,26 @@ public class ClientProxy {
 		new ClientProxy();
 	}*/ 
 	
-	/**  */
+	/** Get the list of the available vehicles using the @ICarRentalObservable object
+	 * @return list of available vehicles */
 	public List<IVehicle> getAvailableVehicles() throws RemoteException {
 		return this.carRental.getAvailableVehicles();
 	}
 	
+	/** Get the list of rents of a given renter, using a method from @ICarRentalObservable
+	 * @param renter the renter
+	 * @return list of rents */
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
+	/** Rent a vehicle, using a method from @ICarRentalObservable
+	 * @param renter the employee who rents the vehicle
+	 * @param vehicle the vehicle rented
+	 * @param startDate the date of the beginning of the rent
+	 * @param endDate the date of the end of the rent
+	 * @param coupon the coupon
+	 * @return the rent */
 	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		return this.carRental.rentVehicle(renter, vehicle, startDate, endDate, coupon);
 	}
@@ -100,6 +111,8 @@ public class ClientProxy {
         return renter;
     }
 	
+	/** Get the credentials of all the renters
+	 * @return map with all email and passwords */
 	public Map<String, String> getCredentials(){
 		Map<String,String> credentialsMap = new HashMap<>();
 		for(IRenterObserver renter : this.renters)
@@ -109,22 +122,39 @@ public class ClientProxy {
 			
 	}
 	
+	/** Get the list of the renters
+	 * @return the list of the renters */
 	public List<IRenterObserver> getRenters() {
 		return this.renters;
 	}
 	
+	/** Return a vehicle, using a method from @ICarRentalObservable
+	 * @param rent the rent
+	 * @param notes a list of notes written by the renter */
 	public void returnVehicle(IRent rent, List<String> notes) throws RemoteException{
 		this.carRental.returnVehicle(rent, notes);
 	}
 	
+	/** Get all the not available vehicles, using a method from @ICarRentalObservable
+	 * @return map with all the vehicles and the end date of the rent */
 	public Map<IVehicle, String> getNotAvailableVehicles() throws RemoteException{
 		return this.carRental.getNotAvailableVehicles();
 	}
 	
+	/** Add a rent in the waitlist, using a method from @ICarRentalObservable
+	 * @param renter the renter
+	 * @param vehicle the vehicle
+	 * @param startDate the date of the beginning of the rent
+	 * @param endDate the date of the end of the rent
+	 * @param coupon the coupon
+	 * @return the rent */
 	public IRent attach(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException{
 		return this.carRental.attach(renter, vehicle, startDate, endDate, coupon);
 	}
 	
+	/** Remove a rent from the waitlist, using a method from @ICarRentalObservable
+	 * @param rent the rent to remove
+	 * @return true if the remove operation is performed correctly, false otherwise */
 	public boolean detach(IRent rent) throws RemoteException{
 		return this.carRental.detach(rent);
 	}
