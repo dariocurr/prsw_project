@@ -88,10 +88,15 @@ public class ClientGUI {
 		    System.err.println( "Failed to initialize LaF" );
 		}
 		
+		this.frame = new JFrame();
+		
 		try {
 			CarSeller seller = new CarSellerServiceLocator().getCarSeller();
 		} catch (ServiceException e) {
-			System.out.println("error while loading the service seller");
+			JOptionPane.showMessageDialog(this.frame,
+				    "Error loading the remote service.\nPlease contact ad administrator.",
+				    "No service",
+				    JOptionPane.ERROR_MESSAGE);
 		}
 		
 		try {
@@ -99,12 +104,12 @@ public class ClientGUI {
 			this.vehiclesList = client.getVehicles();
 		} catch (ServiceException | RemoteException  e) {
 			JOptionPane.showMessageDialog(this.frame,
-				    "Error while connecting to remote host. Please contact ad administrator.",
+				    "Error while getting data from remote host.\nPlease contact ad administrator.",
 				    "No vehicles",
 				    JOptionPane.ERROR_MESSAGE);
 		}
 		
-		this.frame = new JFrame();
+		
 		try {
 		    frame.setIconImage(ImageIO.read(new File("res/logo.png")));
 		}
@@ -308,7 +313,6 @@ public class ClientGUI {
 		String notes = "";
 		for(String line : v.getNotes()) {
 			notes += line + "\n";
-			System.out.println(notes);
 		}
 			
 		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€" + "\n" + "Notes: " + "\n"+  notes);
