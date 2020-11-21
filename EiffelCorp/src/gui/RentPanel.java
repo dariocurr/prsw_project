@@ -194,6 +194,9 @@ public class RentPanel extends JPanel {
 						descriptionArea.setText("");
 						vehicleRentLabel.setIcon(null);
 						rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+						
+						if(rentComboBox.getSelectedItem() == null)
+							rentComboBox.setEnabled(false);
 					}
 	
 					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));

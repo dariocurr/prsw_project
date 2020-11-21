@@ -91,6 +91,9 @@ public class ReturnPanel extends JPanel{
 			this.returnComboBox.addItem(new VehicleComboItem(vehicle));
 		}
 		
+		if(returnComboBox.getSelectedItem() == null)
+			returnComboBox.setEnabled(false);
+		
 		this.returnComboBox.addItemListener(new ItemChangeListener());
 		this.notesArea = new JTextArea(10, 30);
 		this.notesScrollPane = new JScrollPane(this.notesArea);
@@ -182,6 +185,10 @@ public class ReturnPanel extends JPanel{
 					notesArea.setText("");
 					vehicleReturnLabel.setIcon(null);
 					returnComboBox.removeItem(((VehicleComboItem)returnComboBox.getSelectedItem()));
+					
+					if(returnComboBox.getSelectedItem() == null)
+						returnComboBox.setEnabled(false);
+					
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
