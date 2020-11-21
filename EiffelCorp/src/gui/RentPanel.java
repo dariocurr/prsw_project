@@ -18,17 +18,21 @@ import java.nio.file.Paths;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.AttributedString;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -175,33 +179,42 @@ public class RentPanel extends JPanel {
 				
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
 				LocalDateTime startDate = LocalDateTime.now();
+
 				
+			
+				String days = JOptionPane.showInputDialog(null,"How many days do you want to rent the vehicle?");
+				Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 				
-				String endDate = startDate.plusMonths(3).format(dtf);
-				try {
-					if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, "EMP001") == null) {
-						int dialogButton = JOptionPane.YES_NO_OPTION;
-						int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is not available now. Do you want to be in the Wait List?","Warning",dialogButton);
-						if(dialogResult == JOptionPane.YES_OPTION){
+				if (days != null && days.length() > 0 && pattern.matcher(days).matches()) {
+
+					
+					String endDate = startDate.plusDays(Integer.parseInt(days)).format(dtf);
+						
+					try {
+						if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, "EMP001") == null) {
+							int dialogButton = JOptionPane.YES_NO_OPTION;
+							int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is not available now. Do you want to be in the Wait List?","Warning",dialogButton);
+							if(dialogResult == JOptionPane.YES_OPTION){
+								descriptionArea.setText("");
+								vehicleRentLabel.setIcon(null);
+								rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+								clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, "EMP001");
+							}
+							
+						}
+						else {
 							descriptionArea.setText("");
 							vehicleRentLabel.setIcon(null);
 							rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
-							clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, "EMP001");
+							
+							if(rentComboBox.getSelectedItem() == null)
+								rentComboBox.setEnabled(false);
 						}
-						
+		
+						//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
+					} catch (RemoteException e) {
+						generateError("Rent failed.");
 					}
-					else {
-						descriptionArea.setText("");
-						vehicleRentLabel.setIcon(null);
-						rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
-						
-						if(rentComboBox.getSelectedItem() == null)
-							rentComboBox.setEnabled(false);
-					}
-	
-					//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
-				} catch (RemoteException e) {
-					generateError("Rent failed.");
 				}
 			
 			}
