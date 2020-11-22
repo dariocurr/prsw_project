@@ -1,5 +1,6 @@
 package car_rental;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -18,7 +19,7 @@ public class CarRentalServer {
 			
 			LocateRegistry.createRegistry(1099);
 			ICarRentalObservable carRental = new CarRental();
-			System.setProperty("java.security.policy", "file:./server.policy");
+			System.setProperty("java.security.policy", "file:." + File.separator  + "server.policy");
 			Naming.rebind("CarRentalService", carRental);
 			System.out.println("Server running...");
 		} catch (RemoteException e) {
