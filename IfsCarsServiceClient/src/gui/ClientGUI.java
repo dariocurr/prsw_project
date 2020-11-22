@@ -54,6 +54,7 @@ import common.IVehicle;
 import service.CarSeller;
 import service.CarSellerServiceLocator;
 
+/** Class for the client gui, where the client can choose and buy vehicles */
 public class ClientGUI {
 	private JFrame frame;
 	private JPanel mainPanel;
@@ -77,6 +78,7 @@ public class ClientGUI {
 	
 	private GridBagConstraints constraint;
 	
+	/** Default constructor which initializes the frame, the client and the carSeller service */
 	public ClientGUI() {
 		try {
 		    UIManager.setLookAndFeel( new FlatLightLaf() );
@@ -301,6 +303,8 @@ public class ClientGUI {
 
 	}
 	
+	/** Paint the image of the vehicle
+	 * @param file_name the image's file name of the selected vehicle */
 	public void paintImage(String file_name) {
 		ImageIcon vehicleImage = new ImageIcon("res" + File.separator + "car_img" + File.separator + file_name);
         Image image = vehicleImage.getImage();
@@ -309,6 +313,8 @@ public class ClientGUI {
         this.vehicleLabel.setIcon(VehicleIcon);
 	}
 	
+	/** Paint the desciption of a vehicle
+	 * @param v the vehicle */
 	public void paintDescription(IVehicle v) {
 		String notes = "";
 		for(String line : v.getNotes()) {
@@ -319,6 +325,7 @@ public class ClientGUI {
 		
 	}
 	
+	/** Main method which calls the ClientGUI constructor */
 	public static void main(String[] args) {
         new ClientGUI();
     }
