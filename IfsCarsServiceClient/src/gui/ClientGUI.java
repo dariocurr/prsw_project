@@ -144,18 +144,6 @@ public class ClientGUI {
 		this.descriptionScrollPane.setBorder(BorderFactory.createTitledBorder("Description of the car"));
         this.descriptionScrollPane.setSize (300,600);
         
-
-        /*List<IVehicle> vehhiclesList = new ArrayList<IVehicle>();
-		try {
-			vehhiclesList = client.getVehicles();
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(this.frame,
-				    "Error while loading vehicles from remote host. Please contact ad administrator.",
-				    "No vehicles",
-				    JOptionPane.ERROR_MESSAGE);
-		}*/
-        
         
 		this.vehicleLabel = new JLabel();
 		this.buyComboBox = new JComboBox<VehicleComboItem>();
@@ -163,33 +151,17 @@ public class ClientGUI {
 		this.buyComboBox.addItemListener(event -> {
 			 if (event.getStateChange() == ItemEvent.SELECTED) {
 		          IVehicle v = ((VehicleComboItem) event.getItem()).getVehicle();
-		          //IVehicle veh = this.vehiclesList.get(this.vehiclesList.indexOf(v));
 		          paintImage(v.getFileName());
 		          paintDescription(v);
 		          
 		       }
 		});
-		
-		//TODO get list from service
 
-		
-		
-		
-		/*IVehicle testIVehicle = new Vehicle("Fiat 500", "2004", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
-		IVehicle testIVehicle2 = new Vehicle("Fiat 501", "2006", 4, 2, "manual", "little", 80, 12000, "fiat_500.png");
-		IVehicle testIVehicle3 = new Vehicle("Fiesta", "2007", 4, 2, "manual", "little", 80, 12000.07, "ford_fiesta.png");
-		vehhiclesList.add(testIVehicle);
-		vehhiclesList.add(testIVehicle2);
-		vehhiclesList.add(testIVehicle3);*/
 		
 		for(IVehicle vehicle : this.vehiclesList) {
 			this.buyComboBox.addItem(new VehicleComboItem(vehicle));
 			
 		}
-		
-		//this.buyComboBox.addItem();
-		//this.buyComboBox.setPrototypeDisplayValue("text long like this or more..... ");
-		//this.buyComboBox.addItemListener(new ItemChangeListener());
 		
         
         this.buyButton = new JButton("BUY");

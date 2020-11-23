@@ -36,13 +36,6 @@ public class Bank implements IBank {
 	
 	/** Default constructor used to keep all the bank accounts informations */
 	public Bank() throws IOException {
-		/*
-		Class cls = Class.forName("Bank");
-		ClassLoader clsLoader = cls.getClassLoader();
-		InputStream inputStream = clsLoader.getResourceAsStream("bank_accounts_list.json");
-		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-		"res" + File.separator + "bank_accounts_list.json"
-		*/
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(".." + File.separator + "BankService" + File.separator + "bank_accounts_list.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String json = reader.lines().collect(Collectors.joining());
@@ -65,7 +58,7 @@ public class Bank implements IBank {
 				e.printStackTrace();
 			}
 		}
-		//System.out.println(amount);
+		
 		for (IBankAccount account : this.accounts) {
 			if(account.getAccountNumber().equalsIgnoreCase(accountNumber)) {
 				account.setAmount(account.getAmount() - amount);
@@ -105,22 +98,6 @@ public class Bank implements IBank {
 			e.printStackTrace();
 		}
         
-		/*try (FileReader reader = new FileReader(url)) {
-            Object obj = jsonParser.parse(reader);
-            JSONArray bankAccounts = (JSONArray) obj;
-            for(Object bankAccount : bankAccounts) {
-            	bankAccountsList.add(parseBankAccountObject( (JSONObject) bankAccount));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("ERROR: Reading from bank accounts json");
-            e.printStackTrace();
-        } catch (IOException e) {
-        	System.out.println("ERROR: Reading from bank accounts json");
-            e.printStackTrace();
-        } catch (ParseException e) {
-        	System.out.println("ERROR: Reading from bank accounts json");
-            e.printStackTrace();
-        }*/
 		return bankAccountsList;
 	}
 	

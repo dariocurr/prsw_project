@@ -210,8 +210,6 @@ public class RentPanel extends JPanel {
 							if(rentComboBox.getSelectedItem() == null)
 								rentComboBox.setEnabled(false);
 						}
-		
-						//ReturnPanel.this.returnComboBox.addItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
 					} catch (RemoteException e) {
 						generateError("Rent failed.");
 					}

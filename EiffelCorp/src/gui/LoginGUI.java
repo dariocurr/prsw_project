@@ -93,9 +93,6 @@ public class LoginGUI {
 		this.startGUI();
 		
 		this.frame.add(mainPanel);
-		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenSize.setSize(screenSize.getWidth()*0.65, screenSize.getHeight()*0.65);
-		this.frame.setSize(screenSize);*/
 		this.frame.getRootPane().setDefaultButton(loginButton);
 		this.frame.setResizable(false);
 		this.frame.setUndecorated(true);
@@ -113,8 +110,6 @@ public class LoginGUI {
 	public void startGUI() {
 		this.mainPanel = new JPanel();
 		
-		/*this.mainPanel.setSize(new Dimension(800, 400));
-		this.mainPanel.setPreferredSize(new Dimension(800, 400));*/
 		this.mainPanel.setBorder(new EmptyBorder(24, 24, 24, 24));
 		this.mainPanel.setLayout(new GridBagLayout());
 		GridBagConstraints constraint = new GridBagConstraints();
@@ -123,7 +118,7 @@ public class LoginGUI {
 		constraint.gridx = 0;
         constraint.gridy = 0;
         ImageIcon icon = new ImageIcon("res" + File.separator + "logo.png");
-		Image image = icon.getImage(); // transform it
+		Image image = icon.getImage();
         Image newImg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon newLogoIcon = new ImageIcon(newImg);
         this.iconLabel = new JLabel(newLogoIcon);
@@ -155,22 +150,10 @@ public class LoginGUI {
 		constraint.gridwidth = 1;
 		constraint.insets = new Insets(24,8,8,8);
 		constraint.weightx = 0.5;
-		//constraint.fill = GridBagConstraints.NONE;
-		
-		//constraint.anchor = GridBagConstraints.LAST_LINE_END;
 		constraint.gridy = 5;
-		//constraint.anchor = GridBagConstraints.PAGE_END;
 		this.loginButton = new JButton("LOGIN");
 		this.loginButton.addActionListener(new LoginActionListener());
 		this.mainPanel.add(this.loginButton, constraint);
-		
-		//constraint.anchor = GridBagConstraints.LAST_LINE_START;
-		//constraint.gridy = 5;
-		//constraint.gridx = 1;
-		//constraint.fill = GridBagConstraints.NONE;
-		//constraint.anchor = GridBagConstraints.PAGE_END;
-		//this.signinButton = new JButton("SIGN IN");
-		//this.mainPanel.add(this.signinButton, constraint);
 	}
 	
 	/** Main method, used to build the login gui 

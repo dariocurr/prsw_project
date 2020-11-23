@@ -18,19 +18,6 @@ public class CartItem extends JPanel{
 	private JTextArea text;
 	private JButton button;
 	
-	/*public CartItem() {
-		this.text = new JTextField(13);
-		text.setEditable(false);
-		text.setBorder(BorderFactory.createCompoundBorder(
-		        text.getBorder(), 
-		        BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		text.setText("macchina 111111111111111111");
-		this.button = new JButton("X");
-		this.setLayout(new BorderLayout());
-		this.add(text, BorderLayout.LINE_START);
-		this.add(button, BorderLayout.LINE_END);
-	}*/
-	
 	/** Main constructor which initializes the components
 	 * @param vehicle the vehicle to be added in the shopping cart */
 	public CartItem(IVehicle vehicle) {

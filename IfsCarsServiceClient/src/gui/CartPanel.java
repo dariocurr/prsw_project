@@ -39,14 +39,8 @@ public class CartPanel extends JPanel {
        setLayout(new BorderLayout());
        
        container = new JPanel(new GridBagLayout());
-       /*GridBagConstraints gbc = new GridBagConstraints();
-       gbc.gridwidth = GridBagConstraints.REMAINDER;
-       gbc.weightx = 1;
-       gbc.weighty = 1;
-       container.add(new JPanel(), gbc);*/
        
        JScrollPane scrollPane = new JScrollPane(container);
-       //scrollPane.setViewportBorder(null);
        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
        scrollPane.setBorder(null);
        

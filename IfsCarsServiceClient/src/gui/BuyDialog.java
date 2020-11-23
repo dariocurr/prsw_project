@@ -226,7 +226,6 @@ public class BuyDialog extends JDialog implements ActionListener{
 
 	/** Perform the sale of the vehicles in the basket */
 	public void performBuy() {
-		//TODO ACCATTATE A DIGNITà
 		if (client.sell(
 				this.basket, 
 				this.bankAccountNumber.getText(), 

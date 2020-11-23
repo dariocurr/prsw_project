@@ -46,17 +46,11 @@ public class ClientProxy {
 		String codebase_path = "file:" + File.separator + File.separator + path + File.separator + "IfsCars" + File.separator + "bin" + File.separator;
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
-		//System.out.println("policy: "+policy_path+", codebase: "+codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
 		
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
-		//carRental.getAvailableVehicles().stream().forEach(System.out::println);
-		
 	}
 	
-	/*public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
-		new ClientProxy();
-	}*/ 
 	
 	/** Get the list of the available vehicles using the @ICarRentalObservable object
 	 * @return list of available vehicles */

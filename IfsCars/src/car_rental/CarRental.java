@@ -72,19 +72,15 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	/** {@inheritDoc} */
 	@Override
 	public IRent rentVehicle(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
-		System.out.println(renter+" is trying to rent...");
 		IRent rent = this.createRent(renter, vehicle, startDate, endDate, coupon);
 		
 		if(waitList.get(vehicle).isEmpty()) {
-			System.out.println("Rented "+ vehicle +" by " + renter);
 			this.insertRent(renter, rent);
 			this.attach(renter, vehicle, startDate, endDate, coupon);
 			this.availableVehicles.get(this.availableVehicles.indexOf(vehicle)).setForSale(false);
-		//this.availableVehicles.remove(rent.getVehicle());
 			return rent;
 		}
 		
-		System.out.println("Car "+vehicle+" is already rented");
 		return null;
 	}
 	
@@ -92,7 +88,6 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void rentVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
-		//this.availableVehicles.remove(rent.getVehicle());
 		this.insertRent(rent.getRenter(), rent);
 	}
 	
@@ -100,9 +95,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 	@Override
 	public void returnVehicle(IRent rent) throws RemoteException {
 		Objects.requireNonNull(rent);
-		System.out.println(rent.getRenter().getEmail()+" returned the car "+rent.getVehicle());
 		this.rentals.get(rent.getRenter()).remove(rent);
-		//this.availableVehicles.add(rent.getVehicle());
 		this.notifyObserver(rent.getVehicle());
 	}
 
@@ -112,8 +105,6 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(notes);
 		System.out.println(rent.getRenter().getEmail()+" returned the car "+rent.getVehicle()+" with notes added");
 		this.returnVehicle(rent);
-		for(String note : notes)
-			System.out.println(note);
 		rent.getVehicle().getNotes().addAll(notes);
 		this.availableVehicles.get(this.availableVehicles.indexOf(rent.getVehicle())).getNotes().addAll(notes);
 	}
@@ -140,9 +131,6 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		List<IRent> vehicleWaitlist = this.waitList.get(vehicle);
 		vehicleWaitlist.remove(0);
 		if (!vehicleWaitlist.isEmpty()) {
-			/*if (vehicleWaitlist.get(0).getRenter().update()) {
-				this.rentVehicle(vehicleWaitlist.get(0));
-			}*/
 			this.rentVehicle(vehicleWaitlist.get(0));
 		}
 		else
@@ -165,7 +153,6 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 			this.waitList.remove(vehicle);
 			return this.availableVehicles.remove(vehicle);
 		} else {
-			//throw new exception
 			return false;
 		}
 	}
