@@ -11,7 +11,7 @@ public class VehicleComboItem {
      * @param v the vehicle to place in the combobox */
     public VehicleComboItem(IVehicle v){
         this.vehicle = v;
-        this.text = v.getModel()+" "+v.getPricePerDay()+"€";
+        this.text = v.getModel()+" "+v.getPrice()+"€";
     }
     
     /** Get the current vehicle.

@@ -293,7 +293,7 @@ public class ClientGUI {
 			notes += line + "\n";
 		}
 			
-		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€" + "\n" + "Notes: " + "\n"+  notes);
+		this.descriptionArea.setText("Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price: " + v.getPrice() + "€" + "\n" + "Notes: " + "\n"+  notes);
 		
 	}
 	
