@@ -79,7 +79,6 @@ public class BuyDialog extends JDialog implements ActionListener{
 	    		try {
 					converted_priceString = client.convert(event.getItem().toString(), basket.getTotalPrice());
 				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(this,
 						    "An error occured during coversion.",
@@ -146,6 +145,7 @@ public class BuyDialog extends JDialog implements ActionListener{
         for(String models : basket.getVehicleModel()) {
         	a+=models+"<br>";
         }
+        
 		this.constraint.gridx = 0;
         this.constraint.gridy = 0;
         this.constraint.gridwidth = 2;
@@ -195,14 +195,11 @@ public class BuyDialog extends JDialog implements ActionListener{
         this.confirmButton.setEnabled(false);
         this.panel.add(confirmButton,constraint);
         
-        
-        
         this.cancelButton.addActionListener(ev -> {
         	dispose();
         });
         
         this.confirmButton.addActionListener(ev -> {
-        	//TODO bank services 
         	client.sell(this.basket, this.bankAccountNumber.getText(), this.basket.getTotalPrice(), this.currencyComboBox.getSelectedItem().toString());
         	this.bankAccountNumber.setEnabled(false);
         	this.cancelButton.setEnabled(false);
@@ -220,7 +217,6 @@ public class BuyDialog extends JDialog implements ActionListener{
 	
 	public void actionPerformed(ActionEvent ae) {
       Object source = ae.getSource();
-      
       dispose();
    }
 

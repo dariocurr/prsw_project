@@ -52,6 +52,7 @@ public class CartPanel extends JPanel {
        this.combobox = combobox;
    }
    
+   /** Load the basket */
    private void loadBasket() {
 	   container.removeAll();
 	  

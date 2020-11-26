@@ -30,9 +30,6 @@ public class IfsCarsServiceClient {
 	/** Get the vehicles available for sale
 	 * @return list of vehicles available for sale */
 	public List<IVehicle> getVehicles() throws RemoteException {
-		//List<IVehicle> vehicles = new ArrayList<>();
-		//è normale sia vuota, perche nessun veicolo è pronto per la vendita
-		// per test, ti conviene commentare riga 54 e 56 in CarSeller
 		return reconstructFromJSONString(service.getAvailableForSaleVehicles());
 	}
 	
@@ -47,7 +44,6 @@ public class IfsCarsServiceClient {
 		try {
 			return service.sellVehicle(createJSONString(basket.getVehiclesInBasket()), accountNumber, amount, currency);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			System.out.println("TODO sell vehicle error");
 			e.printStackTrace();
 		}
