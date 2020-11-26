@@ -47,7 +47,6 @@ public class ClientProxy {
 		System.setProperty("java.security.policy", policy_path);
 		System.setProperty("java.rmi.server.codebase", codebase_path);
 		System.setSecurityManager(new RMISecurityManager());
-		
 		carRental = (ICarRentalObservable) Naming.lookup("CarRentalService");
 	}
 	
@@ -113,7 +112,6 @@ public class ClientProxy {
 			credentialsMap.put(renter.getEmail(), renter.getPassword());
 		
 		return credentialsMap;
-			
 	}
 	
 	/** Get the list of the renters
