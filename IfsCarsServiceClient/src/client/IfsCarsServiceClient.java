@@ -43,11 +43,13 @@ public class IfsCarsServiceClient {
 	 * @param currency currency of the payment
 	 * @return true if the sell operation is done correctly, false otherwise */
 	public boolean sell(IBasket basket, String accountNumber, Double amount, String currency) {
+		System.out.println("sono in sell");
 		try {
 			return service.sellVehicle(createJSONString(basket.getVehiclesInBasket()), accountNumber, amount, currency);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("TODO sell vehicle error");
+			e.printStackTrace();
 		}
 		return false;
 	}
