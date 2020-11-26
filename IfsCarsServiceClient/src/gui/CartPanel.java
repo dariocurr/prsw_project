@@ -17,6 +17,7 @@ import javax.swing.*;
 import client.Basket;
 import common.IVehicle;
 
+/** Class for the shopping cart panel */
 public class CartPanel extends JPanel {
    private static final int PREF_W = 200;
    private static final int PREF_H = PREF_W;
@@ -29,19 +30,17 @@ public class CartPanel extends JPanel {
 
    private JComboBox<VehicleComboItem> combobox;
 
+   /** Main constructor which initializes all the components
+    * @param button the BUY button
+    * @param totalPrice the total price of the vehicles in the basket
+    * @param combobox the combobox with vehicles */
    public CartPanel(JButton button, JLabel totalPrice, JComboBox<VehicleComboItem> combobox) {
 	   setBorder(BorderFactory.createTitledBorder("Shopping cart"));
        setLayout(new BorderLayout());
        
        container = new JPanel(new GridBagLayout());
-       /*GridBagConstraints gbc = new GridBagConstraints();
-       gbc.gridwidth = GridBagConstraints.REMAINDER;
-       gbc.weightx = 1;
-       gbc.weighty = 1;
-       container.add(new JPanel(), gbc);*/
        
        JScrollPane scrollPane = new JScrollPane(container);
-       //scrollPane.setViewportBorder(null);
        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
        scrollPane.setBorder(null);
        
@@ -85,6 +84,8 @@ public class CartPanel extends JPanel {
 
    }
    
+   /** Add a vehicle in the basket 
+    * @param v the vehicle to be added in the basket */
    public void additem(IVehicle v) {
 	   this.basket.addVehicleToBasket(v);
 	   if(basket.getVehiclesInBasket().size() > 0) {
@@ -93,15 +94,19 @@ public class CartPanel extends JPanel {
 	   this.loadBasket();
    }
    
+   /** Reload the basket */
    public void reload() {
 	   this.loadBasket();
    }
    
+   /** Get the size of the basket
+    * @return the size of the basket */
    public int getBasketSize() {
 	   return  basket.getVehiclesInBasket().size();
    }
    
 
+   /** {@inheritDoc} */
    @Override
    public Dimension getPreferredSize() {
       if (isPreferredSizeSet()) {
@@ -110,6 +115,8 @@ public class CartPanel extends JPanel {
       return new Dimension(PREF_W, PREF_H);
    }
 
+   /** Get the basket
+    * @return the basket */
 	public Basket getBasket() {
 		return this.basket;
 	}

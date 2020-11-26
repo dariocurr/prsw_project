@@ -58,6 +58,7 @@ public class Bank implements IBank {
 				e.printStackTrace();
 			}
 		}
+
 		for (IBankAccount account : this.accounts) {
 			if(account.getAccountNumber().equalsIgnoreCase(accountNumber)) {
 				account.setAmount(account.getAmount() - amount);
@@ -96,6 +97,7 @@ public class Bank implements IBank {
 			System.out.println("ERROR: Reading from bank accounts json");
 			e.printStackTrace();
 		}
+
 		return bankAccountsList;
 	}
 	

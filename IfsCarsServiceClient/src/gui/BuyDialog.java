@@ -33,7 +33,7 @@ import common.IBank;
 import common.IBasket;
 import common.IVehicle;
 
-
+/** Class for the confirmation panel, where the client can add his credit card number and perform the payment */
 public class BuyDialog extends JDialog implements ActionListener{
 	private JPanel panel;
 	private JFrame parent;
@@ -48,6 +48,10 @@ public class BuyDialog extends JDialog implements ActionListener{
 	private JButton confirmButton;
 	private JButton cancelButton;
 	
+	/** Main constructor, it initializes all components and it adds listeners on the buttons
+	 * @param parent the JFrame parent
+	 * @param basket the shopping cart object
+	 * @param client the client */
 	public BuyDialog(JFrame parent, IBasket basket, IfsCarsServiceClient client) {
 		super(parent, "Confirm");
 		this.parent = parent;
@@ -220,6 +224,7 @@ public class BuyDialog extends JDialog implements ActionListener{
       dispose();
    }
 
+	/** Perform the sale of the vehicles in the basket */
 	public void performBuy() {
 		if (client.sell(
 				this.basket, 

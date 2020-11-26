@@ -81,14 +81,9 @@ public class ReturnPanel extends JPanel{
 	
 	
 	private void initComponents() {
-		/*ArrayList<String> modelVehiclesRented = new ArrayList<>();
-		for(IVehicle vehicle : this.vehiclesRented)
-			modelVehiclesRented.add(vehicle.getModel());*/
 		
 		this.returnComboBox = new JComboBox<VehicleComboItem>();
 		this.returnComboBox.setPrototypeDisplayValue(new VehicleComboItem(new Vehicle("                                                               ", "", 0, 0, "", "", 0, 0, "")));
-		//this.rentComboBox.setModel(new DefaultComboBoxModel<String>(modelVehiclesRentable.toArray(new String[0])));
-		//this.returnComboBox.setPrototypeDisplayValue("text long like this or more..... ");
 		
 		for(IVehicle vehicle : this.vehiclesRented) {
 			this.returnComboBox.addItem(new VehicleComboItem(vehicle));
