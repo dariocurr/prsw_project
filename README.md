@@ -2,6 +2,7 @@
 Project of Programmation répartie et Services web.
 
 Reports are stored in the Documentation folder.
+
 All the source code is compressed in the Curreri_DiFina_Domingo_Gristina archive.
 
 ### Team
