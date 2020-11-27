@@ -61,7 +61,9 @@ public interface ICarRentalObservable extends Remote {
 	 * @return the list of rents */
 	public List<IRent> getRenterRentals(IRenterObserver renter) throws RemoteException;
 	
-	/**  */
+	/** Remove a vehicle
+	 * @param vehicle the vehicle
+	 * @return true if the remove operation is done correctly, false otherwise */
 	public boolean removeVehicle(IVehicle vehicle) throws RemoteException;
 	
 }
