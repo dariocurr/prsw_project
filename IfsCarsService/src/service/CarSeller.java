@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import javax.xml.rpc.ServiceException;
 
@@ -62,7 +63,9 @@ public class CarSeller implements ICarSeller {
 		Objects.requireNonNull(currency);
 		boolean isPaymentDone = this.bank.makePayment(accountNumber, amount, currency);
 		if (isPaymentDone) {
-			this.carRental.getAvailableVehicles().removeAll(CarSeller.reconstructFromJSONString(basket));
+			for(IVehicle iVehicle : CarSeller.reconstructFromJSONString(basket)) {
+				this.carRental.removeVehicle(iVehicle);
+			}
 		}
 		return isPaymentDone;
 	}
