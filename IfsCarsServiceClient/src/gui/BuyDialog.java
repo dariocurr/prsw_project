@@ -200,7 +200,7 @@ public class BuyDialog extends JDialog implements ActionListener{
         });
         
         this.confirmButton.addActionListener(ev -> {
-        	client.sell(this.basket, this.bankAccountNumber.getText(), this.basket.getTotalPrice(), this.currencyComboBox.getSelectedItem().toString());
+        	//client.sell(this.basket, this.bankAccountNumber.getText(), this.basket.getTotalPrice(), this.currencyComboBox.getSelectedItem().toString());
         	this.bankAccountNumber.setEnabled(false);
         	this.cancelButton.setEnabled(false);
         	this.currencyComboBox.setEnabled(false);
