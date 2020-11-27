@@ -61,7 +61,7 @@ public class Bank implements IBank {
 
 		for (IBankAccount account : this.accounts) {
 			if (account.getAccountNumber().equalsIgnoreCase(accountNumber)) {
-				if (account.getAmount() > amount) {
+				if (account.getAmount() >= amount) {
 					account.setAmount(account.getAmount() - amount);
 					return true;
 				} else {
