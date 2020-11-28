@@ -10,6 +10,6 @@ All the source code is compressed in the Curreri_DiFina_Domingo_Gristina archive
 | Last name   | Name       | Student number |
 |-----------|------------|-----------|
 | Curreri     | Dario  |  240684  |
-| Di Fina   | Domenico      |  x  |
+| Di Fina   | Domenico      |  240686  |
 | Domingo   | Emanuele   |  240688  |
 | Gristina  | Salvatore A.  |   x        |
