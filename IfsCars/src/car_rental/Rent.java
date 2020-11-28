@@ -1,6 +1,10 @@
 package car_rental;
 
 import java.rmi.RemoteException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import common.IRent;
@@ -32,7 +36,8 @@ public class Rent implements IRent {
 		this.renter = renter;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.daysNumber = Integer.valueOf(endDate.substring(0, 2)) - Integer.valueOf(startDate.substring(0, 2));
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		this.daysNumber = (int) ChronoUnit.DAYS.between(LocalDate.parse(startDate, dtf), LocalDate.parse(endDate, dtf));
 		this.price = (this.vehicle.getPricePerDay() * this.daysNumber) * (1 - discount);
 	}
 

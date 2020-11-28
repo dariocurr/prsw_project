@@ -64,6 +64,18 @@ public class ClientProxy {
 		return this.carRental.getRenterRentals(renter);
 	}
 	
+	/** Check via RMI if the coupon inserted is valid
+	 * @param coupon code
+	 * @return true if the coupon is valid
+	 */
+	public boolean checkCoupon(String code) {
+		try {
+			return this.carRental.checkCouponCode(code);
+		} catch (RemoteException e) {
+			return false;
+		}
+	}
+	
 	/** Rent a vehicle, using a method from @ICarRentalObservable
 	 * @param renter the employee who rents the vehicle
 	 * @param vehicle the vehicle rented

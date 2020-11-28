@@ -157,6 +157,17 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		}
 	}
 	
+	/** {@inheritDoc} */
+	@Override
+	public boolean checkCouponCode(String code) throws RemoteException{
+		if (code.equalsIgnoreCase("EMP001")) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 	private IRent createRent(IRenterObserver renter, IVehicle vehicle, String startDate, String endDate, String coupon) throws RemoteException {
 		Objects.requireNonNull(renter);
 		Objects.requireNonNull(vehicle);
@@ -164,7 +175,7 @@ public class CarRental extends UnicastRemoteObject implements ICarRentalObservab
 		Objects.requireNonNull(endDate);
 		Objects.requireNonNull(coupon);
 		double discount = 0;
-		if (coupon == "EMP001") {
+		if (this.checkCouponCode(coupon)) {
 			discount = 0.10;
 		}
 		vehicle.setForSale(true);

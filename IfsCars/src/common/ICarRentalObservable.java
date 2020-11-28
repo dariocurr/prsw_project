@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+
 /** Interface to manage all the car rental operation (rent, return, etc...) */
 public interface ICarRentalObservable extends Remote {
 	
@@ -28,6 +29,11 @@ public interface ICarRentalObservable extends Remote {
 	/** Rent a vehicle
 	 * @param rent the rent */
 	public void rentVehicle(IRent rent) throws RemoteException;
+	
+	/** Check if the coupon code used by the employees is valid
+	 * @param code to check 
+	 * @return true if the code is valid */
+	public boolean checkCouponCode(String code) throws RemoteException;
 	
 	/** Return a vehicle rented
 	 * @param rent the rent

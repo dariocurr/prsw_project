@@ -30,6 +30,11 @@ public interface ICarRentalObservable extends Remote {
 	 * @param rent the rent */
 	public void rentVehicle(IRent rent) throws RemoteException;
 	
+	/** Check if the coupon code used by the employees is valid
+	 * @param code to check 
+	 * @return true if the code is valid */
+	public boolean checkCouponCode(String code) throws RemoteException;
+	
 	/** Return a vehicle rented
 	 * @param rent the rent
 	 * @param notes list of notes of the rent */

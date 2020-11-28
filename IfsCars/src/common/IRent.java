@@ -1,6 +1,8 @@
 package common;
 
 import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /** Interface to get all the informations abount the rent */
 public interface IRent extends Serializable {

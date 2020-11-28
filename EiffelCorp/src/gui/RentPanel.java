@@ -38,6 +38,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import common.IRenterObserver;
 import common.IVehicle;
@@ -50,6 +53,8 @@ public class RentPanel extends JPanel {
 	private JComboBox<VehicleComboItem> rentComboBox;
 	private ImageIcon vehicleImage;
 	private JLabel vehicleRentLabel;
+	private JLabel couponLabel;
+	private JTextField couponText;
 	private JTextArea descriptionArea;
 	private JScrollPane descriptionScrollPane;
 	private JButton rentButton;
@@ -94,6 +99,42 @@ public class RentPanel extends JPanel {
 		
 		this.vehicleRentLabel = new JLabel();
 		
+		this.couponText = new JTextField();
+		this.couponText.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				update(e);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				update(e);
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				update(e);
+				
+			}
+			
+			private void update(DocumentEvent e) {
+				if(!clientProxy.checkCoupon(couponText.getText())) {
+					couponText.putClientProperty("JComponent.outline", "error");
+				} else {
+					couponText.putClientProperty("JComponent.outline", null);
+				}
+				IVehicle selectedVehicle = ((VehicleComboItem) rentComboBox.getSelectedItem()).getVehicle();
+				try {
+					paintDescription(selectedVehicle);
+				} catch (RemoteException e1) {
+					descriptionArea.setText("Impossibile to print description of the car");
+				}
+			}
+		});
+		this.couponLabel = new JLabel("Coupon");
+		
 		this.descriptionArea = new JTextArea(10, 30);
 		this.descriptionArea.setOpaque(false);
 		this.descriptionArea.setText("Model:\nKm:\nTrasmission:");
@@ -129,15 +170,25 @@ public class RentPanel extends JPanel {
 			}
         }
         
+        this.constraint.gridy=2;
+        this.constraint.anchor = GridBagConstraints.LINE_START;
+        this.constraint.insets = new Insets(0, 8, 0, 8);
+        this.add(this.couponLabel, constraint);
+        
+        this.constraint.gridy = 3;
+        this.constraint.insets = new Insets(0, 8, 10, 8);
+        this.constraint.fill = GridBagConstraints.HORIZONTAL;
+        this.add(this.couponText, constraint);
+        
         this.constraint.insets = new Insets(10, 8, 8, 8);
         this.constraint.gridx = 1;
         this.constraint.gridy = 0;
-        this.constraint.gridheight = 2;
+        this.constraint.gridheight = 4;
         this.constraint.fill = GridBagConstraints.VERTICAL;
         this.add(this.descriptionScrollPane,constraint);
         
         this.constraint.gridx = 0;
-        this.constraint.gridy = 2;
+        this.constraint.gridy = 4;
         this.constraint.ipady = 15;
         this.constraint.ipadx = 20;
         this.constraint.gridwidth = GridBagConstraints.REMAINDER;
@@ -189,16 +240,15 @@ public class RentPanel extends JPanel {
 
 					
 					String endDate = startDate.plusDays(Integer.parseInt(days)).format(dtf);
-						
 					try {
-						if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, "EMP001") == null) {
+						if(clientProxy.rentVehicle(renter, vehicle, startDate.format(dtf), endDate, couponText.getText()) == null) {
 							int dialogButton = JOptionPane.YES_NO_OPTION;
 							int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is not available now. Do you want to be in the Wait List?","Warning",dialogButton);
 							if(dialogResult == JOptionPane.YES_OPTION){
 								descriptionArea.setText("");
 								vehicleRentLabel.setIcon(null);
 								rentComboBox.removeItem(((VehicleComboItem)rentComboBox.getSelectedItem()));
-								clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, "EMP001");
+								clientProxy.attach(renter, vehicle, startDate.format(dtf), endDate, couponText.getText());
 							}
 							
 						}
@@ -234,10 +284,11 @@ public class RentPanel extends JPanel {
 	 * @param v the vehicle which description has to be painted.*/
 	public void paintDescription(IVehicle v) throws RemoteException {
 		Map<IVehicle, String> map = this.clientProxy.getNotAvailableVehicles();
+		double price = this.clientProxy.checkCoupon(this.couponText.getText()) ? price = v.getPricePerDay()*0.9 : v.getPricePerDay();
 		if(map.containsKey(v))
-			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+			this.descriptionArea.setText("	  AVAILABLE FROM " + map.get(v) + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + price + "€");
 		else
-			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + v.getPricePerDay() + "€");
+			this.descriptionArea.setText("	              AVAILABLE" + "\n\n" + "Model: " + v.getModel() + "\n" + "Year: " + v.getYear() + "\n" + "Seats: " + v.getSeats() + "\n" + "Doors: " + v.getDoors() + "\n" + "Transmission: " + v.getTrasmission() + "\n" + "Size: " + v.getSize() + "\n" + "Price per day: " + price + "€");
 		
 	}
 	

@@ -186,8 +186,9 @@ public class ReturnPanel extends JPanel{
 				LocalDate localDate = LocalDate.parse(date, formatter);
 				Period period = Period.between(now, localDate);
 				int days = period.getDays();
-				System.out.println(days);
-				double finalPrice = rent.getVehicle().getPricePerDay() * (days+1);
+				
+				double finalPrice = rent.getPrice();
+				//double finalPrice = rent.getVehicle().getPricePerDay() * (days+1);
 				
 				int dialogButton = JOptionPane.CLOSED_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog (null, "The vehicle is now returned. The final price is: " + finalPrice,"Warning",dialogButton);

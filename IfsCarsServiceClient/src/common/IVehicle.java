@@ -1,6 +1,8 @@
 package common;
 
 import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /** Interface to manage all the informations about a vehicle */
