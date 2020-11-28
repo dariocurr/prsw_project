@@ -85,4 +85,6 @@ public class Renter implements IRenterObserver {
 		return this.password;
 	}
 	
+	
+	
 }
