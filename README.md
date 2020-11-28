@@ -11,5 +11,5 @@ All the source code is compressed in the Curreri_DiFina_Domingo_Gristina archive
 |-----------|------------|-----------|
 | Curreri     | Dario  |  240684  |
 | Di Fina   | Domenico      |  x  |
-| Domingo   | Emanuele   |  x  |
+| Domingo   | Emanuele   |  240688  |
 | Gristina  | Salvatore A.  |   x        |
