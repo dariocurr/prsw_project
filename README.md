@@ -1,5 +1,6 @@
 # prsw
-Project of Programmation répartie et Services web.
+
+Implementation of Java web services using Java RMI and WSDL
 
 Reports are stored in the Documentation folder.
 
